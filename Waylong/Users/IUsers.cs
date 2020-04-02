@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using Waylong.Packets;
 
 namespace Waylong.Users {
 
@@ -10,6 +11,8 @@ namespace Waylong.Users {
 
         //用戶驗證碼
         int VerificationCode { get; set; }
+
+        bool Send(INetPacket netPacket);
     }
 
     //一般用戶介面

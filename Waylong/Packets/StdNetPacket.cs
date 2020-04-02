@@ -6,7 +6,7 @@ using Waylong.Users;
 
 namespace Waylong.Packets {
 
-    public struct NetPacket : INetPacket {
+    public struct StdNetPacket : INetPacket {
 
         #region Prop
         public StdNetHeader Header { get; private set; }
@@ -21,19 +21,41 @@ namespace Waylong.Packets {
 
         #region Constructor
 
-        public NetPacket(IUsers user, StdNetHeader header, byte[] bys_data) {
+        /// <summary>
+        /// 引用 Ori Header to instance
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="header"></param>
+        /// <param name="bys_data"></param>
+        public StdNetPacket(IUsers user, StdNetHeader header, byte[] bys_data) {
             m_IUser = user;
             Header = header;
             mBys_data = bys_data;
         }
 
-        public NetPacket(IUsers user, Category category, Callback callback, byte[] bys_data) {
+        /// <summary>
+        /// 未指定 加密方法 & 緊急程度
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        /// <param name="bys_data"></param>
+        public StdNetPacket(IUsers user, Category category, Callback callback, byte[] bys_data) {
             m_IUser = user;
             Header = new StdNetHeader(user, Encryption.None, Emergency.None, category, callback, bys_data.Length);
             mBys_data = bys_data;
         }
 
-        public NetPacket(IUsers user, Encryption encryption, Emergency emergency, Category category, Callback callback, byte[] bys_data) {
+        /// <summary>
+        /// 標準封包 Instance
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="encryption"></param>
+        /// <param name="emergency"></param>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        /// <param name="bys_data"></param>
+        public StdNetPacket(IUsers user, Encryption encryption, Emergency emergency, Category category, Callback callback, byte[] bys_data) {
             m_IUser = user;
             Header = new StdNetHeader(user, encryption, emergency, category, callback, bys_data.Length);
             mBys_data = bys_data;          
@@ -42,7 +64,6 @@ namespace Waylong.Packets {
 
         #region Methods
 
-        //Bug: NetPaket.ToPackup()
         public byte[] ToPackup() {
 
             var bys_packet = new byte[StdNetHeader.SizeOf.Header + Header.GetDataLength];
@@ -55,6 +76,11 @@ namespace Waylong.Packets {
             return bys_packet;
         }
 
+        /// <summary>
+        /// 解析bytes: Interface,
+        /// </summary>
+        /// <param name="user">Used for new STRUCT.Header(IUsers user, ...).</param>
+        /// <param name="bys_netPacket">Complete bytes packet.</param>
         public void Unpack(IUsers user, byte[] bys_netPacket) {
 
             if(bys_netPacket.Length < StdNetHeader.SizeOf.Header) {
