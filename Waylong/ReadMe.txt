@@ -15,5 +15,18 @@
 └── ...
 ```
 
+## Summery rules
+
+/// <summary>
+/// 用途簡稱: 所屬(Interface、abstruct...), Purpose(用途說明)
+/// </summary>
+
+## Param rules
+
+/// <param name="Reference">Purpose(用途說明)</param>
+
 # 介紹
 Nothing
+
+# 環境
+Vitrual Studio by Microsoft
