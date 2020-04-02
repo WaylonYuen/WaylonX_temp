@@ -25,4 +25,4 @@ by Oracragron.Waylon.Yuen
 Purpose(用途說明)
 
 # 環境
-Vitrual Studio by Microsoft
+Vitrual Studio by Microsoft.
