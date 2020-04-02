@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using Waylong.Packets;
-using Waylong.User;
+using Waylong.Users;
 
 namespace Waylong {
 

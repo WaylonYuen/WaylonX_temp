@@ -1,5 +1,5 @@
 ﻿using System;
-using Waylong.User;
+using Waylong.Users;
 
 namespace Waylong.Packets {
 
@@ -35,6 +35,16 @@ namespace Waylong.Packets {
 
 
     public interface INetPacket {
+
+        /// <summary>
+        /// 獲取用戶
+        /// </summary>
+        IUser GetUser { get; }
+
+        /// <summary>
+        /// 封裝封包
+        /// </summary>
+        /// <returns>Bytes</returns>
         byte[] ToPackup();
     }
 }

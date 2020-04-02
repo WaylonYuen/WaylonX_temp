@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using Waylong.Packets;
 
-namespace Waylong.User {
+namespace Waylong.Users {
 
     public class User : IUser {
 
@@ -31,6 +32,10 @@ namespace Waylong.User {
         #endregion
 
         #region Constructor
+
+        //Warning: 發佈前必須移除
+        public User() { }
+
         public User(Socket socket) {
             m_socket = socket;
             m_netStates = NetStates.None;
@@ -63,6 +68,63 @@ namespace Waylong.User {
             }
 
         }
+
+        /// <summary>
+        /// 發送Blank封包
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        public void SendData(Category category, Callback callback) =>
+            Send(new StdNetPacket(this, category, callback, null));
+
+        /// <summary>
+        /// 發送bool型態封包
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        /// <param name="data"></param>
+        public void SendData(Category category, Callback callback, bool data) =>
+            Send(new StdNetPacket(this, category, callback, BitConverter.GetBytes(data)));
+
+        /// <summary>
+        /// 發送short型態封包
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        /// <param name="data"></param>
+        public void SendData(Category category, Callback callback, short data) =>
+            Send(new StdNetPacket(this, category, callback, BitConverter.GetBytes(IPAddress.HostToNetworkOrder(data))));
+
+        /// <summary>
+        /// 發送int型態封包
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        /// <param name="data"></param>
+        public void SendData(Category category, Callback callback, int data) =>
+            Send(new StdNetPacket(this, category, callback, BitConverter.GetBytes(IPAddress.HostToNetworkOrder(data))));
+
+        /// <summary>
+        /// 發送long型態封包
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        /// <param name="data"></param>
+        public void SendData(Category category, Callback callback, long data) =>
+            Send(new StdNetPacket(this, category, callback, BitConverter.GetBytes(IPAddress.HostToNetworkOrder(data))));
+
+        /// <summary>
+        /// 發送float型態封包
+        /// </summary>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        /// <param name="data"></param>
+        public void SendData(Category category, Callback callback, float data) =>
+            Send(new StdNetPacket(this, category, callback, BitConverter.GetBytes(data)));
+
+        //task: Send char
+
+        //task: Send string
 
         #endregion
 

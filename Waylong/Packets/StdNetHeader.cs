@@ -88,10 +88,10 @@ namespace Waylong.Packets {
 
 
         #region Constructor
-        public StdNetHeader(IUsers user, Encryption encryption, Emergency emergency, Category category, Callback callback, int dataLength) {
+        public StdNetHeader(IUser user, Encryption encryption, Emergency emergency, Category category, Callback callback, int dataLength) {
 
             //Refereces
-            m_verificationCode = user.VerificationCode;
+            m_verificationCode = user.GetVerificationCode;
 
             m_encryption = encryption;
             m_emergency = emergency;
@@ -151,7 +151,7 @@ namespace Waylong.Packets {
         }
 
         //解析
-        public static StdNetHeader Unpack(IUsers user, byte[] bys_netPacket) {
+        public static StdNetHeader Unpack(IUser user, byte[] bys_netPacket) {
             Unpacking(bys_netPacket);
             return new StdNetHeader(user, m_encryption, m_emergency, m_category, m_callback, m_dataLength);
         }
