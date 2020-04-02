@@ -58,7 +58,7 @@
     <Folder Include="Converter\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
+    <None Include="ReadMe.md" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
