@@ -9,17 +9,29 @@ namespace Waylong.Packets {
     public struct StdNetPacket : INetPacket {
 
         #region Prop
+        IUser INetPacket.GetUser { get => m_IUser; }
         public StdNetHeader Header { get; private set; }
         public byte[] GetData { get => mBys_data; }
         #endregion
 
         #region Local Values
-        private readonly IUser m_IUser;
+        private IUser m_IUser;
         private byte[] mBys_data;
 
         #endregion
 
         #region Constructor
+
+        /// <summary>
+        /// 未指定發送目標
+        /// </summary>
+        /// <param name="header"></param>
+        /// <param name="bys_data"></param>
+        public StdNetPacket(StdNetHeader header, byte[] bys_data) {
+            m_IUser = null;
+            Header = header;
+            mBys_data = bys_data;
+        }
 
         /// <summary>
         /// 引用 Ori Header to instance
