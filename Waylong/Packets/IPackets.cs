@@ -31,7 +31,6 @@ namespace Waylong.Packets {
 
         //解析封包Header
         void Unpack(byte[] bys_netPacket);
-        //bool Unpack();
     }
 
 
