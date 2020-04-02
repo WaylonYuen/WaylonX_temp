@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using Waylong.Packets;
 
-namespace Waylong.User {
+namespace Waylong.Users {
 
     /// <summary>
     /// 客戶端用戶接口: 用戶狀態接口, 封包身份驗證接口

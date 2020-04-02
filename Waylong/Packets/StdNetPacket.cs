@@ -2,7 +2,7 @@
 using System.Net;
 using System.Runtime.Remoting.Messaging;
 using Waylong.Converter;
-using Waylong.User;
+using Waylong.Users;
 
 namespace Waylong.Packets {
 

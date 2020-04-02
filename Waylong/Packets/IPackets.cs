@@ -1,5 +1,5 @@
 ﻿using System;
-using Waylong.User;
+using Waylong.Users;
 
 namespace Waylong.Packets {
 

@@ -2,7 +2,7 @@
 using System.Net.Sockets;
 using Waylong.Packets;
 
-namespace Waylong.User {
+namespace Waylong.Users {
 
     public class User : IUser {
 
@@ -31,6 +31,10 @@ namespace Waylong.User {
         #endregion
 
         #region Constructor
+
+        //Warning: 發佈前必須移除
+        public User() { }
+
         public User(Socket socket) {
             m_socket = socket;
             m_netStates = NetStates.None;
