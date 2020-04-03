@@ -9,12 +9,13 @@ namespace Waylong.Packets {
     public struct StdNetPacket : INetPacket {
 
         #region Prop
+        IUser INetPacket.GetUser { get => m_IUser; }
         public StdNetHeader Header { get; private set; }
         public byte[] GetData { get => mBys_data; }
         #endregion
 
         #region Local Values
-        private readonly IUsers m_IUser;
+        private IUser m_IUser;
         private byte[] mBys_data;
 
         #endregion
@@ -22,12 +23,23 @@ namespace Waylong.Packets {
         #region Constructor
 
         /// <summary>
+        /// 未指定發送目標
+        /// </summary>
+        /// <param name="header"></param>
+        /// <param name="bys_data"></param>
+        public StdNetPacket(StdNetHeader header, byte[] bys_data) {
+            m_IUser = null;
+            Header = header;
+            mBys_data = bys_data;
+        }
+
+        /// <summary>
         /// 引用 Ori Header to instance
         /// </summary>
         /// <param name="user"></param>
         /// <param name="header"></param>
         /// <param name="bys_data"></param>
-        public StdNetPacket(IUsers user, StdNetHeader header, byte[] bys_data) {
+        public StdNetPacket(IUser user, StdNetHeader header, byte[] bys_data) {
             m_IUser = user;
             Header = header;
             mBys_data = bys_data;
@@ -40,7 +52,7 @@ namespace Waylong.Packets {
         /// <param name="category"></param>
         /// <param name="callback"></param>
         /// <param name="bys_data"></param>
-        public StdNetPacket(IUsers user, Category category, Callback callback, byte[] bys_data) {
+        public StdNetPacket(IUser user, Category category, Callback callback, byte[] bys_data) {
             m_IUser = user;
             Header = new StdNetHeader(user, Encryption.None, Emergency.None, category, callback, bys_data.Length);
             mBys_data = bys_data;
@@ -55,7 +67,7 @@ namespace Waylong.Packets {
         /// <param name="category"></param>
         /// <param name="callback"></param>
         /// <param name="bys_data"></param>
-        public StdNetPacket(IUsers user, Encryption encryption, Emergency emergency, Category category, Callback callback, byte[] bys_data) {
+        public StdNetPacket(IUser user, Encryption encryption, Emergency emergency, Category category, Callback callback, byte[] bys_data) {
             m_IUser = user;
             Header = new StdNetHeader(user, encryption, emergency, category, callback, bys_data.Length);
             mBys_data = bys_data;          
@@ -81,7 +93,7 @@ namespace Waylong.Packets {
         /// </summary>
         /// <param name="user">Used for new STRUCT.Header(IUsers user, ...).</param>
         /// <param name="bys_netPacket">Complete bytes packet.</param>
-        public void Unpack(IUsers user, byte[] bys_netPacket) {
+        public void Unpack(IUser user, byte[] bys_netPacket) {
 
             if(bys_netPacket.Length < StdNetHeader.SizeOf.Header) {
                 //Error: Header length is not incompatible.
@@ -94,8 +106,8 @@ namespace Waylong.Packets {
 
         //Untested: NetPacket.UserEquals()
         //封包用戶比較器
-        public bool UserEquals(IUsers user) {
-            IUsers localUser = m_IUser;
+        public bool UserEquals(IUser user) {
+            IUser localUser = m_IUser;
             return (localUser.GetSocket == user.GetSocket) ? true : false;
         }
 
