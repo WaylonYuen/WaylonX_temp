@@ -33,10 +33,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Packets\IPackets.cs" />
-    <Compile Include="Users\IUsers.cs" />
-    <Compile Include="Users\User.cs" />
-    <Compile Include="Users\Player.cs" />
-    <Compile Include="Users\Administrator.cs" />
+    <Compile Include="User\User.cs" />
     <Compile Include="Packets\AsyncCallbacks.cs" />
     <Compile Include="Packets\StdNetHeader.cs" />
     <Compile Include="Object\Object.cs" />
@@ -45,6 +42,7 @@
     <Compile Include="Converter\Bytes.cs" />
     <Compile Include="Net\Send.cs" />
     <Compile Include="Packets\StdNetPacket.cs" />
+    <Compile Include="User\IUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
@@ -53,12 +51,12 @@
     <Folder Include="Architecture\Client\" />
     <Folder Include="Architecture\Server\" />
     <Folder Include="Architecture\Database\" />
-    <Folder Include="Users\" />
+    <Folder Include="User\" />
     <Folder Include="Object\" />
     <Folder Include="Converter\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ReadMe.txt" />
+    <None Include="ReadMe.md" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
