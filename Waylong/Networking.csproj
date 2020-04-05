@@ -40,9 +40,13 @@
     <Compile Include="Packets\PacketType.cs" />
     <Compile Include="BasicTypes.cs" />
     <Compile Include="Converter\Bytes.cs" />
-    <Compile Include="Net\Send.cs" />
     <Compile Include="Packets\StdNetPacket.cs" />
     <Compile Include="User\IUser.cs" />
+    <Compile Include="Architecture\CSModel.cs" />
+    <Compile Include="Architecture\StdServer.cs" />
+    <Compile Include="Architecture\StdClient.cs" />
+    <Compile Include="Architecture\ICSParameter.cs" />
+    <Compile Include="Net\Net.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
