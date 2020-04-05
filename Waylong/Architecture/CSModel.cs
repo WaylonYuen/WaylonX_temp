@@ -37,9 +37,9 @@ namespace Waylong.Architecture {
         #endregion
 
         
-        public virtual void Start(ProtocolType protocolType) {
+        public virtual void Start(Socket socket) {
 
-            switch (protocolType) {
+            switch (socket.ProtocolType) {
 
                 case ProtocolType.Tcp:
                     //TcpConnection(m_netMode)
