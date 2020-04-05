@@ -45,6 +45,7 @@
     <Compile Include="Net\Protocol.cs" />
     <Compile Include="Net\IConnection.cs" />
     <Compile Include="Net\TcpProtocol.cs" />
+    <Compile Include="Net\Networking.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
