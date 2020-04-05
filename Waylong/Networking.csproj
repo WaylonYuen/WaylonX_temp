@@ -50,7 +50,6 @@
     <Compile Include="Architecture\StdServer.cs" />
     <Compile Include="Architecture\StdClient.cs" />
     <Compile Include="Architecture\ICSParameter.cs" />
-    <Compile Include="Net\Net.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
