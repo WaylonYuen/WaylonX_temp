@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
+using Waylong.Architecture;
 using Waylong.Packets;
 using Waylong.Users;
 
@@ -61,6 +62,14 @@ namespace Waylong {
 
         }
 
+        public static void ServerTest() {
+
+            //Obj
+            var server = new StdServer("Test", "127.0.0.1", 8808);
+
+            
+
+        }
     }
 
 }

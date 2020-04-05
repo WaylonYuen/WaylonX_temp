@@ -46,6 +46,10 @@
     <Compile Include="Net\IConnection.cs" />
     <Compile Include="Net\TcpProtocol.cs" />
     <Compile Include="Net\Networking.cs" />
+    <Compile Include="Architecture\CSModel.cs" />
+    <Compile Include="Architecture\StdServer.cs" />
+    <Compile Include="Architecture\StdClient.cs" />
+    <Compile Include="Architecture\ICSParameter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
