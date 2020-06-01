@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using Waylong.Net;
 
 namespace Waylong.Architecture {
@@ -8,11 +9,10 @@ namespace Waylong.Architecture {
     public abstract class CSModel : ICSParameter {
 
         #region Prop
-        public string Name { get; }
+        public string Name { get; set; }
         public string IP { get; }
         public int Port { get; }
         public string IPAddress { get; }
-
         public OperatingEnvironment Environment { get; }
         #endregion
         
@@ -21,22 +21,24 @@ namespace Waylong.Architecture {
         #endregion
 
         #region Constructor
-
-        public CSModel(string name, string IPAddress, OperatingEnvironment environment) {
+        public CSModel(string name, OperatingEnvironment environment) {
             Name = name;
-            this.IPAddress = IPAddress;
-            Environment = environment;
-        }
-
-        public CSModel(string name, string ip, int port, OperatingEnvironment environment) {
-            Name = name;
-            IP = ip;
-            Port = port;
+            IP = null;
+            Port = -1;
+            IPAddress = null;
             Environment = environment;
         }
         #endregion
 
-        
+
+
+
+        //Undone: Start(IP)
+        public virtual void Start(string ip, int prot) {
+            //Networking.TcpConnection(NetMode.Listen);
+        }
+
+        //Undone: Start(Socket)
         public virtual void Start(Socket socket) {
 
             switch (socket.ProtocolType) {
