@@ -12,13 +12,8 @@ namespace Waylong.Architecture {
 
         #region Constructor
 
-        public StdServer(string name, string IPAddress)
-            : base(name, IPAddress, OperatingEnvironment.Terminal) {
-            m_netMode = NetMode.Listen;
-        }
-
-        public StdServer(string name, string ip, int port)
-            : base(name, ip, port, OperatingEnvironment.Terminal) {
+        public StdServer(string name)
+            : base(name, OperatingEnvironment.Terminal) {
             m_netMode = NetMode.Listen;
         }
         #endregion
