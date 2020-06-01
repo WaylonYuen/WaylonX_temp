@@ -3,48 +3,31 @@ using Waylong.Users;
 
 namespace Waylong.Packets {
 
-    //網路數據包線程類別
-    public interface INetPacketThreadingType {
-        Emergency GetEmergencyType { get; }             //緊急程度
-        Category GetCategoryType { get; }               //類別
-        Callback GetCallbackType { get; }               //回調
-    }
+    // IPackets - 封包架構介面(接口)
+    // Explain:
+    //  ～使用者可以根據自己的需求來繼承Customer介面(接口)以實現指定樣式的特殊封包架構.
+    //  ～
 
-    //數據包安全
-    public interface IPacketSecurity {
-        Encryption GetEncryptionType { get; }           //加密方法
-    }
-
-    //數據包身份識別
-    public interface IPacketIdentity {
-        int GetVerificationCode { get; }                //驗證碼
-    }
-
-    //封包描述基礎必備方法
-    public interface IBasicOfHeader {
-
-        //內容長度
-        int GetDataLength { get; }
-
-        //封裝封包Header
-        byte[] ToPackup();
-
-        //解析封包Header
-        void Unpack(byte[] bys_netPacket);
-    }
-
-
-    public interface INetPacket {
+    public interface IPacketMethods {
 
         /// <summary>
-        /// 獲取用戶
+        /// 資料描述欄位長度
         /// </summary>
-        IUser GetUser { get; }
+        int PacketHeadDescriptionLength { get; }
 
         /// <summary>
-        /// 封裝封包
+        /// 封裝
         /// </summary>
         /// <returns>Bytes</returns>
         byte[] ToPackup();
+
+        /// <summary>
+        /// 封包
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="bys_netPacket"></param>
+        /// <returns></returns>
+        void Unpack(byte[] bys_packet);
     }
+
 }
