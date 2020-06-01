@@ -2,6 +2,16 @@
 
 namespace Waylong.Packets {
 
+    public enum PacketHeaderType {
+        None,
+        StdPacketHeader,
+    }
+
+    public enum PacketType {
+        None,
+        StdPacketData,
+    }
+
     /// <summary>
     /// 加密方式
     /// </summary>
