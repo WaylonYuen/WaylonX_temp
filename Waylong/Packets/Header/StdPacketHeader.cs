@@ -59,6 +59,21 @@ namespace Waylong.Packets.Header {
         #region Constructor
 
         /// <summary>
+        /// 快捷構造器
+        /// </summary>
+        /// <param name="verificationCode"></param>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        public StdPacketHeader(int verificationCode, Category category, Callback callback) {
+
+            m_verificationCode = verificationCode;
+            m_emergency = Emergency.None;
+            m_encryption = Encryption.None;
+            m_category = category;
+            m_callback = callback;
+        }
+
+        /// <summary>
         /// 標準構造器
         /// </summary>
         /// <param name="verificationCode"></param>
@@ -69,8 +84,8 @@ namespace Waylong.Packets.Header {
         public StdPacketHeader(int verificationCode, Emergency emergency, Encryption encryption, Category category, Callback callback) {
 
             m_verificationCode = verificationCode;
-            m_encryption = encryption;
             m_emergency = emergency;
+            m_encryption = encryption;        
             m_category = category;
             m_callback = callback;
         }
