@@ -108,7 +108,21 @@ namespace Waylong.Packets.PacketData {
 
             //create
             var user = new User();
+#if Test
             var header = new StdPacketHeader(user.VerificationCode, Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync);
+#else
+            var header = new StdPacketHeader(user.VerificationCode, Category.General, Callback.PacketHeaderSync);
+#endif
+
+            //標準寫法
+            var Test = new Packaged<StdPacketHeader, StdPacketData>(user,
+                new StdPacketHeader(user.VerificationCode, Category.General, Callback.PacketHeaderSync),
+                new StdPacketData(BitConverter.GetBytes(67548)));
+
+            //另外的寫法
+            var Test2 = new StdPacket(user, Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync, BitConverter.GetBytes(4584));
+            var Test3 = new StdPacket(user, Emergency.Level3, Encryption.Testing, Category.Emergency, Callback.Testing, true);
+
             var data = new StdPacketData(BitConverter.GetBytes(456));
             var packet = new Packaged<StdPacketHeader, StdPacketData>(user, header, data);
 
