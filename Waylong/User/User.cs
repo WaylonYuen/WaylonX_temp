@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 using Waylong.Packets;
 
-namespace Waylong.User {
+namespace Waylong.Users {
 
     public class User : IUser {
 
@@ -11,17 +12,17 @@ namespace Waylong.User {
         /// <summary>
         /// 取得用戶Socket
         /// </summary>
-        public Socket GetSocket { get => m_socket; }
+        public Socket Socket { get => m_socket; }
 
         /// <summary>
         /// 取得用戶網路狀態
         /// </summary>
-        public NetStates GetNetStates { get => m_netStates; }
+        public NetStates NetStates { get => m_netStates; }
 
         /// <summary>
         /// 取得用戶身份驗證碼
         /// </summary>
-        public int GetVerificationCode { get => m_verificationCode; }
+        public int VerificationCode { get => m_verificationCode; }
         #endregion
 
         #region Local Values
@@ -31,6 +32,11 @@ namespace Waylong.User {
         #endregion
 
         #region Constructor
+
+        //Warning: 發佈前必須移除
+        public User() { }
+        public User(int verificationCode) { m_verificationCode = verificationCode; }
+
         public User(Socket socket) {
             m_socket = socket;
             m_netStates = NetStates.None;
@@ -44,10 +50,10 @@ namespace Waylong.User {
         /// 發送網路封包
         /// </summary>
         /// <param name="netPacket">網路封包</param>
-        public void Send(INetPacket netPacket) {
+        public void Send(IPacketMethods packet) {
 
             //封裝封包
-            byte[] bys_packet = netPacket.ToPackup();
+            byte[] bys_packet = packet.ToPackup();
 
             if (m_socket.Connected) {
                 try {
@@ -63,6 +69,63 @@ namespace Waylong.User {
             }
 
         }
+
+        ///// <summary>
+        ///// 發送Blank封包
+        ///// </summary>
+        ///// <param name="category"></param>
+        ///// <param name="callback"></param>
+        //public void SendData(Category category, Callback callback) =>
+        //    Send(new StdPacket(this, category, callback, null));
+
+        ///// <summary>
+        ///// 發送bool型態封包
+        ///// </summary>
+        ///// <param name="category"></param>
+        ///// <param name="callback"></param>
+        ///// <param name="data"></param>
+        //public void SendData(Category category, Callback callback, bool data) =>
+        //    Send(new StdPacket(this, category, callback, BitConverter.GetBytes(data)));
+
+        ///// <summary>
+        ///// 發送short型態封包
+        ///// </summary>
+        ///// <param name="category"></param>
+        ///// <param name="callback"></param>
+        ///// <param name="data"></param>
+        //public void SendData(Category category, Callback callback, short data) =>
+        //    Send(new StdPacket(this, category, callback, BitConverter.GetBytes(IPAddress.HostToNetworkOrder(data))));
+
+        ///// <summary>
+        ///// 發送int型態封包
+        ///// </summary>
+        ///// <param name="category"></param>
+        ///// <param name="callback"></param>
+        ///// <param name="data"></param>
+        //public void SendData(Category category, Callback callback, int data) =>
+        //    Send(new StdPacket(this, category, callback, BitConverter.GetBytes(IPAddress.HostToNetworkOrder(data))));
+
+        ///// <summary>
+        ///// 發送long型態封包
+        ///// </summary>
+        ///// <param name="category"></param>
+        ///// <param name="callback"></param>
+        ///// <param name="data"></param>
+        //public void SendData(Category category, Callback callback, long data) =>
+        //    Send(new StdPacket(this, category, callback, BitConverter.GetBytes(IPAddress.HostToNetworkOrder(data))));
+
+        ///// <summary>
+        ///// 發送float型態封包
+        ///// </summary>
+        ///// <param name="category"></param>
+        ///// <param name="callback"></param>
+        ///// <param name="data"></param>
+        //public void SendData(Category category, Callback callback, float data) =>
+        //    Send(new StdPacket(this, category, callback, BitConverter.GetBytes(data)));
+
+        //task: Send char
+
+        //task: Send string
 
         #endregion
 

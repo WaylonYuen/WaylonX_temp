@@ -7,7 +7,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Waylong</RootNamespace>
     <AssemblyName>Waylong</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|anycpu' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,14 +35,27 @@
     <Compile Include="Packets\IPackets.cs" />
     <Compile Include="User\User.cs" />
     <Compile Include="Packets\AsyncCallbacks.cs" />
-    <Compile Include="Packets\StdNetHeader.cs" />
+    <Compile Include="Packets\PacketHeader.cs" />
     <Compile Include="Object\Object.cs" />
     <Compile Include="Packets\PacketType.cs" />
     <Compile Include="BasicTypes.cs" />
     <Compile Include="Converter\Bytes.cs" />
-    <Compile Include="Net\Send.cs" />
-    <Compile Include="Packets\StdNetPacket.cs" />
+    <Compile Include="Packets\Packaged.cs" />
     <Compile Include="User\IUser.cs" />
+    <Compile Include="Net\Protocol.cs" />
+    <Compile Include="Net\IConnection.cs" />
+    <Compile Include="Net\TcpProtocol.cs" />
+    <Compile Include="Net\Networking.cs" />
+    <Compile Include="Architecture\CSModel.cs" />
+    <Compile Include="Architecture\StdServer.cs" />
+    <Compile Include="Architecture\StdClient.cs" />
+    <Compile Include="Architecture\ICSParameter.cs" />
+    <Compile Include="Packets\Packet.cs" />
+    <Compile Include="Packets\Header\IPacketHeader.cs" />
+    <Compile Include="Packets\Header\PacketHeaderBase.cs" />
+    <Compile Include="Packets\Header\StdPacketHeader.cs" />
+    <Compile Include="Packets\PacketData\StdPacketData.cs" />
+    <Compile Include="Packets\PacketData\PacketDataBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
@@ -54,6 +67,8 @@
     <Folder Include="User\" />
     <Folder Include="Object\" />
     <Folder Include="Converter\" />
+    <Folder Include="Packets\Header\" />
+    <Folder Include="Packets\PacketData\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.md" />
