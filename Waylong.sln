@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Networking", "Waylong\Networking.csproj", "{50355D0D-EFBB-431F-9DB8-FB0A26A04217}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Networking.xUnitTests", "Waylong.xUnitTests\Networking.xUnitTests\Networking.xUnitTests.csproj", "{F9FCD75A-3414-463C-8D63-A129FCF7E40E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|anycpu = Debug|anycpu
@@ -13,5 +15,9 @@ Global
 		{50355D0D-EFBB-431F-9DB8-FB0A26A04217}.Debug|anycpu.Build.0 = Debug|anycpu
 		{50355D0D-EFBB-431F-9DB8-FB0A26A04217}.Release|anycpu.ActiveCfg = Release|anycpu
 		{50355D0D-EFBB-431F-9DB8-FB0A26A04217}.Release|anycpu.Build.0 = Release|anycpu
+		{F9FCD75A-3414-463C-8D63-A129FCF7E40E}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{F9FCD75A-3414-463C-8D63-A129FCF7E40E}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{F9FCD75A-3414-463C-8D63-A129FCF7E40E}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{F9FCD75A-3414-463C-8D63-A129FCF7E40E}.Release|anycpu.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
