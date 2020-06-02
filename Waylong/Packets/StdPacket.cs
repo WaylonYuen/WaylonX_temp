@@ -6,7 +6,79 @@ using Waylong.Users;
 
 namespace Waylong.Packets {
 
+    /// <summary>
+    /// 標準封包 : 資料內容僅資源基礎型態
+    /// </summary>
     public class StdPacket : Packaged<StdPacketHeader, StdPacketData> {
+
+        #region Non-References
+
+        /// <summary>
+        /// 標準封包 : 無Header 的封包 -> byte[]
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="bys_data"></param>
+        public StdPacket(User user, byte[] bys_data)
+            : base(user, new StdPacketData(bys_data)) {
+        }
+
+        /// <summary>
+        /// 標準封包 : 無Header 的封包 -> short
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="bys_data"></param>
+        public StdPacket(User user, short data)
+            : base(user, new StdPacketData(BitConverter.GetBytes(data))) {
+        }
+
+        /// <summary>
+        /// 標準封包 : 無Header 的封包 -> int
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="bys_data"></param>
+        public StdPacket(User user, int data)
+            : base(user, new StdPacketData(BitConverter.GetBytes(data))) {
+        }
+
+        /// <summary>
+        /// 標準封包 : 無Header 的封包 -> long
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="bys_data"></param>
+        public StdPacket(User user, long data)
+            : base(user, new StdPacketData(BitConverter.GetBytes(data))) {
+        }
+
+        /// <summary>
+        /// 標準封包 : 無Header 的封包 -> bool
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="bys_data"></param>
+        public StdPacket(User user, bool data)
+            : base(user, new StdPacketData(BitConverter.GetBytes(data))) {
+        }
+
+        /// <summary>
+        /// 標準封包 : 無Header 的封包 -> float
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="bys_data"></param>
+        public StdPacket(User user, float data)
+            : base(user, new StdPacketData(BitConverter.GetBytes(data))) {
+        }
+
+        /// <summary>
+        /// 標準封包 : 無Header 的封包 -> string
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="bys_data"></param>
+        public StdPacket(User user, string data)
+            : base(user, new StdPacketData(Encoding.UTF8.GetBytes(data))) {
+        }
+
+        #endregion
+
+        #region Std References
 
         /// <summary>
         /// 標準封包 : 封包資料 -> byte[]
@@ -101,7 +173,19 @@ namespace Waylong.Packets {
 
         //標準封包 : 封包資料 -> string[]
 
-        //標準封包 : 封包資料 -> 特殊型態
+        #endregion
+
+        /// <summary>
+        /// 設定Header
+        /// </summary>
+        /// <param name="emergency"></param>
+        /// <param name="encryption"></param>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        public void SetHeader(Emergency emergency, Encryption encryption, Category category, Callback callback) {
+            m_header = new StdPacketHeader(m_user.VerificationCode, emergency, encryption, category, callback);
+        }
 
     }
 }
+
