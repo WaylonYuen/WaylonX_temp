@@ -29,6 +29,16 @@ namespace Waylong.Packets.PacketData {
         #region Constructor
 
         /// <summary>
+        /// 需後補Header資料
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="packetData"></param>
+        protected Packaged(User user, U packetData) {
+            m_user = user;
+            m_data = packetData;
+        }
+
+        /// <summary>
         /// 創建標準封包組合器
         /// </summary>
         /// <param name="user"></param>
@@ -40,14 +50,6 @@ namespace Waylong.Packets.PacketData {
             m_data = packetData;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="user"></param>
-        protected Packaged(User user, U packetData) {
-            m_user = user;
-            m_data = packetData;
-        }
 
         #endregion
 
@@ -85,7 +87,7 @@ namespace Waylong.Packets.PacketData {
         public void Unpack(byte[] bys_packet) {
 
             //分割資料: Splitter返回提取內容, out剩餘內容
-            m_header.Unpack(Bytes.Splitter(out byte[] bys_data, ref bys_packet, 0, m_header.PacketHeadDescriptionLength));
+            m_header.Unpack(Bytes.Splitter(out byte[] bys_data, ref bys_packet, 0, m_header.StructSIZE));
             m_data.Unpack(bys_data);
         }
 

@@ -22,9 +22,11 @@ namespace Waylong.Packets.PacketData {
         public PacketType PacketType { get => m_packetType; }
 
         /// <summary>
-        /// 封包Head長度 : 指的是此Packet對架構的描述所佔的長度, 此處的Head只屬於StdPacketData架構而非Header架構.
+        /// 此結構大小
         /// </summary>
-        public int PacketHeadDescriptionLength => IndexOf.Data;
+        int IPacketMethods.StructSIZE => SIZE;
+
+        
 
         #endregion
 
@@ -43,6 +45,12 @@ namespace Waylong.Packets.PacketData {
         #region Local values
 
         //Constants
+
+        /// <summary>
+        /// 封包Head長度 : 指的是此Packet對架構的描述所佔的長度, 此處的Head只屬於StdPacketData架構而非Header架構.
+        /// </summary>
+        public const int SIZE = IndexOf.Data;
+
         private const PacketType m_packetType = PacketType.StdPacketData;
 
         //Variables
@@ -71,7 +79,7 @@ namespace Waylong.Packets.PacketData {
         public byte[] ToPackup() {
 
             //指定資料包尺寸
-            var bys_packetData = new byte[PacketHeadDescriptionLength + mBys_data.Length];
+            var bys_packetData = new byte[SIZE + mBys_data.Length];
 
             //封裝資料
             BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_packetType)).CopyTo(bys_packetData, IndexOf.packetType);
@@ -87,7 +95,7 @@ namespace Waylong.Packets.PacketData {
         /// <param name="bys_packetData"></param>
         public void Unpack(byte[] bys_packetData) {
 
-            if(bys_packetData.Length < PacketHeadDescriptionLength) {
+            if(bys_packetData.Length < SIZE) {
                 return;
             }
             
