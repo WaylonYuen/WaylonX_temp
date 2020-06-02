@@ -182,10 +182,39 @@ namespace Waylong.Packets {
         /// <param name="encryption"></param>
         /// <param name="category"></param>
         /// <param name="callback"></param>
-        public void SetHeader(Emergency emergency, Encryption encryption, Category category, Callback callback) {
+        public bool SetHeader(Emergency emergency, Encryption encryption, Category category, Callback callback) {
+
+            if(m_header != null) {
+                return false;
+            }
+
             m_header = new StdPacketHeader(m_user.VerificationCode, emergency, encryption, category, callback);
+
+            return true;
         }
 
+        /// <summary>
+        /// 解析
+        /// </summary>
+        /// <param name="bys_packet"></param>
+        /// <returns></returns>
+        public static StdPacket Unpack(User user, byte[] bys_packet) {
+
+            if (bys_packet.Length < StdPacketHeader.SIZE + StdPacketData.SIZE) {
+                return null;
+            }
+
+            //創建空的封包
+            var packetObj = new StdPacket(user, Emergency.None, Encryption.None, Category.None, Callback.None, 0);
+
+            //約束封包方法
+            Packaged<StdPacketHeader, StdPacketData> packeted = packetObj;
+
+            //使用約束方法
+            packeted.Unpack(bys_packet);    //解析
+
+            return packetObj;
+        }
     }
 }
 
