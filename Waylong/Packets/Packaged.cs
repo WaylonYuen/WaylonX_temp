@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Waylong.Converter;
 using Waylong.Packets.Header;
 using Waylong.Users;
@@ -16,7 +17,7 @@ namespace Waylong.Packets.PacketData {
 
         #region Property
 
-        public User User { get => m_user; }
+        public User User { get => m_user; } // 線程分發封包時需要
         public T Header { get => m_header; }
         public U Data { get => m_data; }
 
@@ -39,13 +40,22 @@ namespace Waylong.Packets.PacketData {
             m_data = packetData;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="user"></param>
+        protected Packaged(User user, U packetData) {
+            m_user = user;
+            m_data = packetData;
+        }
+
         #endregion
 
         #region Local values
 
-        private User m_user;
-        private T m_header;
-        private U m_data;
+        protected readonly User m_user;
+        protected T m_header;
+        protected U m_data;
 
         private PacketHeaderType m_packetHeaderType;
         private PacketType m_packetType;
@@ -120,14 +130,21 @@ namespace Waylong.Packets.PacketData {
                 new StdPacketData(BitConverter.GetBytes(67548)));
 
             //另外的寫法
-            var Test2 = new StdPacket(user, Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync, BitConverter.GetBytes(4584));
-            var Test3 = new StdPacket(user, Emergency.Level3, Encryption.Testing, Category.Emergency, Callback.Testing, true);
+            //var Test2 = new StdPacket(user, Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync, BitConverter.GetBytes(4584));
+            //var Test3 = new StdPacket(user, Emergency.Level3, Encryption.Testing, Category.Emergency, Callback.Testing, true);
+
+            var Test4 = new StdPacket(user, "Testing");
+            Test4.SetHeader(Emergency.Level2, Encryption.RES256, Category.None, Callback.PacketHeaderSync);
 
             var data = new StdPacketData(BitConverter.GetBytes(456));
             var packet = new Packaged<StdPacketHeader, StdPacketData>(user, header, data);
 
             //packup
+#if Test
             var bys_packet = packet.ToPackup();
+#else
+            var bys_packet = Test4.ToPackup();
+#endif
 
             //create
             var getHeader = new StdPacketHeader(user.VerificationCode, Emergency.None, Encryption.None, Category.None, Callback.None);
@@ -141,8 +158,8 @@ namespace Waylong.Packets.PacketData {
             Console.WriteLine(newPacket.ToString());
 
             //可優化: 利用接口來指定不同型態由Bit回覆指定型態,再利用packetData中添加指定型態enum來取決於用什麼方法來回覆
-            Console.WriteLine(BitConverter.ToInt32(newPacket.Data.Data, 0));
-
+            //Console.WriteLine(BitConverter.ToInt32(newPacket.Data.Data, 0));
+            Console.WriteLine(Encoding.UTF8.GetString(newPacket.Data.Data));
         }
     }
 
