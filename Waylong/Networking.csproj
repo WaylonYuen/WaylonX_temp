@@ -56,6 +56,7 @@
     <Compile Include="Packets\PacketData\PacketDataBase.cs" />
     <Compile Include="Packets\StdPacket.cs" />
     <Compile Include="Packets\PacketBase.cs" />
+    <Compile Include="Waylong.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
@@ -69,6 +70,7 @@
     <Folder Include="Converter\" />
     <Folder Include="Packets\Header\" />
     <Folder Include="Packets\PacketData\" />
+    <Folder Include="WaylongSystem\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.md" />
