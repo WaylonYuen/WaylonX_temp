@@ -6,32 +6,32 @@ using Waylong.Net;
 namespace Waylong.Architecture {
 
     //Client-Server-Model: 主從式架構
-    public abstract class CSModel : ICSParameter {
+    public abstract class CSModel : CSModelBase, ICSParameter {
 
-        #region Prop
-        public string Name { get; set; }
-        public string IP { get; }
-        public int Port { get; }
-        public string IPAddress { get; }
-        public OperatingEnvironment Environment { get; }
+        #region Property
+
+        /// <summary>
+        /// 名稱
+        /// </summary>
+        public abstract string Name { get; set; }
+
+        /// <summary>
+        /// IP地址
+        /// </summary>
+        public abstract string IPAddress { get; }
+
+        /// <summary>
+        /// 操作環境
+        /// </summary>
+        public abstract Environment Environment { get; }
+
         #endregion
         
         #region Local Values
+
         protected NetMode m_netMode;
+        
         #endregion
-
-        #region Constructor
-        public CSModel(string name, OperatingEnvironment environment) {
-            Name = name;
-            IP = null;
-            Port = -1;
-            IPAddress = null;
-            Environment = environment;
-        }
-        #endregion
-
-
-
 
         //Undone: Start(IP)
         public virtual void Start(string ip, int prot) {
@@ -58,24 +58,6 @@ namespace Waylong.Architecture {
 
         }
 
-        protected abstract void Initialize();
-
-        //資料結構: 用於保存各種類型的資料及資料處理的方式
-        protected abstract void DataStruct();
-
-        //回調方法註冊: 註冊後的方法才能夠被外派調用並呼叫執行
-        protected abstract void Registered();
-
-        #region Thread
-        //啟動線程
-        protected abstract void StartThread();
-
-        //監聽封包
-        //protected abstract void ReceivePacketThread();
-
-        //特殊情況線程 -> 執行封包
-        protected abstract void Execute_GeneralCallbackThread();
-        #endregion
     }
 
 }
