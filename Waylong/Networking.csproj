@@ -57,6 +57,7 @@
     <Compile Include="Packets\StdPacket.cs" />
     <Compile Include="Packets\PacketBase.cs" />
     <Compile Include="Waylong.cs" />
+    <Compile Include="Architecture\CSModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
