@@ -35,7 +35,7 @@ namespace Waylong.Architecture {
             throw new NotImplementedException();
         }
 
-        protected override void Execute_GeneralCallbackThread() {
+        protected override void Execute_CallbackThread() {
             throw new NotImplementedException();
         }
 
