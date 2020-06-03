@@ -10,14 +10,12 @@ namespace Networking.xUnitTests.Packets {
 
         [Fact]
         public void StdPacket_Unpack_RefBys_RangeTest_LessThan_OK() {
+            //測試 : 解析參數內容小於封包架構時,應回傳Null
 
             object expected = null;
-
-            //解析
-            var actual = StdPacket.Unpack(new User(), new byte[10]);
+            var actual = StdPacket.Unpack(new User(), new byte[10]);    //解析
 
             Assert.Equal(expected, actual);
-
         }
 
         [Fact]
