@@ -13,7 +13,7 @@ namespace Waylong.Architecture {
         #region Constructor
 
         public StdServer(string name)
-            : base(name, OperatingEnvironment.Terminal) {
+            : base(name, Environment.Terminal) {
             m_netMode = NetMode.Listen;
         }
         #endregion
