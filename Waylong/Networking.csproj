@@ -43,7 +43,6 @@
     <Compile Include="User\IUser.cs" />
     <Compile Include="Net\NetworkManagement.cs" />
     <Compile Include="Net\IConnection.cs" />
-    <Compile Include="Net\TcpProtocol.cs" />
     <Compile Include="Net\Networking.cs" />
     <Compile Include="Architecture\CSModel.cs" />
     <Compile Include="Architecture\StdServer.cs" />
@@ -58,6 +57,7 @@
     <Compile Include="Packets\PacketBase.cs" />
     <Compile Include="Waylong.cs" />
     <Compile Include="Architecture\CSModelBase.cs" />
+    <Compile Include="Net\Protocol\TcpConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
@@ -72,6 +72,7 @@
     <Folder Include="Packets\Header\" />
     <Folder Include="Packets\PacketData\" />
     <Folder Include="WaylongSystem\" />
+    <Folder Include="Net\Protocol\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.md" />
