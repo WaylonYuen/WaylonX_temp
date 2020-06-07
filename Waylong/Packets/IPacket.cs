@@ -11,9 +11,9 @@ namespace Waylong.Packets {
     public interface IPacketMethods {
 
         /// <summary>
-        /// 資料描述欄位長度
+        /// 結構大小
         /// </summary>
-        int PacketHeadDescriptionLength { get; }
+        int StructSIZE { get; }
 
         /// <summary>
         /// 封裝
