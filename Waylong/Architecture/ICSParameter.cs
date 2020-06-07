@@ -18,16 +18,6 @@ namespace Waylong.Architecture {
         string Name { get; set; }
 
         /// <summary>
-        /// IP位址
-        /// </summary>
-        string IP { get; }
-
-        /// <summary>
-        /// 端口
-        /// </summary>
-        int Port { get; }
-
-        /// <summary>
         /// IP地址
         /// </summary>
         string IPAddress { get; }
@@ -35,11 +25,11 @@ namespace Waylong.Architecture {
         /// <summary>
         /// 操作環境
         /// </summary>
-        OperatingEnvironment Environment { get; }
+        Environment Environment { get; }
     }
 
     //操作環境
-    public enum OperatingEnvironment {
+    public enum Environment {
         Unknow,
         Unity,      //Debug.Log
         Terminal,   //CW
