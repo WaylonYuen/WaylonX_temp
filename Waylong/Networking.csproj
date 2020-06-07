@@ -58,6 +58,7 @@
     <Compile Include="Waylong.cs" />
     <Compile Include="Architecture\CSModelBase.cs" />
     <Compile Include="Net\Protocol\TcpConnection.cs" />
+    <Compile Include="Net\Protocol\UdpConnection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
