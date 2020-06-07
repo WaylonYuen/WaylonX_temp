@@ -50,13 +50,28 @@ namespace Waylong.Packets.Header {
         Callback IPacketHeaderThreads.CallbackType { get => m_callback; }
 
         /// <summary>
-        /// Header長度
+        /// 此結構大小
         /// </summary>
-        public int PacketHeadDescriptionLength => IndexOf.Data;
+        int IPacketMethods.StructSIZE => SIZE;
 
         #endregion
 
         #region Constructor
+
+        /// <summary>
+        /// 快捷構造器
+        /// </summary>
+        /// <param name="verificationCode"></param>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        public StdPacketHeader(int verificationCode, Category category, Callback callback) {
+
+            m_verificationCode = verificationCode;
+            m_emergency = Emergency.None;
+            m_encryption = Encryption.None;
+            m_category = category;
+            m_callback = callback;
+        }
 
         /// <summary>
         /// 標準構造器
@@ -69,8 +84,8 @@ namespace Waylong.Packets.Header {
         public StdPacketHeader(int verificationCode, Emergency emergency, Encryption encryption, Category category, Callback callback) {
 
             m_verificationCode = verificationCode;
-            m_encryption = encryption;
             m_emergency = emergency;
+            m_encryption = encryption;        
             m_category = category;
             m_callback = callback;
         }
@@ -80,6 +95,12 @@ namespace Waylong.Packets.Header {
         #region Local values
 
         //Constants
+
+        /// <summary>
+        /// Header長度
+        /// </summary>
+        public const int SIZE = IndexOf.Data;
+
         private const PacketHeaderType m_headerType = PacketHeaderType.StdPacketHeader;
 
         //Variables
@@ -117,7 +138,7 @@ namespace Waylong.Packets.Header {
         byte[] IPacketMethods.ToPackup() {
 
             //指定封包尺寸
-            var bys_packetHeader = new byte[PacketHeadDescriptionLength];
+            var bys_packetHeader = new byte[SIZE];
 
             //封裝Header : 將local values 封裝成 Bytes
             BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_headerType)).CopyTo(bys_packetHeader, IndexOf.HeaderType);
@@ -136,7 +157,7 @@ namespace Waylong.Packets.Header {
         /// <param name="bys_packetHeader">不包含其他資料的bys</param>
         void IPacketMethods.Unpack(byte[] bys_packetHeader) {
             //封包最小長度不能夠小於Header.length -> 否則不是完整的封包
-            if (bys_packetHeader.Length < PacketHeadDescriptionLength) {
+            if (bys_packetHeader.Length < SIZE) {
                 return;
             }
 
