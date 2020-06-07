@@ -2,8 +2,7 @@
 
 namespace Waylong.Packets.Header {
 
-
-    public abstract class PacketHeaderBase {
+    public abstract class PacketHeaderBase : PacketBase {
 
         /// <summary>
         /// 封包Header參數Size
