@@ -3,6 +3,8 @@ using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Waylong.Architecture;
+using Waylong.Net;
+using Waylong.Net.Protocol;
 using Waylong.Packets;
 using Waylong.Packets.Header;
 using Waylong.Packets.PacketData;
@@ -37,6 +39,25 @@ namespace Waylong {
 
             Console.WriteLine(newPacketObj.ToString());
             Console.WriteLine(Encoding.UTF8.GetString(newPacketObj.Data.Data));
+        }
+
+        //Test
+        public static void TcpConnectionTest() {
+
+            var Conn = new TcpConnection(NetworkMode.Listen, "127.0.0.1", 8808);
+            var Management = new NetworkManagement();
+
+            bool isConn = Management.Connect(Conn);
+
+        }
+
+        public static void UdpConnectionTest() {
+
+            var Conn = new UdpConnection(NetworkMode.Listen, "127.0.0.1", 8809);
+            var Management = new NetworkManagement();
+
+            bool isConn = Management.Connect(Conn);
+           
         }
 
     }

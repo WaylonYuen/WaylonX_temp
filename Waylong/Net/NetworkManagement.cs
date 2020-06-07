@@ -6,7 +6,7 @@ namespace Waylong.Net {
 
     public class NetworkManagement {
 
-        //Dict<連線型態(此連線的目的 -> enum Type), 連線接口(IConnection）>
+        //List<連線型態(此連線的目的 -> enum Type), 連線接口(IConnection）>
         public List<IConnection> NetworkList;
 
 
@@ -27,7 +27,13 @@ namespace Waylong.Net {
         /// </summary>
         /// <param name="type">連線協議</param>
         /// <returns>建立是否成功</returns>
-        public bool Connect(ProtocolType type) {
+        public bool Connect(IConnection protocol) {
+
+            //如果成功連線的話,將此協議加入List中
+            if (protocol.Connect()) {
+                NetworkList.Add(protocol);
+            }
+
             return false;
         }
 

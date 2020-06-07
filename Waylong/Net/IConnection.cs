@@ -36,7 +36,7 @@ namespace Waylong.Net {
         /// 建立連線
         /// </summary>
         /// <returns>連線是否成功</returns>
-        bool Connection();
+        bool Connect();
 
         #endregion
     }
