@@ -4,6 +4,7 @@ namespace Waylong.Architecture {
 
     public abstract class CSModelBase {
 
+        //初始化: 用於初始化 DataStruct 和 Registered
         protected abstract void Initialize();
 
         //資料結構: 用於保存各種類型的資料及資料處理的方式
@@ -14,6 +15,7 @@ namespace Waylong.Architecture {
 
         #region Network
 
+        //網絡管理: 用於管理協議
         protected abstract void NetworkManagement();
 
 
@@ -22,7 +24,7 @@ namespace Waylong.Architecture {
         #region Thread
 
         /// <summary>
-        /// 啟動線程
+        /// 啟動線程: 用於啟動各線程
         /// </summary>
         protected abstract void StartThread();
 

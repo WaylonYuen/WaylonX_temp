@@ -30,8 +30,10 @@ namespace Waylong.Architecture {
         #region Local Values
 
         protected NetMode m_netMode;
-        
+
         #endregion
+
+        #region Methods
 
         //Undone: Start(IP)
         public virtual void Start(string ip, int prot) {
@@ -58,6 +60,7 @@ namespace Waylong.Architecture {
 
         }
 
+        #endregion
     }
 
 }
