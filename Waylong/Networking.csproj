@@ -56,9 +56,9 @@
     <Compile Include="Packets\StdPacket.cs" />
     <Compile Include="Packets\PacketBase.cs" />
     <Compile Include="Waylong.cs" />
-    <Compile Include="Architecture\CSModelBase.cs" />
     <Compile Include="Net\Protocol\TcpConnection.cs" />
     <Compile Include="Net\Protocol\UdpConnection.cs" />
+    <Compile Include="Attributes\RegisteredAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
@@ -74,6 +74,7 @@
     <Folder Include="Packets\PacketData\" />
     <Folder Include="WaylongSystem\" />
     <Folder Include="Net\Protocol\" />
+    <Folder Include="Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.md" />
