@@ -1,4 +1,5 @@
 ﻿using System;
+using Waylong.Net;
 
 namespace Waylong.Architecture {
 
@@ -9,18 +10,13 @@ namespace Waylong.Architecture {
     //enum 操作環境
     //
 
-    //CSModel 參數
+    //CSModel 參數列表
     public interface ICSParameter {
 
         /// <summary>
         /// 名稱
         /// </summary>
         string Name { get; set; }
-
-        /// <summary>
-        /// IP地址
-        /// </summary>
-        string IPAddress { get; }
 
         /// <summary>
         /// 操作環境

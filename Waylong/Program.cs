@@ -19,7 +19,9 @@ namespace Waylong {
             //StdPacketData.Testing();
             //PackagedDemo.Testing();
 
-            Demo.PacketTest();
+            //Demo.PacketTest();
+
+            Demo.StdServerTest();
         }
     }
 
@@ -60,6 +62,14 @@ namespace Waylong {
            
         }
 
+        public static void StdServerTest() {
+
+            var ServerTest = new StdServer();
+
+            ServerTest.Name = "Test Server";
+            ServerTest.Start("127.0.0.1", 8088);
+
+        }
     }
 
 }
