@@ -26,20 +26,43 @@ namespace Waylong.Net {
 
         #region Methods
 
-        //建立連線機制
-        public void CreateConnection(Socket socket, string ip, int port) {
+        /// <summary>
+        /// 啟動連線模式
+        /// </summary>
+        /// <param name="connection">連線Info</param>
+        /// <returns>連線是否成功</returns>
+        public bool StartToConnect(Connection connection) {
 
-            //創建Connection保存連線資料 & 存入List中
-            networkList.Add(new Connection(socket, new IPEndPoint(IPAddress.Parse(ip), port))); //此狀態下僅俱備連線時必要資料, 並未啟動
+            //接口過濾
+            IConnection IConnection = connection;
+
+            //啟動連線並判斷連線是否成功
+            if (IConnection.Connect()) {
+                networkList.Add(connection);    //保存該連線資料
+                return true;
+            }
+
+            return false;
         }
 
+        /// <summary>
+        /// 啟動監聽模式 : 若監聽量參數為0表示無
+        /// </summary>
+        /// <param name="connection">監聽Info</param>
+        /// <param name="backlog">監聽量</param>
+        /// <returns>監聽是否成功</returns>
+        public bool StartToListen(Connection connection, int backlog) {
 
-        public void StartToConnect(Socket socket) {
+            //接口過濾
+            IConnection IConnection = connection;
 
-        }
+            //啟動監聽並判斷監聽是否成功
+            if (IConnection.Listen(backlog)) {
+                networkList.Add(connection);    //保存該監聽資料
+                return true;
+            }
 
-        public void StartToListen(Socket socket, int backlog) {
-
+            return false;
         }
 
 

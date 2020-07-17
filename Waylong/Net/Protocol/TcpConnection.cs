@@ -7,7 +7,7 @@ namespace Waylong.Net.Protocol {
     /// <summary>
     /// Tcp連線
     /// </summary>
-    public class TcpConnection : IConnection {
+    public class TcpConnection {
 
         #region Property
 
@@ -74,7 +74,7 @@ namespace Waylong.Net.Protocol {
         /// 建立連線
         /// </summary>
         /// <returns>回傳是否建立成功</returns>
-        bool IConnection.Connect() {
+        bool Connect() {
 
             //創建Socket
             m_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);

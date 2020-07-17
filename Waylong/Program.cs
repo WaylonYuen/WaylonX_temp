@@ -21,7 +21,7 @@ namespace Waylong {
 
             //Demo.PacketTest();
 
-            Demo.StdServerTest();
+            
         }
     }
 
@@ -43,31 +43,7 @@ namespace Waylong {
             Console.WriteLine(Encoding.UTF8.GetString(newPacketObj.Data.Data));
         }
 
-        //Test
-        public static void TcpConnectionTest() {
-
-            var Conn = new TcpConnection(NetworkMode.Listen, "127.0.0.1", 8808);
-            var Management = new NetworkManagement();
-
-            bool isConn = Management.Connect(Conn);
-
-        }
-
-        public static void UdpConnectionTest() {
-
-            var Conn = new UdpConnection(NetworkMode.Listen, "127.0.0.1", 8809);
-            var Management = new NetworkManagement();
-
-            bool isConn = Management.Connect(Conn);
-           
-        }
-
-        public static void StdServerTest() {
-
-            var ServerTest = new StdServer();
-
-            ServerTest.Name = "Test Server";
-            ServerTest.Start("127.0.0.1", 8088);
+        public static void ConnectionTest() {
 
         }
     }

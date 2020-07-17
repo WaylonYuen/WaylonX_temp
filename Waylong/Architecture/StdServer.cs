@@ -59,7 +59,7 @@ namespace Waylong.Architecture {
             //設定Server人數上限
             TcpConn.SetBacklog(10);
 
-            NetworkManagement.Connect(TcpConn);
+            //NetworkManagement.Connect(TcpConn);
 
         }
 
