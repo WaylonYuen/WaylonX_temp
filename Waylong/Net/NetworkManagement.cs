@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Sockets;
 
 namespace Waylong.Net {
@@ -8,60 +9,42 @@ namespace Waylong.Net {
         
         #region Property
 
-        //UNDONE: 不可以直接被外部調用,需要修改.
-        /// <summary>
-        /// 網路連線資料表
-        /// </summary>
-        //public List<IConnection> NetworkList { get { return m_networkList; } }
-
         #endregion
 
         #region Local Values
 
-        private List<IConnection> m_networkList;    //網路連線資料表
-
+        private List<Connection> networkList;    //網路連線資料表
         #endregion
 
         #region Constructor
 
         public NetworkManagement() {
-            m_networkList = new List<IConnection>();
+            networkList = new List<Connection>();
         }
 
         #endregion
 
         #region Methods
 
-        /// <summary>
-        /// 建立連線
-        /// </summary>
-        /// <param name="type">連線協議</param>
-        /// <returns>建立是否成功</returns>
-        public bool Connect(IConnection protocol) {
+        //建立連線機制
+        public void CreateConnection(Socket socket, string ip, int port) {
 
-            //如果成功連線的話,將此協議加入List中
-            if (protocol.Connect()) {
-                m_networkList.Add(protocol);
-                return true;
-            }
-
-            return false;
+            //創建Connection保存連線資料 & 存入List中
+            networkList.Add(new Connection(socket, new IPEndPoint(IPAddress.Parse(ip), port))); //此狀態下僅俱備連線時必要資料, 並未啟動
         }
 
-        //展示NetworkList
-        public void ShowList() {
-            foreach (var connected in m_networkList) {
-                //Show
-            }
+
+        public void StartToConnect(Socket socket) {
+
         }
 
-        //GetIP(ref 誰的IP）
+        public void StartToListen(Socket socket, int backlog) {
 
-        //GetPortr(ref 誰的Port)
+        }
 
-        //GetIPAddress(ref 誰的)
 
-        //GetNetworkMode
+
+        
 
         public override string ToString() {
             return base.ToString();
