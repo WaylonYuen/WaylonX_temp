@@ -21,7 +21,7 @@ namespace Waylong {
 
             //Demo.PacketTest();
 
-            
+            Demo.ConnectionTest();
         }
     }
 
@@ -44,7 +44,11 @@ namespace Waylong {
         }
 
         public static void ConnectionTest() {
+            var Server = new StdServer();
 
+            Server.Start("127.0.0.1", 8808);
+
+            Console.WriteLine("End");
         }
     }
 

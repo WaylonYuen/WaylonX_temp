@@ -40,7 +40,6 @@ namespace Waylong.Architecture {
 
         //啓動器
         public abstract void Start(string ip, int prot);
-        public abstract void Start(Socket socket);
 
         //初始化: 用於初始化 DataStruct 和 Registered
         protected abstract void Initialize();
