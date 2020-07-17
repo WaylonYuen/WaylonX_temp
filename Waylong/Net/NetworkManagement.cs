@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Sockets;
 
 namespace Waylong.Net {
@@ -8,24 +9,17 @@ namespace Waylong.Net {
         
         #region Property
 
-        //UNDONE: 不可以直接被外部調用,需要修改.
-        /// <summary>
-        /// 網路連線資料表
-        /// </summary>
-        //public List<IConnection> NetworkList { get { return m_networkList; } }
-
         #endregion
 
         #region Local Values
 
-        private List<IConnection> m_networkList;    //網路連線資料表
-
+        private List<Connection> networkList;    //網路連線資料表
         #endregion
 
         #region Constructor
 
         public NetworkManagement() {
-            m_networkList = new List<IConnection>();
+            networkList = new List<Connection>();
         }
 
         #endregion
@@ -33,35 +27,47 @@ namespace Waylong.Net {
         #region Methods
 
         /// <summary>
-        /// 建立連線
+        /// 啟動連線模式
         /// </summary>
-        /// <param name="type">連線協議</param>
-        /// <returns>建立是否成功</returns>
-        public bool Connect(IConnection protocol) {
+        /// <param name="connection">連線Info</param>
+        /// <returns>連線是否成功</returns>
+        public bool StartToConnect(Connection connection) {
 
-            //如果成功連線的話,將此協議加入List中
-            if (protocol.Connect()) {
-                m_networkList.Add(protocol);
+            //接口過濾
+            IConnection IConnection = connection;
+
+            //啟動連線並判斷連線是否成功
+            if (IConnection.Connect()) {
+                networkList.Add(connection);    //保存該連線資料
                 return true;
             }
 
             return false;
         }
 
-        //展示NetworkList
-        public void ShowList() {
-            foreach (var connected in m_networkList) {
-                //Show
+        /// <summary>
+        /// 啟動監聽模式 : 若監聽量參數為0表示無
+        /// </summary>
+        /// <param name="connection">監聽Info</param>
+        /// <param name="backlog">監聽量</param>
+        /// <returns>監聽是否成功</returns>
+        public bool StartToListen(Connection connection, int backlog) {
+
+            //接口過濾
+            IConnection IConnection = connection;
+
+            //啟動監聽並判斷監聽是否成功
+            if (IConnection.Listen(backlog)) {
+                networkList.Add(connection);    //保存該監聽資料
+                return true;
             }
+
+            return false;
         }
 
-        //GetIP(ref 誰的IP）
 
-        //GetPortr(ref 誰的Port)
 
-        //GetIPAddress(ref 誰的)
-
-        //GetNetworkMode
+        
 
         public override string ToString() {
             return base.ToString();

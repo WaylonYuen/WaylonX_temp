@@ -51,20 +51,17 @@ namespace Waylong.Architecture {
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="prot"></param>
-        public override void Start(string ip, int prot) {
+        public override void Start(string ip, int port) {
 
-            //建立連線
-            var TcpConn = new TcpConnection(NetworkMode.Listen, ip, prot);
+            //創建socket
+            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            //設定Server人數上限
-            TcpConn.SetBacklog(10);
+            //創建連線Info
+            var MainConn = new Connection(socket, ip, port);
 
-            NetworkManagement.Connect(TcpConn);
+            //啟動監聽
+            NetworkManagement.StartToListen(MainConn, 10);
 
-        }
-
-        public override void Start(Socket socket) {
-            throw new NotImplementedException();
         }
 
 

@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace Waylong.Net.Protocol {
 
-    public class UdpConnection : IConnection {
+    public class UdpConnection {
 
         #region Property
 
@@ -57,7 +57,7 @@ namespace Waylong.Net.Protocol {
 
         #region Methods
 
-        bool IConnection.Connect() {
+        bool Connect() {
 
 
             //建立 Socket
