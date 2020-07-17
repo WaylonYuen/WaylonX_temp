@@ -1,43 +1,107 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Net.Sockets;
 using Waylong.Net;
+using Waylong.Net.Protocol;
+using Waylong.Users;
 
 namespace Waylong.Architecture {
 
-    public class StdServer {//: CSModel {
+    public interface IServer {
+        List<User> Users { get; }
+    }
+
+    /// <summary>
+    /// 標準服務器架構
+    /// </summary>
+    public class StdServer : CSModel, IServer {
+
+        #region Property
+
+        public override string Name { get; set; }
+
+        public override Environment Environment { get { return Environment.Terminal; } }
 
 
-        #region Local Values
-        //...
+        public List<User> Users => m_Users;
+
+
         #endregion
 
-        //#region Constructor
+        #region Local values
 
-        //public StdServer(string name)
-        //    : base(name, Environment.Terminal) {
-        //    m_netMode = NetMode.Listen;
-        //}
-        //#endregion
+        #region Must do Initialize
+        private List<User> m_Users;
+        #endregion
 
-        //protected override void Initialize() {
-        //    throw new NotImplementedException();
-        //}
+        #endregion
 
-        //protected override void DataStruct() {
-        //    throw new NotImplementedException();
-        //}
+        #region Constructor
 
-        //protected override void Registered() {
-        //    throw new NotImplementedException();
-        //}
+        public StdServer() {
+            
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// 啟動主連線
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="prot"></param>
+        public override void Start(string ip, int port) {
+
+            //創建socket
+            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            //創建連線Info
+            var MainConn = new Connection(socket, ip, port);
+
+            //啟動監聽
+            NetworkManagement.StartToListen(MainConn, 10);
+
+        }
 
 
-        //protected override void StartThread() {
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// 資料架構
+        /// </summary>
+        protected override void DataStruct() {
+            throw new NotImplementedException();
+        }     
 
-        //protected override void Execute_CallbackThread() {
-        //    throw new NotImplementedException();
-        //}
+        /// <summary>
+        /// 服務器初始化
+        /// </summary>
+        protected override void Initialize() {
+            m_Users = new List<User>();
+        }
 
+        /// <summary>
+        /// 註冊器
+        /// </summary>
+        protected override void Registered() {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 啟動線程
+        /// </summary>
+        protected override void Start_Thread() {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 執行_回調線程
+        /// </summary>
+        protected override void Execute_CallbackThread() {
+            throw new NotImplementedException();
+        }
+
+        
+
+        #endregion
     }
 }

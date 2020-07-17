@@ -1,43 +1,49 @@
 ﻿using System;
+using System.Net;
 using System.Net.Sockets;
 
 namespace Waylong.Net {
 
-    public enum NetworkMode {
-        None,       //未知
-        Connect,    //接入
-        Listen,     //監聽
+    /// <summary>
+    /// 網絡連線方法接口
+    /// </summary>
+    public interface IConnection {
+
+        /// <summary>
+        /// 啟動連線
+        /// </summary>
+        /// <returns>是否連線成功</returns>
+        bool Connect();
+
+        /// <summary>
+        /// 啟動監聽
+        /// </summary>
+        /// <param name="backlog">監聽數量</param>
+        /// <returns>是否監聽成功</returns>
+        bool Listen(int backlog);
     }
 
-    public interface IConnection {
+    /// <summary>
+    /// 連線資料接口
+    /// </summary>
+    public interface ILinkInfo {
 
         #region Property
 
-        //連線目標IP
-        string IP { get; }
-
-        //連線目標端口
-        int Port { get; }
-
-        //連線目標地址
-        string IPAddress { get; }
-
-        //連線模式
-        NetworkMode NetworkMode { get; }
-
-        //連線所使用的協議
-        ProtocolType ProtocolType { get; }
-
-        #endregion
-
-        #region Methods
+        /// <summary>
+        /// Socket
+        /// </summary>
+        Socket Socket { get; }
 
         /// <summary>
-        /// 建立連線
+        /// ip end point
         /// </summary>
-        /// <returns>連線是否成功</returns>
-        bool Connect();
+        IPEndPoint IPEndPoint { get; }
 
+        /// <summary>
+        /// 網絡模式
+        /// </summary>
+        NetworkMode NetworkMode { get; }
         #endregion
     }
 
