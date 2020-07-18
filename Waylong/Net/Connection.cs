@@ -17,8 +17,16 @@ namespace Waylong.Net {
     /// 連線頻道
     /// </summary>
     public enum ConnectionChannel {
-        MainConnection,             //主要CS連線
-        MainDatabaseConnection,     //主要資料庫連線
+
+        /// <summary>
+        /// 主要CS連線
+        /// </summary>
+        MainConnection,
+
+        /// <summary>
+        /// 主要資料庫連線
+        /// </summary>
+        MainDatabaseConnection,
     }
 
     /// <summary>

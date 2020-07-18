@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net.Sockets;
 using System.Threading;
+using Waylong.Net;
 
 namespace Waylong.Architecture.Server {
 
@@ -13,7 +15,7 @@ namespace Waylong.Architecture.Server {
         public void AwaitClientThread() {
 
             //取得socket
-            
+            Socket socket = NetworkManagement.ConnectionList[ConnectionChannel.MainConnection].Socket;
 
             //持續等待 -> 直到canClose Flag is true
             while (!canClose) {

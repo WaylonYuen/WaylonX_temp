@@ -72,7 +72,7 @@ namespace Waylong.Architecture.Server {
             var MainConn = new Connection(socket, ip, port);
 
             //啟動監聽
-            NetworkManagement.StartToListen(MainConn, 10);
+            NetworkManagement.StartToListen(ConnectionChannel.MainConnection, MainConn, 10);
 
         }
 
