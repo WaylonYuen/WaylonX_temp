@@ -44,6 +44,8 @@ namespace Waylong.Net {
         /// 網絡模式
         /// </summary>
         NetworkMode NetworkMode { get; }
+
+        
         #endregion
     }
 

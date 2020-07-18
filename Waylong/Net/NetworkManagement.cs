@@ -6,20 +6,19 @@ using System.Net.Sockets;
 namespace Waylong.Net {
 
     public class NetworkManagement {
-        
-        #region Property
 
+        #region Property
+        public Dictionary<ConnectionChannel, ILinkInfo> NetworkList { get; }    //網路連線資料表
         #endregion
 
         #region Local Values
 
-        private List<Connection> networkList;    //網路連線資料表
         #endregion
 
         #region Constructor
 
         public NetworkManagement() {
-            networkList = new List<Connection>();
+            NetworkList = new Dictionary<ConnectionChannel, ILinkInfo>();
         }
 
         #endregion
@@ -30,15 +29,16 @@ namespace Waylong.Net {
         /// 啟動連線模式
         /// </summary>
         /// <param name="connection">連線Info</param>
+        /// <param name="connectionChannel">連線頻道</param>
         /// <returns>連線是否成功</returns>
-        public bool StartToConnect(Connection connection) {
+        public bool StartToConnect(Connection connection, ConnectionChannel connectionChannel) {
 
             //接口過濾
             IConnection IConnection = connection;
 
             //啟動連線並判斷連線是否成功
             if (IConnection.Connect()) {
-                networkList.Add(connection);    //保存該連線資料
+                NetworkList.Add(connection);    //保存該連線資料
                 return true;
             }
 
@@ -58,16 +58,12 @@ namespace Waylong.Net {
 
             //啟動監聽並判斷監聽是否成功
             if (IConnection.Listen(backlog)) {
-                networkList.Add(connection);    //保存該監聽資料
+                NetworkList.Add(connection);    //保存該監聽資料
                 return true;
             }
 
             return false;
         }
-
-
-
-        
 
         public override string ToString() {
             return base.ToString();

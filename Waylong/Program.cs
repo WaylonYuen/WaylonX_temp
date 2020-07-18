@@ -2,7 +2,7 @@
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Waylong.Architecture;
+using Waylong.Architecture.Server;
 using Waylong.Net;
 using Waylong.Net.Protocol;
 using Waylong.Packets;
