@@ -43,7 +43,6 @@
     <Compile Include="User\IUser.cs" />
     <Compile Include="Net\NetworkManagement.cs" />
     <Compile Include="Net\IConnection.cs" />
-    <Compile Include="Net\Networking.cs" />
     <Compile Include="Architecture\CSModel.cs" />
     <Compile Include="Architecture\ICSParameter.cs" />
     <Compile Include="Packets\Header\IPacketHeader.cs" />

@@ -27,6 +27,8 @@ namespace Waylong.Architecture.Server {
                     //同步等待, 程序会阻塞在这里
                     User user = new User(socket.Accept());   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
 
+                    //Add user to list
+
                     //子線程
                     try {
                         //為user建立封包監聽子線程 & 啟動子線程

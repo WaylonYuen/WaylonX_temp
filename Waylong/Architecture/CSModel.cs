@@ -24,8 +24,6 @@ namespace Waylong.Architecture {
 
         #region Local Values
 
-        protected NetMode m_netMode;
-
         #endregion
 
         #region Methods
