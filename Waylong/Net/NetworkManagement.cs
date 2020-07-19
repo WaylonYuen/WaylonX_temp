@@ -6,20 +6,19 @@ using System.Net.Sockets;
 namespace Waylong.Net {
 
     public class NetworkManagement {
-        
-        #region Property
 
+        #region Property
+        public Dictionary<ConnectionChannel, ILinkInfo> ConnectionList { get; }    //網路連線資料表
         #endregion
 
         #region Local Values
 
-        private List<Connection> networkList;    //網路連線資料表
         #endregion
 
         #region Constructor
 
         public NetworkManagement() {
-            networkList = new List<Connection>();
+            ConnectionList = new Dictionary<ConnectionChannel, ILinkInfo>();
         }
 
         #endregion
@@ -30,16 +29,21 @@ namespace Waylong.Net {
         /// 啟動連線模式
         /// </summary>
         /// <param name="connection">連線Info</param>
+        /// <param name="connectionChannel">連線頻道</param>
         /// <returns>連線是否成功</returns>
-        public bool StartToConnect(Connection connection) {
+        public bool StartToConnect(ConnectionChannel channel, Connection connection) {
 
-            //接口過濾
-            IConnection IConnection = connection;
+            //檢查該連線是否存在
+            if (!ConnectionList.ContainsKey(channel)) {
 
-            //啟動連線並判斷連線是否成功
-            if (IConnection.Connect()) {
-                networkList.Add(connection);    //保存該連線資料
-                return true;
+                //接口過濾
+                IConnection IConnection = connection;
+
+                //啟動連線並判斷連線是否成功
+                if (IConnection.Connect()) {    //由於Connect()方法被限定在IConnection接口中,因此必須接口過濾
+                    ConnectionList.Add(channel, connection);    //保存該連線資料
+                    return true;
+                }
             }
 
             return false;
@@ -51,23 +55,23 @@ namespace Waylong.Net {
         /// <param name="connection">監聽Info</param>
         /// <param name="backlog">監聽量</param>
         /// <returns>監聽是否成功</returns>
-        public bool StartToListen(Connection connection, int backlog) {
+        public bool StartToListen(ConnectionChannel channel, Connection connection, int backlog) {
 
-            //接口過濾
-            IConnection IConnection = connection;
+            //檢查該連線是否存在
+            if (!ConnectionList.ContainsKey(channel)) {
 
-            //啟動監聽並判斷監聽是否成功
-            if (IConnection.Listen(backlog)) {
-                networkList.Add(connection);    //保存該監聽資料
-                return true;
+                //接口過濾
+                IConnection IConnection = connection;
+
+                //啟動監聽並判斷監聽是否成功
+                if (IConnection.Listen(backlog)) {  //由於Connect()方法被限定在IConnection接口中,因此必須接口過濾
+                    ConnectionList.Add(channel, connection);    //保存該監聽資料
+                    return true;
+                }
             }
 
             return false;
         }
-
-
-
-        
 
         public override string ToString() {
             return base.ToString();
