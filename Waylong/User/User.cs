@@ -37,6 +37,10 @@ namespace Waylong.Users {
         public User() { }
         public User(int verificationCode) { m_verificationCode = verificationCode; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="socket"></param>
         public User(Socket socket) {
             m_socket = socket;
             m_netStates = NetStates.None;

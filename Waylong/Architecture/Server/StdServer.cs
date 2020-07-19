@@ -11,7 +11,7 @@ namespace Waylong.Architecture.Server {
     /// <summary>
     /// 標準服務器架構
     /// </summary>
-    public partial class StdServer : CSModel, ICSParameter {
+    public partial class StdServer : StdServerModel, ICSParameter {
 
         #region Property
 
@@ -104,7 +104,7 @@ namespace Waylong.Architecture.Server {
         /// 啟動線程
         /// </summary>
         protected override void Start_Thread() {
-            canClose = false;   // partial -> Thread
+            isServerClose = false;   // partial -> Thread
 
             //啟動線程
             Thread.CreateThread(AwaitClientThread, true).Start();
@@ -118,7 +118,7 @@ namespace Waylong.Architecture.Server {
         /// 關閉線程
         /// </summary>
         protected override void Close_Thread() {
-            canClose = true;   // partial -> Thread
+            isServerClose = true;   // partial -> Thread
         }
 
         /// <summary>

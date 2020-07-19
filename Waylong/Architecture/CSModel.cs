@@ -6,7 +6,9 @@ using Waylong.Net;
 
 namespace Waylong.Architecture {
 
-    //Client-Server-Model: 主從式架構
+    /// <summary>
+    /// Client-Server-Model: 主從式架構
+    /// </summary>
     public abstract class CSModel {
 
         #region Property
@@ -31,7 +33,7 @@ namespace Waylong.Architecture {
         //啓動器
         public abstract void Start(string ip, int prot);
 
-        //關閉
+        //關閉程序
         public abstract void Close();
 
         //初始化: 用於初始化 DataStruct 和 Registered

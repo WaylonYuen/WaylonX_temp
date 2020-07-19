@@ -63,6 +63,8 @@
     <Compile Include="Architecture\Client\StdClient.cs" />
     <Compile Include="Architecture\Server\StdServerThread.cs" />
     <Compile Include="Architecture\Server\IServer.cs" />
+    <Compile Include="Architecture\Server\ServerModel.cs" />
+    <Compile Include="Architecture\ReceivePacket.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />

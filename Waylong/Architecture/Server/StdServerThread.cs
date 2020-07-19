@@ -2,29 +2,30 @@
 using System.Net.Sockets;
 using System.Threading;
 using Waylong.Net;
+using Waylong.Users;
 
 namespace Waylong.Architecture.Server {
 
-    public partial class StdServer : IServer {
+    public partial class StdServer {
 
-        protected bool canClose;    //Flag -> 線程可否繼續執行
+        protected bool isServerClose;    //Flag -> 線程可否繼續執行
 
         /// <summary>
         /// 等待客戶端_線程
         /// </summary>
-        public void AwaitClientThread() {
+        protected override void AwaitClientThread() {
 
             //取得socket
             Socket socket = NetworkManagement.ConnectionList[ConnectionChannel.MainConnection].Socket;
 
             //持續等待 -> 直到canClose Flag is true
-            while (!canClose) {
+            while (!isServerClose) {
 
                 try {
 
                     //參數：為新的客户端连接创建一个Socket对象，接收並返回一個新的Socket
                     //同步等待, 程序会阻塞在这里
-                    //Accept    //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
+                    User user = new User(socket.Accept());   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
 
                     //子線程
                     try {
@@ -37,7 +38,6 @@ namespace Waylong.Architecture.Server {
                     } catch (Exception ex) {
                         Console.WriteLine(ex.Message);
                     }
-
 
                 } catch (Exception ex) {
                     Console.WriteLine(ex.Message);
@@ -55,12 +55,18 @@ namespace Waylong.Architecture.Server {
         /// 監聽封包_線程
         /// </summary>
         /// <param name="obj"></param>
-        public void ReceivePacketThread(object obj) {
-            throw new NotImplementedException();
+        protected override void ReceivePacketThread(object obj) {
+
+            var user = obj as User;
+
+            while (!isServerClose) {
+                //執行等待封包
+            }
+
         }
 
-        public void AliveThread(object socket) {
-            throw new NotImplementedException();
+        protected override void AliveThread(object socket) {
+            //
         }
 
         #endregion
