@@ -6,20 +6,12 @@ using Waylong.Net;
 
 namespace Waylong.Architecture {
 
-    //Client-Server-Model: 主從式架構
-    public abstract class CSModel : ICSParameter {
+    /// <summary>
+    /// Client-Server-Model: 主從式架構
+    /// </summary>
+    public abstract class CSModel {
 
         #region Property
-
-        /// <summary>
-        /// 名稱
-        /// </summary>
-        public abstract string Name { get; set; }
-
-        /// <summary>
-        /// 操作環境
-        /// </summary>
-        public abstract Environment Environment { get; }
 
         #endregion
 
@@ -41,6 +33,9 @@ namespace Waylong.Architecture {
         //啓動器
         public abstract void Start(string ip, int prot);
 
+        //關閉程序
+        public abstract void Close();
+
         //初始化: 用於初始化 DataStruct 和 Registered
         protected abstract void Initialize();
 
@@ -56,6 +51,11 @@ namespace Waylong.Architecture {
         /// 啟動線程: 用於啟動各線程
         /// </summary>
         protected abstract void Start_Thread();
+
+        /// <summary>
+        /// 關閉線程
+        /// </summary>
+        protected abstract void Close_Thread();
 
         /// <summary>
         /// 執行回調線程

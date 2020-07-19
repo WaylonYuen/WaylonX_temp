@@ -45,8 +45,6 @@
     <Compile Include="Net\IConnection.cs" />
     <Compile Include="Net\Networking.cs" />
     <Compile Include="Architecture\CSModel.cs" />
-    <Compile Include="Architecture\StdServer.cs" />
-    <Compile Include="Architecture\StdClient.cs" />
     <Compile Include="Architecture\ICSParameter.cs" />
     <Compile Include="Packets\Header\IPacketHeader.cs" />
     <Compile Include="Packets\Header\PacketHeaderBase.cs" />
@@ -61,6 +59,12 @@
     <Compile Include="Attributes\RegisteredAttribute.cs" />
     <Compile Include="Net\Connection.cs" />
     <Compile Include="Threading\Thread.cs" />
+    <Compile Include="Architecture\Server\StdServer.cs" />
+    <Compile Include="Architecture\Client\StdClient.cs" />
+    <Compile Include="Architecture\Server\StdServerThread.cs" />
+    <Compile Include="Architecture\Server\IServer.cs" />
+    <Compile Include="Architecture\Server\ServerModel.cs" />
+    <Compile Include="Architecture\ReceivePacket.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />

@@ -2,25 +2,28 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 using Waylong.Net;
-using Waylong.Net.Protocol;
 using Waylong.Users;
+using Waylong.Threading;
 
-namespace Waylong.Architecture {
+namespace Waylong.Architecture.Server {
 
-    public interface IServer {
-        List<User> Users { get; }
-    }
 
     /// <summary>
     /// 標準服務器架構
     /// </summary>
-    public class StdServer : CSModel, IServer {
+    public partial class StdServer : StdServerModel, ICSParameter {
 
         #region Property
 
-        public override string Name { get; set; }
+        /// <summary>
+        /// 名稱
+        /// </summary>
+        public string Name { get; set; }
 
-        public override Environment Environment { get { return Environment.Terminal; } }
+        /// <summary>
+        /// 操作環境
+        /// </summary>
+        public Environment Environment { get { return Environment.Terminal; } }
 
 
         public List<User> Users => m_Users;
@@ -34,6 +37,8 @@ namespace Waylong.Architecture {
         private List<User> m_Users;
         #endregion
 
+
+
         #endregion
 
         #region Constructor
@@ -45,6 +50,13 @@ namespace Waylong.Architecture {
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// 服務器初始化
+        /// </summary>
+        protected override void Initialize() {
+            m_Users = new List<User>();
+        }
 
         /// <summary>
         /// 啟動主連線
@@ -60,8 +72,15 @@ namespace Waylong.Architecture {
             var MainConn = new Connection(socket, ip, port);
 
             //啟動監聽
-            NetworkManagement.StartToListen(MainConn, 10);
+            NetworkManagement.StartToListen(ConnectionChannel.MainConnection, MainConn, 10);
 
+        }
+
+        /// <summary>
+        /// 停止運行
+        /// </summary>
+        public override void Close() {
+            throw new NotImplementedException();
         }
 
 
@@ -72,12 +91,7 @@ namespace Waylong.Architecture {
             throw new NotImplementedException();
         }     
 
-        /// <summary>
-        /// 服務器初始化
-        /// </summary>
-        protected override void Initialize() {
-            m_Users = new List<User>();
-        }
+        
 
         /// <summary>
         /// 註冊器
@@ -90,7 +104,21 @@ namespace Waylong.Architecture {
         /// 啟動線程
         /// </summary>
         protected override void Start_Thread() {
-            throw new NotImplementedException();
+            isServerClose = false;   // partial -> Thread
+
+            //啟動線程
+            Thread.CreateThread(AwaitClientThread, true).Start();
+            //Thread.CreateThread(Execute_SpecialCircumstancesCallbackThread, true);
+
+            //HACK: 技術保留
+            System.Threading.ThreadPool.SetMinThreads(3, 3);
+        }
+
+        /// <summary>
+        /// 關閉線程
+        /// </summary>
+        protected override void Close_Thread() {
+            isServerClose = true;   // partial -> Thread
         }
 
         /// <summary>

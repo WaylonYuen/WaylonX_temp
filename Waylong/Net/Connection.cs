@@ -13,6 +13,25 @@ namespace Waylong.Net {
         Listen,     //監聽模式
     }
 
+    /// <summary>
+    /// 連線頻道
+    /// </summary>
+    public enum ConnectionChannel {
+
+        /// <summary>
+        /// 主要CS連線
+        /// </summary>
+        MainConnection,
+
+        /// <summary>
+        /// 主要資料庫連線
+        /// </summary>
+        MainDatabaseConnection,
+    }
+
+    /// <summary>
+    /// 網路連線
+    /// </summary>
     public class Connection : ILinkInfo, IConnection {
 
         #region Property
@@ -23,12 +42,13 @@ namespace Waylong.Net {
 
         NetworkMode ILinkInfo.NetworkMode { get { return networkMode; } }
 
+        
         #endregion
 
         #region Local Values
 
         private readonly Socket socket;
-        private readonly IPEndPoint iPEndPoint;
+        private readonly IPEndPoint iPEndPoint;      
         private NetworkMode networkMode;
 
         #endregion
