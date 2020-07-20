@@ -16,6 +16,12 @@ namespace Waylong.Users {
         Socket Socket { get; }
 
         /// <summary>
+        /// 取得用戶身份驗證碼
+        /// </summary>
+        public int VerificationCode { get; }
+
+
+        /// <summary>
         /// 發送封包方法
         /// </summary>
         /// <param name="netPacket">網路封包</param>

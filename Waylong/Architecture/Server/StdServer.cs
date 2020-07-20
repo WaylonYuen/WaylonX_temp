@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using Waylong.Net;
 using Waylong.Users;
 using Waylong.Threading;
+using System.Diagnostics;
 
 namespace Waylong.Architecture.Server {
 
@@ -70,10 +71,14 @@ namespace Waylong.Architecture.Server {
 
             //創建連線Info
             var MainConn = new Connection(socket, ip, port);
-
+            
             //啟動監聽
             NetworkManagement.StartToListen(ConnectionChannel.MainConnection, MainConn, 10);
 
+            //方法2
+            //IConnection iMainConn = MainConn;
+            //iMainConn.Listen(10);
+            //NetworkManagement.Add(ConnectionChannel.MainConnection, MainConn);
         }
 
         /// <summary>

@@ -6,6 +6,8 @@ namespace Waylong.Architecture.Server {
     /// </summary>
     public abstract class StdServerModel : CSModel {
 
+        //protected 
+
         /// <summary>
         /// 等待客戶端_線程
         /// </summary>
