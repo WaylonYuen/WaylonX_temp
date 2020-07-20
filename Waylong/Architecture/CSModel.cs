@@ -11,18 +11,10 @@ namespace Waylong.Architecture {
     /// </summary>
     public abstract class CSModel {
 
-        #region Property
-
-        #endregion
-
         #region Object
 
         //網路管理類
         protected NetworkManagement NetworkManagement = new NetworkManagement();
-
-        #endregion
-
-        #region Local Values
 
         #endregion
 

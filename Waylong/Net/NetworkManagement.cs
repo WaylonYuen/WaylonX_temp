@@ -26,6 +26,21 @@ namespace Waylong.Net {
         #region Methods
 
         /// <summary>
+        /// 添加連線
+        /// </summary>
+        /// <returns>連線添加是否成功</returns>
+        public bool Add(ConnectionChannel channel, Connection connection) {
+
+            //檢查該連線是否存在
+            if (!ConnectionList.ContainsKey(channel)) {
+                ConnectionList.Add(channel, connection);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
         /// 啟動連線模式
         /// </summary>
         /// <param name="connection">連線Info</param>
@@ -71,10 +86,6 @@ namespace Waylong.Net {
             }
 
             return false;
-        }
-
-        public override string ToString() {
-            return base.ToString();
         }
 
         #endregion

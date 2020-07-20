@@ -15,14 +15,15 @@ namespace Waylong.Users {
         public Socket Socket { get => m_socket; }
 
         /// <summary>
-        /// 取得用戶網路狀態
-        /// </summary>
-        public NetStates NetStates { get => m_netStates; }
-
-        /// <summary>
         /// 取得用戶身份驗證碼
         /// </summary>
         public int VerificationCode { get => m_verificationCode; }
+
+        /// <summary>
+        /// 取得用戶網路狀態
+        /// </summary>
+        public NetStates NetStates { get => m_netStates; }
+   
         #endregion
 
         #region Local Values
