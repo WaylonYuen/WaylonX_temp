@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using System.Threading;
 using Waylong.Net;
+using Waylong.Packets;
 using Waylong.Users;
 
 namespace Waylong.Architecture.Server {
@@ -16,7 +17,7 @@ namespace Waylong.Architecture.Server {
         protected override void AwaitClientThread() {
 
             //取得socket
-            Socket socket = NetworkManagement.ConnectionList[ConnectionChannel.MainConnection].Socket;
+            Socket socket = NetworkManagement.ConnectionDict[ConnectionChannel.MainConnection].Socket;
 
             //持續等待 -> 直到canClose Flag is true
             while (!isServerClose) {
@@ -25,9 +26,7 @@ namespace Waylong.Architecture.Server {
 
                     //參數：為新的客户端连接创建一个Socket对象，接收並返回一個新的Socket
                     //同步等待, 程序会阻塞在这里
-                    User user = new User(socket.Accept());   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
-
-                    //Add user to list
+                    IUser user = new User(socket.Accept());   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
 
                     //子線程
                     try {
@@ -40,6 +39,12 @@ namespace Waylong.Architecture.Server {
                     } catch (Exception ex) {
                         Console.WriteLine(ex.Message);
                     }
+
+                    //同步驗證碼
+                    user.Send(new StdPacket(Emergency.None, Encryption.None, Category.General, Callback.None, user.VerificationCode));
+
+                    //添加用戶
+
 
                 } catch (Exception ex) {
                     Console.WriteLine(ex.Message);
