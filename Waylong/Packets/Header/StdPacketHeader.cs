@@ -135,7 +135,7 @@ namespace Waylong.Packets.Header {
         /// 封裝
         /// </summary>
         /// <returns></returns>
-        byte[] IPacketMethods.ToPackup() {
+        public byte[] ToPackup() {
 
             //指定封包尺寸
             var bys_packetHeader = new byte[SIZE];
@@ -155,7 +155,7 @@ namespace Waylong.Packets.Header {
         /// 解析
         /// </summary>
         /// <param name="bys_packetHeader">不包含其他資料的bys</param>
-        void IPacketMethods.Unpack(byte[] bys_packetHeader) {
+        public void Unpack(byte[] bys_packetHeader) {
             //封包最小長度不能夠小於Header.length -> 否則不是完整的封包
             if (bys_packetHeader.Length < SIZE) {
                 return;
@@ -195,7 +195,7 @@ namespace Waylong.Packets.Header {
         /// </summary>
         public static void Testing() {
 
-            var user = new User();
+            IUser user = new User();
             var stdHeader = new StdPacketHeader(user.VerificationCode, Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync);
             Console.WriteLine(stdHeader.ToString());
 
