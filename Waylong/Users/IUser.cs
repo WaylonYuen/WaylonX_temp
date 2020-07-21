@@ -18,7 +18,7 @@ namespace Waylong.Users {
         /// <summary>
         /// 取得用戶身份驗證碼
         /// </summary>
-        public int VerificationCode { get; }
+        int VerificationCode { get; }
 
 
         /// <summary>

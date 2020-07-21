@@ -12,44 +12,44 @@ namespace Waylong.Users {
         /// <summary>
         /// 取得用戶Socket
         /// </summary>
-        public Socket Socket { get => m_socket; }
+        Socket IUser.Socket { get => m_socket; }
 
         /// <summary>
         /// 取得用戶身份驗證碼
         /// </summary>
-        public int VerificationCode { get => m_verificationCode; }
+        int IUser.VerificationCode { get => m_verificationCode; }
 
         /// <summary>
         /// 取得用戶網路狀態
         /// </summary>
-        public NetStates NetStates { get => m_netStates; }
+        public NetStates NetStates { get; }
    
         #endregion
 
         #region Local Values
-        private Socket m_socket;
-        private NetStates m_netStates;
-        private int m_verificationCode;
+        private readonly Socket m_socket;
+        private readonly int m_verificationCode;
         #endregion
 
         #region Constructor
 
         //Warning: 發佈前必須移除
         public User() { }
-        public User(int verificationCode) { m_verificationCode = verificationCode; }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="socket"></param>
         public User(Socket socket) {
-            m_socket = socket;
-            m_netStates = NetStates.None;
+            m_socket = socket;          
             m_verificationCode = this.GetHashCode();
+            NetStates = NetStates.None;
         }
         #endregion
 
         #region Methods
+
+        //public void 
 
         /// <summary>
         /// 發送網路封包
@@ -74,6 +74,8 @@ namespace Waylong.Users {
             }
 
         }
+
+        //public void SendSy
 
         ///// <summary>
         ///// 發送Blank封包
