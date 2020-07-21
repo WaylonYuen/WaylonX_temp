@@ -15,32 +15,31 @@ namespace Waylong {
     class MainClass {
         public static void Main(string[] args) {
 
-            //StdPacketHeader.Testing();
-            //StdPacketData.Testing();
-            //PackagedDemo.Testing();
-
-            //Demo.PacketTest();
-
-            Demo.ConnectionTest();
+            Demo.PacketTest2();
         }
     }
 
     //Testing: test
     public static class Demo {
 
-        public static void PacketTest() {
+        public static void PacketTest2() {
 
-            var user = new User();
+            IUser user = new User();
 
-            var packetObj = new StdPacket(user, "Test StdPacket");
-            packetObj.SetHeader(Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync);
+            
 
-            var bys_packet = packetObj.ToPackup();
+            var packet = new StdPacket(user.VerificationCode, Emergency.Level3, Encryption.RES256, Category.Emergency, Callback.PacketHeaderSync, "Hello");
 
-            var newPacketObj = StdPacket.Unpack(user, bys_packet);
+            var bys_packet = packet.ToPackup();
 
-            Console.WriteLine(newPacketObj.ToString());
-            Console.WriteLine(Encoding.UTF8.GetString(newPacketObj.Data.Data));
+            user.Send(packet);
+
+            var get_packet = new StdPacket();
+            get_packet.Unpack(bys_packet);
+
+
+            Console.WriteLine(get_packet.ToString());
+            Console.WriteLine(Encoding.UTF8.GetString(get_packet.Data.Data));
         }
 
         public static void ConnectionTest() {
