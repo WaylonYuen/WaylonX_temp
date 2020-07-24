@@ -15,6 +15,8 @@ namespace Waylong {
     class MainClass {
         public static void Main(string[] args) {
 
+            //Demo.ConnectionTest();
+
             Demo.PacketTest2();
         }
     }
@@ -24,19 +26,20 @@ namespace Waylong {
 
         public static void PacketTest2() {
 
-            IUser user = new User();
-
-            
-
-            var packet = new StdPacket(user.VerificationCode, Emergency.Level3, Encryption.RES256, Category.Emergency, Callback.PacketHeaderSync, "Hello");
+            //建立封包
+            var packet = new StdPacket(Emergency.Level3, Encryption.RES256, Category.Emergency, Callback.PacketHeaderSync, "Hello");
+            IPacketHeaderIdentity SetID = packet.Header;
+            SetID.VerificationCode = 123;
 
             var bys_packet = packet.ToPackup();
 
-            user.Send(packet);
+            //發送封包
+            IUser user = new User();
+            //user.Send(packet);
 
+            //解析封包
             var get_packet = new StdPacket();
             get_packet.Unpack(bys_packet);
-
 
             Console.WriteLine(get_packet.ToString());
             Console.WriteLine(Encoding.UTF8.GetString(get_packet.Data.Data));

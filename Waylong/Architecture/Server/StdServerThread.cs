@@ -26,7 +26,7 @@ namespace Waylong.Architecture.Server {
 
                     //參數：為新的客户端连接创建一个Socket对象，接收並返回一個新的Socket
                     //同步等待, 程序会阻塞在这里
-                    IUser user = new User(socket.Accept());   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
+                    IUser user = new User(socket.Accept(), NetworkState.Connecting);   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
 
                     //子線程
                     try {
