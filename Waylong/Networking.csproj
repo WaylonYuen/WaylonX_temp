@@ -65,6 +65,7 @@
     <Compile Include="Architecture\Server\ServerModel.cs" />
     <Compile Include="Architecture\ReceivePacket.cs" />
     <Compile Include="Users\UserManagement.cs" />
+    <Compile Include="Net\Networking.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />

@@ -5,6 +5,22 @@ using System.Net.Sockets;
 
 namespace Waylong.Net {
 
+    /// <summary>
+    /// 連線頻道
+    /// </summary>
+    public enum ConnectionChannel {
+
+        /// <summary>
+        /// 主要CS連線
+        /// </summary>
+        MainConnection,
+
+        /// <summary>
+        /// 主要資料庫連線
+        /// </summary>
+        MainDatabaseConnection,
+    }
+
     public class NetworkManagement {
 
         #region Property
