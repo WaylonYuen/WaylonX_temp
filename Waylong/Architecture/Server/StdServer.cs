@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using Waylong.Net;
 using Waylong.Users;
 using Waylong.Threading;
+using System.Diagnostics;
 
 namespace Waylong.Architecture.Server {
 
@@ -24,10 +25,6 @@ namespace Waylong.Architecture.Server {
         /// 操作環境
         /// </summary>
         public Environment Environment { get { return Environment.Terminal; } }
-
-
-        public List<User> Users => m_Users;
-
 
         #endregion
 
@@ -70,10 +67,14 @@ namespace Waylong.Architecture.Server {
 
             //創建連線Info
             var MainConn = new Connection(socket, ip, port);
-
+            
             //啟動監聽
             NetworkManagement.StartToListen(ConnectionChannel.MainConnection, MainConn, 10);
 
+            //方法2
+            //IConnection iMainConn = MainConn;
+            //iMainConn.Listen(10);
+            //NetworkManagement.Add(ConnectionChannel.MainConnection, MainConn);
         }
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace Waylong.Architecture.Server {
         /// 啟動線程
         /// </summary>
         protected override void Start_Thread() {
-            isServerClose = false;   // partial -> Thread
+            IsClose = false;   // partial -> Thread
 
             //啟動線程
             Thread.CreateThread(AwaitClientThread, true).Start();
@@ -118,7 +119,7 @@ namespace Waylong.Architecture.Server {
         /// 關閉線程
         /// </summary>
         protected override void Close_Thread() {
-            isServerClose = true;   // partial -> Thread
+            IsClose = true;   // partial -> Thread
         }
 
         /// <summary>

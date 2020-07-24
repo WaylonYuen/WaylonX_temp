@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using Waylong.Net;
 using Waylong.Packets;
 
 namespace Waylong.Users {
@@ -12,67 +13,82 @@ namespace Waylong.Users {
         /// <summary>
         /// 取得用戶Socket
         /// </summary>
-        public Socket Socket { get => m_socket; }
+        Socket IUserNetwork.Socket { get => m_Socket; }
 
         /// <summary>
         /// 取得用戶網路狀態
         /// </summary>
-        public NetStates NetStates { get => m_netStates; }
+        NetworkState IUserNetwork.NetworkState { get => m_networkState; }
 
         /// <summary>
         /// 取得用戶身份驗證碼
         /// </summary>
-        public int VerificationCode { get => m_verificationCode; }
+        int IUser.VerificationCode { get => m_VerificationCode; }
+
         #endregion
 
         #region Local Values
-        private Socket m_socket;
-        private NetStates m_netStates;
-        private int m_verificationCode;
+        private readonly Socket m_Socket;
+        private NetworkState m_networkState;
+        private readonly int m_VerificationCode;
         #endregion
 
         #region Constructor
 
-        //Warning: 發佈前必須移除
+        //Warning:發佈前必須移除
         public User() { }
-        public User(int verificationCode) { m_verificationCode = verificationCode; }
 
         /// <summary>
-        /// Constructor
+        /// 用戶
         /// </summary>
-        /// <param name="socket"></param>
-        public User(Socket socket) {
-            m_socket = socket;
-            m_netStates = NetStates.None;
-            m_verificationCode = this.GetHashCode();
+        /// <param name="socket">用戶Socket</param>
+        /// <param name="networkState">用戶網路狀態</param>
+        public User(Socket socket, NetworkState networkState) {
+            m_Socket = socket;
+            m_networkState = networkState;              //設定用戶網路狀態
+            m_VerificationCode = this.GetHashCode();    //設定用戶驗證碼
         }
         #endregion
 
         #region Methods
 
         /// <summary>
+        /// 設定用戶網路狀態
+        /// </summary>
+        /// <param name="networkState"></param>
+        public void SetNetworkState(NetworkState networkState) {
+            m_networkState = networkState;
+        }
+
+        /// <summary>
         /// 發送網路封包
         /// </summary>
         /// <param name="netPacket">網路封包</param>
-        public void Send(IPacketMethods packet) {
+        public void Send(IPacket packet) {
+
+            //封包簽名: 將用戶驗證碼設定到封包中
+            packet.VerificationCode = m_VerificationCode;
 
             //封裝封包
             byte[] bys_packet = packet.ToPackup();
 
-            if (m_socket.Connected) {
+            //檢查用戶是否處於連線狀態
+            if (m_Socket.Connected) {
                 try {
-                    m_socket.Send(bys_packet, bys_packet.Length, 0);  //發送封包
+                    m_Socket.Send(bys_packet, bys_packet.Length, 0);  //發送封包
                 } catch (Exception ex) {
 
                     //Format: cw
                     Console.WriteLine($"Error -> Packet sending failed : {ex.Message}");
                 }
             } else {
-                throw new Exception($"{m_socket.RemoteEndPoint} : is offline！");
+                throw new Exception($"{m_Socket.RemoteEndPoint} : is offline！");
                 //檢查用戶是否還存在
             }
 
         }
+
+        //public void SendSy
 
         ///// <summary>
         ///// 發送Blank封包

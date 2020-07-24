@@ -5,31 +5,6 @@ using System.Net.Sockets;
 namespace Waylong.Net {
 
     /// <summary>
-    /// 網絡模式
-    /// </summary>
-    public enum NetworkMode {
-        Unknown,    //未知
-        Connect,    //連線模式
-        Listen,     //監聽模式
-    }
-
-    /// <summary>
-    /// 連線頻道
-    /// </summary>
-    public enum ConnectionChannel {
-
-        /// <summary>
-        /// 主要CS連線
-        /// </summary>
-        MainConnection,
-
-        /// <summary>
-        /// 主要資料庫連線
-        /// </summary>
-        MainDatabaseConnection,
-    }
-
-    /// <summary>
     /// 網路連線
     /// </summary>
     public class Connection : ILinkInfo, IConnection {
@@ -152,6 +127,7 @@ namespace Waylong.Net {
             return false;
         }
 
-        
+
+
     }
 }

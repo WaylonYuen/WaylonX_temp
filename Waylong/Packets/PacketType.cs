@@ -7,7 +7,7 @@ namespace Waylong.Packets {
         StdPacketHeader,
     }
 
-    public enum PacketType {
+    public enum PacketDataType {
         None,
         StdPacketData,
     }

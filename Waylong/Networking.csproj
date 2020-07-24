@@ -33,17 +33,16 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Packets\IPacket.cs" />
-    <Compile Include="User\User.cs" />
+    <Compile Include="Users\User.cs" />
     <Compile Include="Packets\AsyncCallbacks.cs" />
     <Compile Include="Object\Object.cs" />
     <Compile Include="Packets\PacketType.cs" />
     <Compile Include="BasicTypes.cs" />
     <Compile Include="Converter\Bytes.cs" />
     <Compile Include="Packets\Packaged.cs" />
-    <Compile Include="User\IUser.cs" />
+    <Compile Include="Users\IUser.cs" />
     <Compile Include="Net\NetworkManagement.cs" />
     <Compile Include="Net\IConnection.cs" />
-    <Compile Include="Net\Networking.cs" />
     <Compile Include="Architecture\CSModel.cs" />
     <Compile Include="Architecture\ICSParameter.cs" />
     <Compile Include="Packets\Header\IPacketHeader.cs" />
@@ -65,6 +64,8 @@
     <Compile Include="Architecture\Server\IServer.cs" />
     <Compile Include="Architecture\Server\ServerModel.cs" />
     <Compile Include="Architecture\ReceivePacket.cs" />
+    <Compile Include="Users\UserManagement.cs" />
+    <Compile Include="Net\Networking.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
@@ -73,7 +74,7 @@
     <Folder Include="Architecture\Client\" />
     <Folder Include="Architecture\Server\" />
     <Folder Include="Architecture\Database\" />
-    <Folder Include="User\" />
+    <Folder Include="Users\" />
     <Folder Include="Object\" />
     <Folder Include="Converter\" />
     <Folder Include="Packets\Header\" />
