@@ -3,24 +3,25 @@ using System.Net.Sockets;
 using System.Threading;
 using Waylong.Net;
 using Waylong.Packets;
+using Waylong.Packets.Header;
 using Waylong.Users;
 
 namespace Waylong.Architecture.Server {
 
     public partial class StdServer {
 
-        protected bool isServerClose;    //Flag -> 線程可否繼續執行
-
         /// <summary>
         /// 等待客戶端_線程
         /// </summary>
         protected override void AwaitClientThread() {
 
+            Console.WriteLine("");
+            
             //取得socket
             Socket socket = NetworkManagement.ConnectionDict[ConnectionChannel.MainConnection].Socket;
 
             //持續等待 -> 直到canClose Flag is true
-            while (!isServerClose) {
+            while (!IsClose) {
 
                 try {
 
@@ -40,10 +41,11 @@ namespace Waylong.Architecture.Server {
                         Console.WriteLine(ex.Message);
                     }
 
-                    //同步驗證碼
+                    //Undone: 同步驗證碼, 未設定Callback
                     user.Send(new StdPacket(Emergency.None, Encryption.None, Category.General, Callback.None, user.VerificationCode));
 
                     //添加用戶
+                    UserManagement.UserList.Add(user);
 
 
                 } catch (Exception ex) {
@@ -53,6 +55,7 @@ namespace Waylong.Architecture.Server {
             }
 
             //stop
+            Console.WriteLine("");
 
         }
 
@@ -64,9 +67,14 @@ namespace Waylong.Architecture.Server {
         /// <param name="obj"></param>
         protected override void ReceivePacketThread(object obj) {
 
+            //拆箱: 將Obj還原成 target
             var user = obj as User;
 
-            while (!isServerClose) {
+            //指定user網絡接口進行接口約束
+            IUserNetwork userNet = user;
+
+            // if 服務器已關閉 or 用戶網絡狀態不等於Connected狀態, 則停止此線程
+            while (!IsClose || userNet.NetworkState != NetworkState.Connected) {
                 //執行等待封包
             }
 

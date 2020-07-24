@@ -16,11 +16,16 @@ namespace Waylong.Packets.PacketData {
         where U : IPacketMethods {
 
         #region Property
-        public T Header { get => m_header; }
-        public U Data { get => m_data; }
 
-        public PacketHeaderType HeaderType { get => m_packetHeaderType; }
-        public PacketType PacketType { get => m_packetType; }
+        /// <summary>
+        /// 封包描述: Header中包含所有對此封包的描述資料
+        /// </summary>
+        public T Header { get => m_header; }
+
+        /// <summary>
+        /// 封包內容: 封包主體內容
+        /// </summary>
+        public U Body { get => m_data; }
 
         #endregion
 
@@ -41,11 +46,9 @@ namespace Waylong.Packets.PacketData {
         #endregion
 
         #region Local values
+
         protected T m_header;
         protected U m_data;
-
-        private PacketHeaderType m_packetHeaderType;
-        private PacketType m_packetType;
 
         #endregion
 
