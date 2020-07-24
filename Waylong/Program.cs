@@ -2,7 +2,7 @@
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Waylong.Architecture;
+using Waylong.Architecture.Server;
 using Waylong.Net;
 using Waylong.Net.Protocol;
 using Waylong.Packets;
@@ -15,51 +15,43 @@ namespace Waylong {
     class MainClass {
         public static void Main(string[] args) {
 
-            //StdPacketHeader.Testing();
-            //StdPacketData.Testing();
-            //PackagedDemo.Testing();
+            //Demo.ConnectionTest();
 
-            Demo.PacketTest();
+            Demo.PacketTest2();
         }
     }
 
     //Testing: test
     public static class Demo {
 
-        public static void PacketTest() {
+        public static void PacketTest2() {
 
-            var user = new User();
+            //建立封包
+            var packet = new StdPacket(Emergency.Level3, Encryption.RES256, Category.Emergency, Callback.PacketHeaderSync, "Hello");
+            IPacketHeaderIdentity SetID = packet.Header;
+            SetID.VerificationCode = 123;
 
-            var packetObj = new StdPacket(user, "Test StdPacket");
-            packetObj.SetHeader(Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync);
+            var bys_packet = packet.ToPackup();
 
-            var bys_packet = packetObj.ToPackup();
+            //發送封包
+            IUser user = new User();
+            //user.Send(packet);
 
-            var newPacketObj = StdPacket.Unpack(user, bys_packet);
+            //解析封包
+            var get_packet = new StdPacket();
+            get_packet.Unpack(bys_packet);
 
-            Console.WriteLine(newPacketObj.ToString());
-            Console.WriteLine(Encoding.UTF8.GetString(newPacketObj.Data.Data));
+            Console.WriteLine(get_packet.ToString());
+            Console.WriteLine(Encoding.UTF8.GetString(get_packet.Data.Data));
         }
 
-        //Test
-        public static void TcpConnectionTest() {
+        public static void ConnectionTest() {
+            var Server = new StdServer();
 
-            var Conn = new TcpConnection(NetworkMode.Listen, "127.0.0.1", 8808);
-            var Management = new NetworkManagement();
+            Server.Start("127.0.0.1", 8808);
 
-            bool isConn = Management.Connect(Conn);
-
+            Console.WriteLine("End");
         }
-
-        public static void UdpConnectionTest() {
-
-            var Conn = new UdpConnection(NetworkMode.Listen, "127.0.0.1", 8809);
-            var Management = new NetworkManagement();
-
-            bool isConn = Management.Connect(Conn);
-           
-        }
-
     }
 
 }
