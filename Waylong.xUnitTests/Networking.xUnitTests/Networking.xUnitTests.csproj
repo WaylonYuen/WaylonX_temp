@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Packets\" />
+    <Folder Include="Users\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Waylong\Networking.csproj" />
