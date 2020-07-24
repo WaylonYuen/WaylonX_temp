@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Threading;
 using Waylong.Attributes;
@@ -24,7 +25,13 @@ namespace Waylong.Architecture {
         /// <summary>
         /// 運行狀態判斷
         /// </summary>
-        protected bool IsClose { get; set; }    //Flag
+        protected bool IsClose { get => m_iSClose; set => m_iSClose = value; }    //Flag
+
+        #endregion
+
+        #region Local Values
+
+        private static bool m_iSClose;
 
         #endregion
 
@@ -51,7 +58,7 @@ namespace Waylong.Architecture {
         /// <param name="socket"></param>
         /// <param name="dataLength"></param>
         /// <returns></returns>
-        protected static byte[] Receive(Socket socket, int dataLength) {
+        public static byte[] Receive(Socket socket, int dataLength) {
 
             var data_Bytes = new byte[dataLength];
 
@@ -78,11 +85,10 @@ namespace Waylong.Architecture {
                 } else {
                     Thread.Sleep(50);   //本地緩存為空
 
-                    //UNDONE: ServerClose Flag
-                    //if (MyETC.IsExited) {
-                    //    data_Bytes = null;
-                    //    break;
-                    //}
+                    if (m_iSClose) {
+                        data_Bytes = null;
+                        break;
+                    }
                 }
             }
 

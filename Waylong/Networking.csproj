@@ -28,6 +28,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="PacketType">
+      <HintPath>..\..\..\..\PacketType\PacketType\bin\Debug\netcoreapp3.1\PacketType.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
