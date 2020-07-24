@@ -1,4 +1,6 @@
 ﻿using System;
+using Waylong.Users;
+
 namespace Waylong.Architecture.Server {
 
     /// <summary>
@@ -6,7 +8,10 @@ namespace Waylong.Architecture.Server {
     /// </summary>
     public abstract class StdServerModel : CSModel {
 
-        //protected 
+        /// <summary>
+        /// 用戶管理
+        /// </summary>
+        protected UserManagement UserManagement = new UserManagement();
 
         /// <summary>
         /// 等待客戶端_線程
@@ -20,7 +25,7 @@ namespace Waylong.Architecture.Server {
         protected abstract void ReceivePacketThread(object obj);
 
         /// <summary>
-        /// 
+        /// 在線判斷_線程
         /// </summary>
         /// <param name="socket"></param>
         protected abstract void AliveThread(object socket);

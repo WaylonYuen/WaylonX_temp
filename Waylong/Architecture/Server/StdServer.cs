@@ -26,10 +26,6 @@ namespace Waylong.Architecture.Server {
         /// </summary>
         public Environment Environment { get { return Environment.Terminal; } }
 
-
-        public List<User> Users => m_Users;
-
-
         #endregion
 
         #region Local values

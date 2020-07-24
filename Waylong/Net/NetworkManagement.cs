@@ -5,10 +5,26 @@ using System.Net.Sockets;
 
 namespace Waylong.Net {
 
+    /// <summary>
+    /// 連線頻道
+    /// </summary>
+    public enum ConnectionChannel {
+
+        /// <summary>
+        /// 主要CS連線
+        /// </summary>
+        MainConnection,
+
+        /// <summary>
+        /// 主要資料庫連線
+        /// </summary>
+        MainDatabaseConnection,
+    }
+
     public class NetworkManagement {
 
         #region Property
-        public Dictionary<ConnectionChannel, ILinkInfo> ConnectionList { get; }    //網路連線資料表
+        public Dictionary<ConnectionChannel, ILinkInfo> ConnectionDict { get; }    //網路連線資料表
         #endregion
 
         #region Local Values
@@ -17,8 +33,11 @@ namespace Waylong.Net {
 
         #region Constructor
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public NetworkManagement() {
-            ConnectionList = new Dictionary<ConnectionChannel, ILinkInfo>();
+            ConnectionDict = new Dictionary<ConnectionChannel, ILinkInfo>();
         }
 
         #endregion
@@ -32,8 +51,8 @@ namespace Waylong.Net {
         public bool Add(ConnectionChannel channel, Connection connection) {
 
             //檢查該連線是否存在
-            if (!ConnectionList.ContainsKey(channel)) {
-                ConnectionList.Add(channel, connection);
+            if (!ConnectionDict.ContainsKey(channel)) {
+                ConnectionDict.Add(channel, connection);
                 return true;
             }
 
@@ -49,14 +68,14 @@ namespace Waylong.Net {
         public bool StartToConnect(ConnectionChannel channel, Connection connection) {
 
             //檢查該連線是否存在
-            if (!ConnectionList.ContainsKey(channel)) {
+            if (!ConnectionDict.ContainsKey(channel)) {
 
                 //接口過濾
                 IConnection IConnection = connection;
 
                 //啟動連線並判斷連線是否成功
                 if (IConnection.Connect()) {    //由於Connect()方法被限定在IConnection接口中,因此必須接口過濾
-                    ConnectionList.Add(channel, connection);    //保存該連線資料
+                    ConnectionDict.Add(channel, connection);    //保存該連線資料
                     return true;
                 }
             }
@@ -73,14 +92,14 @@ namespace Waylong.Net {
         public bool StartToListen(ConnectionChannel channel, Connection connection, int backlog) {
 
             //檢查該連線是否存在
-            if (!ConnectionList.ContainsKey(channel)) {
+            if (!ConnectionDict.ContainsKey(channel)) {
 
                 //接口過濾
                 IConnection IConnection = connection;
 
                 //啟動監聽並判斷監聽是否成功
                 if (IConnection.Listen(backlog)) {  //由於Connect()方法被限定在IConnection接口中,因此必須接口過濾
-                    ConnectionList.Add(channel, connection);    //保存該監聽資料
+                    ConnectionDict.Add(channel, connection);    //保存該監聽資料
                     return true;
                 }
             }

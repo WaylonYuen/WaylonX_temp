@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using Waylong.Net;
 using Waylong.Packets;
 
 namespace Waylong.Users {
 
     /// <summary>
-    /// 客戶端用戶接口: 用戶狀態接口, 封包身份驗證接口
+    /// 用戶接口: 封包身份驗證接口
     /// </summary>
-    public interface IUser : IUserNetStates {
-
-        /// <summary>
-        /// 用戶Socket
-        /// </summary>
-        Socket Socket { get; }
+    public interface IUser : IUserNetwork {
 
         /// <summary>
         /// 取得用戶身份驗證碼
         /// </summary>
-        public int VerificationCode { get; }
-
+        int VerificationCode { get; }
 
         /// <summary>
         /// 發送封包方法
@@ -28,21 +23,21 @@ namespace Waylong.Users {
         void Send(IPacketMethods packet);
     }
 
-    public interface IUserNetStates {
+    /// <summary>
+    /// 用戶網路接口: 用戶狀態接口
+    /// </summary>
+    public interface IUserNetwork {
 
         /// <summary>
-        /// 用戶網路狀態
+        /// 網路Socket
         /// </summary>
-        NetStates NetStates { get; }
+        Socket Socket { get; }
 
-    }
+        /// <summary>
+        /// 網路狀態
+        /// </summary>
+        NetworkState NetworkState { get; }
 
-    public enum NetStates {
-        None,
-        Connected,
-        Connecting,
-        Disconnect,
-        Overtime,
     }
 
 }

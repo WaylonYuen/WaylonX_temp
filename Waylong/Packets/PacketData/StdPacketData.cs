@@ -24,7 +24,7 @@ namespace Waylong.Packets.PacketData {
         /// <summary>
         /// 此結構大小
         /// </summary>
-        int IPacketMethods.StructSIZE => SIZE;
+        public int StructSIZE => SIZE;
 
         
 
