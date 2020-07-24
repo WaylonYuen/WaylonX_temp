@@ -27,15 +27,6 @@ namespace Waylong.Packets.PacketData {
         #region Constructor
 
         /// <summary>
-        /// 需後補Header資料
-        /// </summary>
-        /// <param name="user"></param>
-        /// <param name="packetData"></param>
-        protected Packaged(U packetData) {
-            m_data = packetData;
-        }
-
-        /// <summary>
         /// 創建標準封包組合器
         /// </summary>
         /// <param name="user"></param>

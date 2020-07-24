@@ -6,7 +6,7 @@ namespace Waylong.Packets.Header {
     /// 數據包身份識別
     /// </summary>
     public interface IPacketHeaderIdentity {
-        int VerificationCode { get; }                //驗證碼
+        int VerificationCode { get; set; }            //驗證碼
     }
 
     /// <summary>
