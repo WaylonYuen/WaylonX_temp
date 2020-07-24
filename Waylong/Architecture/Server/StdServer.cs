@@ -105,7 +105,7 @@ namespace Waylong.Architecture.Server {
         /// 啟動線程
         /// </summary>
         protected override void Start_Thread() {
-            isServerClose = false;   // partial -> Thread
+            IsClose = false;   // partial -> Thread
 
             //啟動線程
             Thread.CreateThread(AwaitClientThread, true).Start();
@@ -119,7 +119,7 @@ namespace Waylong.Architecture.Server {
         /// 關閉線程
         /// </summary>
         protected override void Close_Thread() {
-            isServerClose = true;   // partial -> Thread
+            IsClose = true;   // partial -> Thread
         }
 
         /// <summary>

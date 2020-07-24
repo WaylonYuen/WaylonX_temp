@@ -7,14 +7,30 @@ using Waylong.Packets.PacketData;
 namespace Waylong.Packets {
 
     /// <summary>
+    /// 封包接口
+    /// </summary>
+    public interface IPacket : IPacketHeaderIdentity, IPacketMethods {
+
+    }
+
+    /// <summary>
     /// 標準封包 : 資料內容僅提供基礎型態
     /// </summary>
-    public class StdPacket : Packaged<StdPacketHeader, StdPacketData>, IPacketMethods {
+    public class StdPacket : Packaged<StdPacketHeader, StdPacketData>, IPacket {
+
+        #region Property
 
         /// <summary>
         /// Std封包結構SIZE: 結構大小最小不會小於此SIZE
         /// </summary>
         public int StructSIZE => m_header.StructSIZE + m_data.StructSIZE;
+
+        /// <summary>
+        /// 封包驗證碼
+        /// </summary>
+        public int VerificationCode { get => m_header.VerificationCode; set => m_header.VerificationCode = value; }
+
+        #endregion
 
         #region Constructor
 
@@ -167,24 +183,14 @@ namespace Waylong.Packets {
         #endregion
 
         /// <summary>
-        /// 設定驗證碼
-        /// </summary>
-        /// <param name="verificationCode"></param>
-        public void SetVerificationCode(int verificationCode) {
-            m_header.VerificationCode = verificationCode;
-        }
-
-        /// <summary>
         /// 設定 Packet Header
         /// </summary>
         /// <param name="emergency">緊急程度</param>
         /// <param name="encryption">加密方式</param>
         /// <param name="category">類別</param>
         /// <param name="callback">封包回調</param>
-        public void ResetHeader(int verificationCode, Emergency emergency, Encryption encryption, Category category, Callback callback) {
-            m_header = new StdPacketHeader(emergency, encryption, category, callback) {
-                VerificationCode = verificationCode   //設定用戶驗證
-            };
+        public void ResetHeaderRef(Emergency emergency, Encryption encryption, Category category, Callback callback) {
+            m_header = new StdPacketHeader(emergency, encryption, category, callback);
         }
 
         /// <summary>
@@ -201,7 +207,7 @@ namespace Waylong.Packets {
         }
 
         /// <summary>
-        /// 解析: 直接取值
+        /// 解析
         /// </summary>
         /// <param name="bys_packet"></param>
         public override void Unpack(byte[] bys_packet) {

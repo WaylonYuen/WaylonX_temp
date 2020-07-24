@@ -20,7 +20,7 @@ namespace Waylong.Users {
         /// 發送封包方法
         /// </summary>
         /// <param name="netPacket">網路封包</param>
-        void Send(IPacketMethods packet);
+        void Send(IPacket packet);
     }
 
     /// <summary>

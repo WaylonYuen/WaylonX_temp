@@ -17,7 +17,7 @@ namespace Waylong {
 
             //Demo.ConnectionTest();
 
-            Demo.PacketTest2();
+            //Demo.PacketTest2();
         }
     }
 
@@ -42,7 +42,7 @@ namespace Waylong {
             get_packet.Unpack(bys_packet);
 
             Console.WriteLine(get_packet.ToString());
-            Console.WriteLine(Encoding.UTF8.GetString(get_packet.Data.Data));
+            Console.WriteLine(Encoding.UTF8.GetString(get_packet.Body.Data));
         }
 
         public static void ConnectionTest() {

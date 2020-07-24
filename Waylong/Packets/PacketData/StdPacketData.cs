@@ -12,14 +12,14 @@ namespace Waylong.Packets.PacketData {
         #region Property
 
         /// <summary>
-        /// 主要資料 : 指的是Packet所要傳達的真正內容資訊
+        /// 主要資料 : Packet所要傳達的真正內容資訊
         /// </summary>
         public byte[] Data { get => mBys_data; }    //Bytes內容
 
         /// <summary>
-        /// 封包型態 : 指的是此packet的架構屬於何種型態
+        /// 封包型態 : 此packet的架構屬於何種型態
         /// </summary>
-        public PacketType PacketType { get => m_packetType; }
+        public PacketDataType DataType { get => m_DataType; }
 
         /// <summary>
         /// 此結構大小
@@ -49,9 +49,9 @@ namespace Waylong.Packets.PacketData {
         /// <summary>
         /// 封包Head長度 : 指的是此Packet對架構的描述所佔的長度, 此處的Head只屬於StdPacketData架構而非Header架構.
         /// </summary>
-        public const int SIZE = IndexOf.Data;
+        private const int SIZE = IndexOf.Data;
 
-        private const PacketType m_packetType = PacketType.StdPacketData;
+        private const PacketDataType m_DataType = PacketDataType.StdPacketData;
 
         //Variables
         private byte[] mBys_data;
@@ -82,7 +82,7 @@ namespace Waylong.Packets.PacketData {
             var bys_packetData = new byte[SIZE + mBys_data.Length];
 
             //封裝資料
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_packetType)).CopyTo(bys_packetData, IndexOf.packetType);
+            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_DataType)).CopyTo(bys_packetData, IndexOf.packetType);
             BitConverter.GetBytes(IPAddress.HostToNetworkOrder(mBys_data.Length)).CopyTo(bys_packetData, IndexOf.DataLength);
             mBys_data.CopyTo(bys_packetData, IndexOf.Data);
 

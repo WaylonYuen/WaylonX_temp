@@ -35,13 +35,14 @@ namespace Waylong.Users {
 
         #region Constructor
 
-        //Warning: 發佈前必須移除
+        //Warning:發佈前必須移除
         public User() { }
 
         /// <summary>
-        /// Constructor
+        /// 用戶
         /// </summary>
-        /// <param name="socket"></param>
+        /// <param name="socket">用戶Socket</param>
+        /// <param name="networkState">用戶網路狀態</param>
         public User(Socket socket, NetworkState networkState) {
             m_Socket = socket;
             m_networkState = networkState;              //設定用戶網路狀態
@@ -63,11 +64,15 @@ namespace Waylong.Users {
         /// 發送網路封包
         /// </summary>
         /// <param name="netPacket">網路封包</param>
-        public void Send(IPacketMethods packet) {
+        public void Send(IPacket packet) {
+
+            //封包簽名: 將用戶驗證碼設定到封包中
+            packet.VerificationCode = m_VerificationCode;
 
             //封裝封包
             byte[] bys_packet = packet.ToPackup();
 
+            //檢查用戶是否處於連線狀態
             if (m_Socket.Connected) {
                 try {
                     m_Socket.Send(bys_packet, bys_packet.Length, 0);  //發送封包
