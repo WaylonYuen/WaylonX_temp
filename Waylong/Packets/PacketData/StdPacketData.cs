@@ -49,7 +49,7 @@ namespace Waylong.Packets.PacketData {
         /// <summary>
         /// 封包Head長度 : 指的是此Packet對架構的描述所佔的長度, 此處的Head只屬於StdPacketData架構而非Header架構.
         /// </summary>
-        private const int SIZE = IndexOf.Data;
+        public const int SIZE = IndexOf.Data;
 
         private const PacketDataType m_DataType = PacketDataType.StdPacketData;
 
