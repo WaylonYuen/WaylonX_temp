@@ -95,7 +95,7 @@ namespace Waylong.Packets.Header {
         /// <summary>
         /// Header長度
         /// </summary>
-        private const int SIZE = IndexOf.Data;
+        public const int SIZE = IndexOf.Data;
 
         private const PacketHeaderType m_headerType = PacketHeaderType.StdPacketHeader;
 

@@ -3,7 +3,6 @@ using System.Net.Sockets;
 using System.Threading;
 using Waylong.Net;
 using Waylong.Packets;
-using Waylong.Packets.Header;
 using Waylong.Users;
 
 namespace Waylong.Architecture.Server {
