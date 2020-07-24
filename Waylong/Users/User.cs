@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using Waylong.Net;
 using Waylong.Packets;
 
 namespace Waylong.Users {
@@ -12,23 +13,24 @@ namespace Waylong.Users {
         /// <summary>
         /// 取得用戶Socket
         /// </summary>
-        Socket IUser.Socket { get => m_socket; }
-
-        /// <summary>
-        /// 取得用戶身份驗證碼
-        /// </summary>
-        int IUser.VerificationCode { get => m_verificationCode; }
+        Socket IUserNetwork.Socket { get => m_Socket; }
 
         /// <summary>
         /// 取得用戶網路狀態
         /// </summary>
-        public NetStates NetStates { get; }
-   
+        NetworkState IUserNetwork.NetworkState { get => m_networkState; }
+
+        /// <summary>
+        /// 取得用戶身份驗證碼
+        /// </summary>
+        int IUser.VerificationCode { get => m_VerificationCode; }
+
         #endregion
 
         #region Local Values
-        private readonly Socket m_socket;
-        private readonly int m_verificationCode;
+        private readonly Socket m_Socket;
+        private NetworkState m_networkState;
+        private readonly int m_VerificationCode;
         #endregion
 
         #region Constructor
@@ -40,16 +42,22 @@ namespace Waylong.Users {
         /// Constructor
         /// </summary>
         /// <param name="socket"></param>
-        public User(Socket socket) {
-            m_socket = socket;          
-            m_verificationCode = this.GetHashCode();
-            NetStates = NetStates.None;
+        public User(Socket socket, NetworkState networkState) {
+            m_Socket = socket;
+            m_networkState = networkState;              //設定用戶網路狀態
+            m_VerificationCode = this.GetHashCode();    //設定用戶驗證碼
         }
         #endregion
 
         #region Methods
 
-        //public void 
+        /// <summary>
+        /// 設定用戶網路狀態
+        /// </summary>
+        /// <param name="networkState"></param>
+        public void SetNetworkState(NetworkState networkState) {
+            m_networkState = networkState;
+        }
 
         /// <summary>
         /// 發送網路封包
@@ -60,16 +68,16 @@ namespace Waylong.Users {
             //封裝封包
             byte[] bys_packet = packet.ToPackup();
 
-            if (m_socket.Connected) {
+            if (m_Socket.Connected) {
                 try {
-                    m_socket.Send(bys_packet, bys_packet.Length, 0);  //發送封包
+                    m_Socket.Send(bys_packet, bys_packet.Length, 0);  //發送封包
                 } catch (Exception ex) {
 
                     //Format: cw
                     Console.WriteLine($"Error -> Packet sending failed : {ex.Message}");
                 }
             } else {
-                throw new Exception($"{m_socket.RemoteEndPoint} : is offline！");
+                throw new Exception($"{m_Socket.RemoteEndPoint} : is offline！");
                 //檢查用戶是否還存在
             }
 
