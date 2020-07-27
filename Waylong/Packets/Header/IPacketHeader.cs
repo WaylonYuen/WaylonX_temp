@@ -25,11 +25,4 @@ namespace Waylong.Packets.Header {
         Callback CallbackType { get; }               //回調
     }
 
-    /// <summary>
-    /// 封包Header基礎描述接口
-    /// </summary>
-    public interface IPacketHeader {
-        int BysLength { get; }
-    }
-
 }

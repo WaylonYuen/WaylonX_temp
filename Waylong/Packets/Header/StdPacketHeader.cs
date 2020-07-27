@@ -15,14 +15,14 @@ namespace Waylong.Packets.Header {
     /// <summary>
     /// 標準封包Header
     /// </summary>
-    public class StdPacketHeader : PacketHeaderBase, IStdPacketHeader, IPacketMethods {
+    public class StdPacketHeader : PacketHeaderBase, IStdPacketHeader {
 
         #region Property
 
         /// <summary>
-        /// Header型態
+        /// StdPacketHeader架構長度: 資料的索引起始位置即為該架構長度
         /// </summary>
-        public PacketHeaderType HeaderType { get => m_headerType; }
+        public override int StructSIZE { get => IndexOf.Data; }
 
         /// <summary>
         /// 驗證碼
@@ -48,11 +48,6 @@ namespace Waylong.Packets.Header {
         /// 封包回調
         /// </summary>
         Callback IPacketHeaderThreads.CallbackType { get => m_callback; }
-
-        /// <summary>
-        /// 此結構大小
-        /// </summary>
-        public int StructSIZE => SIZE;
 
         #endregion
 
@@ -90,16 +85,6 @@ namespace Waylong.Packets.Header {
 
         #region Local values
 
-        //Constants
-
-        /// <summary>
-        /// Header長度
-        /// </summary>
-        public const int SIZE = IndexOf.Data;
-
-        private const PacketHeaderType m_headerType = PacketHeaderType.StdPacketHeader;
-
-        //Variables
         private Emergency m_emergency;
         private Encryption m_encryption;
         private Category m_category;
@@ -111,8 +96,7 @@ namespace Waylong.Packets.Header {
         //架構索引
         public static class IndexOf {
 
-            public const int HeaderType = 0;
-            public const int VerificationCode = HeaderType + SizeOf.HeaderType;
+            public const int VerificationCode = 0;
             public const int EmergencyType = VerificationCode + SizeOf.VerificationCode;
             public const int EncryptionType = EmergencyType + SizeOf.EmergencyType;
             public const int CategoryType = EncryptionType + SizeOf.EncryptionType;
@@ -130,13 +114,12 @@ namespace Waylong.Packets.Header {
         /// 封裝
         /// </summary>
         /// <returns></returns>
-        public byte[] ToPackup() {
+        public override byte[] ToPackup() {
 
             //指定封包尺寸
-            var bys_packetHeader = new byte[SIZE];
+            var bys_packetHeader = new byte[StructSIZE];
 
             //封裝Header : 將local values 封裝成 Bytes
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_headerType)).CopyTo(bys_packetHeader, IndexOf.HeaderType);
             BitConverter.GetBytes(IPAddress.HostToNetworkOrder(VerificationCode)).CopyTo(bys_packetHeader, IndexOf.VerificationCode);
             BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_emergency)).CopyTo(bys_packetHeader, IndexOf.EmergencyType);
             BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_encryption)).CopyTo(bys_packetHeader, IndexOf.EncryptionType);
@@ -150,16 +133,15 @@ namespace Waylong.Packets.Header {
         /// 解析
         /// </summary>
         /// <param name="bys_packetHeader">不包含其他資料的bys</param>
-        public void Unpack(byte[] bys_packetHeader) {
+        public override void Unpack(byte[] bys_packetHeader) {
             //封包最小長度不能夠小於Header.length -> 否則不是完整的封包
-            if (bys_packetHeader.Length < SIZE) {
+            if (bys_packetHeader.Length < StructSIZE) {
                 return;
             }
 
             //Hack: 如果解析時short數值不在enum範圍內,則有可能無法獲得指定type.
 
             //Unpack
-            //m_headerType = (PacketHeaderType)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.HeaderType, SizeOf.HeaderType), 0));
             VerificationCode = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(Bytes.Extract(bys_packetHeader, IndexOf.VerificationCode, SizeOf.VerificationCode), 0));
             m_emergency = (Emergency)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.EmergencyType, SizeOf.EmergencyType), 0));
             m_encryption = (Encryption)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.EncryptionType, SizeOf.EncryptionType), 0));
@@ -176,10 +158,9 @@ namespace Waylong.Packets.Header {
             return
                  "\n" + base.ToString() + ":\n"
                  + "----------------------------------------------\n"
-                 + "HeaderType\t" + m_headerType + "\n"
                  + "Verification\t" + VerificationCode + "\n"
                  + "Emergency\t" + m_emergency + "\n"
-                 + "Encryption\t" + m_encryption + "\n"                    
+                 + "Encryption\t" + m_encryption + "\n"
                  + "category\t" + m_category + "\n"
                  + "callback\t" + m_callback + "\n"
                  + "End-------------------------------------------\n\n";
@@ -190,18 +171,18 @@ namespace Waylong.Packets.Header {
         /// </summary>
         public static void Testing() {
 
-            IUser user = new User();
-            var stdHeader = new StdPacketHeader(Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync);
-            Console.WriteLine(stdHeader.ToString());
+            //IUser user = new User();
+            //var stdHeader = new StdPacketHeader(Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync);
+            //Console.WriteLine(stdHeader.ToString());
 
-            IPacketMethods header = stdHeader;
-            var bys_header = header.ToPackup();
+            //IPacketMethods header = stdHeader;
+            //var bys_header = header.ToPackup();
 
-            var newStdHeader = new StdPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None);
-            header = newStdHeader;
-            header.Unpack(bys_header);
+            //var newStdHeader = new StdPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None);
+            //header = newStdHeader;
+            //header.Unpack(bys_header);
 
-            Console.WriteLine(newStdHeader);
+            //Console.WriteLine(newStdHeader);
         }
 
         #endregion
