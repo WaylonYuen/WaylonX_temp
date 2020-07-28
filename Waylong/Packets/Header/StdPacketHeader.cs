@@ -6,14 +6,16 @@ using Waylong.Users;
 namespace Waylong.Packets.Header {
 
     /// <summary>
-    /// 標準封包頭資訊接口
+    /// 標準封包描述資訊接口
     /// </summary>
     public interface IStdPacketHeader : IPacketHeaderIdentity, IPacketHeaderSecurity, IPacketHeaderThreads {
         //確保屬性必然存在
     }
 
     /// <summary>
-    /// 標準封包Header
+    /// 標準封包描述 -> full Spelling: standard Packet Header;
+    /// PacketHeaderBase: 封包描述基類(抽象類) -> 所有PacketHeader必須派生自此抽象類別(該類別包含了PacketHeader必須包含的實作屬性及方法);
+    /// IStdPacketHeader: 封包描述接口 -> 用戶自定義PacketHeader所必須包含的屬性及方法;
     /// </summary>
     public class StdPacketHeader : PacketHeaderBase, IStdPacketHeader {
 
@@ -24,6 +26,17 @@ namespace Waylong.Packets.Header {
         /// </summary>
         public override int StructSIZE { get => IndexOf.Data; }
 
+        /// <summary>
+        /// PacketHeader型態
+        /// </summary>
+        public override PacketHeaderType PacketHeaderType { get => PacketHeaderType.StdPacketHeader; }
+
+        /// <summary>
+        /// 用戶網路資料: 只有但checking通過時, 才會對此賦值
+        /// </summary>
+        public override User User { get; protected set; }
+
+        #region Must be pack ( Important: Do Not Easily Change! )
         /// <summary>
         /// 驗證碼
         /// </summary>
@@ -48,11 +61,13 @@ namespace Waylong.Packets.Header {
         /// 封包回調
         /// </summary>
         Callback IPacketHeaderThreads.CallbackType { get => m_callback; }
+        #endregion
 
         #endregion
 
         #region Constructor
 
+        [Obsolete("This constructor will be optimization in the future", false)]
         /// <summary>
         /// 快捷構造器
         /// </summary>
@@ -84,7 +99,6 @@ namespace Waylong.Packets.Header {
         #endregion
 
         #region Local values
-
         private Emergency m_emergency;
         private Encryption m_encryption;
         private Category m_category;
@@ -93,7 +107,9 @@ namespace Waylong.Packets.Header {
 
         #region Inner class
 
-        //架構索引
+        /// <summary>
+        /// 此類別架構索引
+        /// </summary>
         public static class IndexOf {
 
             public const int VerificationCode = 0;
@@ -151,9 +167,39 @@ namespace Waylong.Packets.Header {
         }
 
         /// <summary>
+        /// 檢查
+        /// </summary>
+        /// <param name="bys_packet"></param>
+        /// <returns></returns>
+        public override bool Checking(User user) {
+
+            //接口約束
+            IUser IUser = user;
+
+            //封包條件檢查
+            switch (m_callback) {
+
+                //放行以下封包
+                case Callback.Testing:
+                case Callback.PacketHeaderSync:
+                    User = user; //設定封包對象
+                    return true;
+            }
+
+            //檢查封包驗證碼
+            if (IUser.VerificationCode.Equals(VerificationCode)) {
+                User = user;
+                return true;
+            }
+
+            //不通過
+            return false;
+        }
+
+        /// <summary>
         /// Information
         /// </summary>
-        /// <returns></returns>
+        /// <returns> string </returns>
         public override string ToString() {
             return
                  "\n" + base.ToString() + ":\n"
@@ -166,6 +212,7 @@ namespace Waylong.Packets.Header {
                  + "End-------------------------------------------\n\n";
         }
 
+        [Obsolete("Undone", true)]
         /// <summary>
         /// 測試用
         /// </summary>

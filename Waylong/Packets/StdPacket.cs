@@ -10,7 +10,6 @@ namespace Waylong.Packets {
     /// 封包接口
     /// </summary>
     public interface IPacket : IPacketBase, IPacketHeaderIdentity {
-
     }
 
     /// <summary>
@@ -23,7 +22,7 @@ namespace Waylong.Packets {
         /// <summary>
         /// Std封包結構SIZE: 結構大小最小不會小於此SIZE
         /// </summary>
-        public int PacketStructSIZE { get => m_Header.StructSIZE + m_Body.StructSIZE; }
+        public virtual int PacketStructSIZE { get => m_Header.StructSIZE + m_Body.StructSIZE; }
 
         /// <summary>
         /// 封包型態

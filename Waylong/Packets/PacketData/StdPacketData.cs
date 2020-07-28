@@ -15,6 +15,11 @@ namespace Waylong.Packets.PacketData {
         public override int StructSIZE { get => IndexOf.Data; }
 
         /// <summary>
+        /// PacketData型態
+        /// </summary>
+        public override PacketDataType PacketDataType { get => PacketDataType.StdPacketData; }
+
+        /// <summary>
         /// 主要資料 : Packet所要傳達的真正內容資訊
         /// </summary>
         public byte[] Bys_data { get; protected set; }    //Bytes內容
