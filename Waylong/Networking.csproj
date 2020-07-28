@@ -28,8 +28,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="PacketType">
-      <HintPath>..\..\..\..\PacketType\PacketType\bin\Debug\netcoreapp3.1\PacketType.dll</HintPath>
+    <Reference Include="WaylongDll">
+      <HintPath>..\..\..\..\WaylongDll\WaylongDll\bin\Debug\netcoreapp3.1\WaylongDll.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -39,7 +39,6 @@
     <Compile Include="Users\User.cs" />
     <Compile Include="Packets\AsyncCallbacks.cs" />
     <Compile Include="Object\Object.cs" />
-    <Compile Include="Packets\PacketType.cs" />
     <Compile Include="BasicTypes.cs" />
     <Compile Include="Converter\Bytes.cs" />
     <Compile Include="Packets\Packaged.cs" />
@@ -54,13 +53,11 @@
     <Compile Include="Packets\PacketData\StdPacketData.cs" />
     <Compile Include="Packets\PacketData\PacketDataBase.cs" />
     <Compile Include="Packets\StdPacket.cs" />
-    <Compile Include="Packets\PacketBase.cs" />
     <Compile Include="Waylong.cs" />
     <Compile Include="Net\Protocol\TcpConnection.cs" />
     <Compile Include="Net\Protocol\UdpConnection.cs" />
     <Compile Include="Attributes\RegisteredAttribute.cs" />
     <Compile Include="Net\Connection.cs" />
-    <Compile Include="Threading\Thread.cs" />
     <Compile Include="Architecture\Server\StdServer.cs" />
     <Compile Include="Architecture\Client\StdClient.cs" />
     <Compile Include="Architecture\Server\StdServerThread.cs" />
@@ -69,6 +66,9 @@
     <Compile Include="Architecture\ReceivePacket.cs" />
     <Compile Include="Users\UserManagement.cs" />
     <Compile Include="Net\Networking.cs" />
+    <Compile Include="Threading\Thread.cs" />
+    <Compile Include="Packets\PacketIndexer.cs" />
+    <Compile Include="Packets\Packet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />

@@ -14,7 +14,7 @@ namespace Waylong.Architecture.Server {
         /// </summary>
         protected override void AwaitClientThread() {
 
-            Console.WriteLine("");
+            Console.WriteLine("Thread Start -> Call Func : AwaitClientThread()");
             
             //取得socket
             Socket socket = NetworkManagement.ConnectionDict[ConnectionChannel.MainConnection].Socket;
@@ -25,36 +25,39 @@ namespace Waylong.Architecture.Server {
                 try {
 
                     //參數：為新的客户端连接创建一个Socket对象，接收並返回一個新的Socket
-                    //同步等待, 程序会阻塞在这里
-                    IUser user = new User(socket.Accept(), NetworkState.Connecting);   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
+                    //同步等待, 程序会阻塞在这里          
+
+                    var user = new User(socket.Accept(), NetworkState.Connecting);   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
 
                     //子線程
                     try {
                         //為user建立封包監聽子線程 & 啟動子線程
-                        Threading.Thread.CreateThread(new ParameterizedThreadStart(ReceivePacketThread), true);
+                        Threading.Thread.Create(new ParameterizedThreadStart(ReceivePacketThread), true).Start(user);
 
                         //為user建立在線監測子線程 & 啟動子線程
-                        Threading.Thread.CreateThread(new ParameterizedThreadStart(AliveThread), true);
+                        Threading.Thread.Create(new ParameterizedThreadStart(AliveThread), true).Start(user);
 
                     } catch (Exception ex) {
                         Console.WriteLine(ex.Message);
                     }
 
+                    IUser IUser = user;
+
                     //Undone: 同步驗證碼, 未設定Callback
-                    user.Send(new StdPacket(Emergency.None, Encryption.None, Category.General, Callback.None, user.VerificationCode));
+                    //user.Send(new StdPacket(Emergency.None, Encryption.None, Category.General, Callback.None, IUser.VerificationCode));
 
                     //添加用戶
                     UserManagement.UserList.Add(user);
 
 
-                } catch (Exception ex) {
-                    Console.WriteLine(ex.Message);
+                } catch (Exception e) {
+                    Console.WriteLine(e.Message);
                 }
 
             }
 
             //stop
-            Console.WriteLine("");
+            Console.WriteLine("Thread Close -> Call Func : AwaitClientThread()");
 
         }
 

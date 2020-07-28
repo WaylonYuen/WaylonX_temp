@@ -15,7 +15,9 @@ namespace Waylong.Architecture {
 
         #region Object
 
-        //網路管理類
+        /// <summary>
+        /// 網路管理類
+        /// </summary>
         protected NetworkManagement NetworkManagement = new NetworkManagement();
 
         #endregion
@@ -25,7 +27,7 @@ namespace Waylong.Architecture {
         /// <summary>
         /// 運行狀態判斷
         /// </summary>
-        protected bool IsClose { get => m_iSClose; set => m_iSClose = value; }    //Flag
+        protected static  bool IsClose { get => m_iSClose; set => m_iSClose = value; }    //Flag
 
         #endregion
 
@@ -37,20 +39,37 @@ namespace Waylong.Architecture {
 
         #region Methods
 
-        //啓動器
+        /// <summary>
+        /// 啓動器
+        /// </summary>
+        /// <param name="ip"></param>
+        /// <param name="prot"></param>
         public abstract void Start(string ip, int prot);
 
-        //關閉程序
+        /// <summary>
+        /// 關閉程序
+        /// </summary>
         public abstract void Close();
 
-        //初始化: 用於初始化 DataStruct 和 Registered
+        /// <summary>
+        /// 初始化: 用於初始化 DataStruct 和 Registered
+        /// </summary>
         protected abstract void Initialize();
 
-        //資料結構: 用於保存各種類型的資料及資料處理的方式
+        /// <summary>
+        /// 資料結構: 用於保存各種類型的資料及資料處理的方式
+        /// </summary>
         protected abstract void DataStruct();
 
-        //回調方法註冊: 註冊後的方法才能夠被外派調用並呼叫執行
+        /// <summary>
+        /// 回調方法註冊: 註冊後的方法才能夠被外派調用並呼叫執行
+        /// </summary>
         protected abstract void Registered();
+
+        /// <summary>
+        /// 佇列分配器 : 分配封包到對應的佇列隊伍中
+        /// </summary>
+        protected abstract void QueueDistributor();
 
         /// <summary>
         /// 接收資料
@@ -113,7 +132,6 @@ namespace Waylong.Architecture {
         protected abstract void Execute_CallbackThread();
 
         #endregion
-
 
         #endregion
 

@@ -122,6 +122,7 @@ namespace Waylong.Net {
             //設定NetworkMode
             if (isListening) {
                 networkMode = NetworkMode.Listen;
+                return true;
             }
 
             return false;

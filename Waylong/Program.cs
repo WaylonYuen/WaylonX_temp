@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Waylong.Architecture.Server;
+using Waylong.Converter;
 using Waylong.Net;
 using Waylong.Net.Protocol;
 using Waylong.Packets;
@@ -15,6 +17,10 @@ namespace Waylong {
     class MainClass {
         public static void Main(string[] args) {
 
+            Demo.ServerTest();
+
+            //Demo.PacketTest();
+
             //Demo.ConnectionTest();
 
             //Demo.PacketTest2();
@@ -24,34 +30,41 @@ namespace Waylong {
     //Testing: test
     public static class Demo {
 
-        public static void PacketTest2() {
+        public static void PacketTest() {
 
             //建立封包
-            var packet = new StdPacket(Emergency.Level3, Encryption.RES256, Category.Emergency, Callback.PacketHeaderSync, "Hello");
-            IPacketHeaderIdentity SetID = packet.Header;
-            SetID.VerificationCode = 123;
+            var pk = new StdPacket(Emergency.Level1, Encryption.Testing, Category.Emergency, Callback.SIZE, 123);   //使用者創建封包 & 參數為必備的封包資訊
+            var bys_pk = pk.ToPackup(); //封包轉封包（用戶發送方法裡將自行封裝)
 
-            var bys_packet = packet.ToPackup();
+            //send 發送封包
+            //.....省略發送過程
 
-            //發送封包
-            IUser user = new User();
-            //user.Send(packet);
+            //獲取完整封包長度
+            var pkLen = Bytes.Splitter(out byte[] pk1, ref bys_pk, 0, BasicTypes.SizeOf.Int);
+            Console.WriteLine($"pkLen : {IPAddress.NetworkToHostOrder(BitConverter.ToInt32(pkLen, 0))}");
 
-            //解析封包
-            var get_packet = new StdPacket();
-            get_packet.Unpack(bys_packet);
+            //獲取封包型態
+            var pktype = Bytes.Splitter(out byte[] pk2, ref pk1, 0, BasicTypes.SizeOf.Short);
+            Console.WriteLine($"pkType : {(PacketType)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(pktype, 0))}");
 
-            Console.WriteLine(get_packet.ToString());
-            Console.WriteLine(Encoding.UTF8.GetString(get_packet.Body.Data));
+
+            //通過型態創建封包
+            var gPk = new StdPacket();
+
+            gPk.Unpack(pk2);    //解析封包
+
+            //Output
+            Console.WriteLine(gPk.Header.ToString());
+            Console.WriteLine(gPk.Body.ToString());
+            Console.WriteLine(BitConverter.ToInt32(gPk.Body.Bys_data, 0));
         }
 
-        public static void ConnectionTest() {
+        public static void ServerTest() {
             var Server = new StdServer();
 
             Server.Start("127.0.0.1", 8808);
-
-            Console.WriteLine("End");
         }
+
     }
 
 }
