@@ -9,8 +9,7 @@ namespace Waylong.Packets {
     /// <summary>
     /// 封包接口
     /// </summary>
-    public interface IPacket : IPacketHeaderIdentity, IPacketMethods {
-
+    public interface IPacket : IPacketBase, IPacketHeaderIdentity {
     }
 
     /// <summary>
@@ -23,12 +22,18 @@ namespace Waylong.Packets {
         /// <summary>
         /// Std封包結構SIZE: 結構大小最小不會小於此SIZE
         /// </summary>
-        public int StructSIZE => m_header.StructSIZE + m_data.StructSIZE;
+        public virtual int PacketStructSIZE { get => m_Header.StructSIZE + m_Body.StructSIZE; }
+
+        /// <summary>
+        /// 封包型態
+        /// </summary>
+        public override PacketType PacketType { get => PacketType.StdPacket; }
 
         /// <summary>
         /// 封包驗證碼
         /// </summary>
-        public int VerificationCode { get => m_header.VerificationCode; set => m_header.VerificationCode = value; }
+        public int VerificationCode { get => m_Header.VerificationCode; set => m_Header.VerificationCode = value; }
+        
 
         #endregion
 
@@ -190,32 +195,32 @@ namespace Waylong.Packets {
         /// <param name="category">類別</param>
         /// <param name="callback">封包回調</param>
         public void ResetHeaderRef(Emergency emergency, Encryption encryption, Category category, Callback callback) {
-            m_header = new StdPacketHeader(emergency, encryption, category, callback);
+            m_Header = new StdPacketHeader(emergency, encryption, category, callback);
         }
 
-        /// <summary>
-        /// 封裝
-        /// </summary>
-        /// <returns></returns>
-        public override byte[] ToPackup() {
+        ///// <summary>
+        ///// 封裝
+        ///// </summary>
+        ///// <returns></returns>
+        //public override byte[] ToPackup() {
 
-            var bys_header = m_header.ToPackup();
-            var bys_data = m_data.ToPackup();
+        //    var bys_header = m_Header.ToPackup();
+        //    var bys_data = m_Body.ToPackup();
 
-            //返回組合封裝
-            return Bytes.ToPackup(ref bys_header, ref bys_data);
-        }
+        //    //返回組合封裝
+        //    return Bytes.ToPackup(ref bys_header, ref bys_data);
+        //}
 
-        /// <summary>
-        /// 解析
-        /// </summary>
-        /// <param name="bys_packet"></param>
-        public override void Unpack(byte[] bys_packet) {
+        ///// <summary>
+        ///// 解析
+        ///// </summary>
+        ///// <param name="bys_packet"></param>
+        //public override void Unpack(byte[] bys_packet) {
 
-            //分割資料: Splitter返回提取內容, out剩餘內容
-            m_header.Unpack(Bytes.Splitter(out byte[] bys_data, ref bys_packet, 0, m_header.StructSIZE));
-            m_data.Unpack(bys_data);
-        }
+        //    //分割資料: Splitter返回提取內容, out剩餘內容
+        //    m_Header.Unpack(Bytes.Splitter(out byte[] bys_data, ref bys_packet, 0, m_Header.SIZE));
+        //    m_Body.Unpack(bys_data);
+        //}
 
     }
 }

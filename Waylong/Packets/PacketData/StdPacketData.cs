@@ -1,32 +1,28 @@
 ﻿using System;
-using System.Net;
-using Waylong.Converter;
 
 namespace Waylong.Packets.PacketData {
 
     /// <summary>
     /// 標準資料封包架構
     /// </summary>
-    public class StdPacketData : PacketDataBase, IPacketMethods {
+    public class StdPacketData : PacketBodyBase {
 
         #region Property
 
         /// <summary>
+        /// StdPacketHeader架構長度: 資料的索引起始位置即為該架構長度
+        /// </summary>
+        public override int StructSIZE { get => IndexOf.Data; }
+
+        /// <summary>
+        /// PacketData型態
+        /// </summary>
+        public override PacketDataType PacketDataType { get => PacketDataType.StdPacketData; }
+
+        /// <summary>
         /// 主要資料 : Packet所要傳達的真正內容資訊
         /// </summary>
-        public byte[] Data { get => mBys_data; }    //Bytes內容
-
-        /// <summary>
-        /// 封包型態 : 此packet的架構屬於何種型態
-        /// </summary>
-        public PacketDataType DataType { get => m_DataType; }
-
-        /// <summary>
-        /// 此結構大小
-        /// </summary>
-        public int StructSIZE => SIZE;
-
-        
+        public byte[] Bys_data { get; protected set; }    //Bytes內容
 
         #endregion
 
@@ -37,35 +33,15 @@ namespace Waylong.Packets.PacketData {
         /// </summary>
         /// <param name="bys_data">內容資料</param>
         public StdPacketData(byte[] bys_data) {
-            mBys_data = bys_data;
+            Bys_data = bys_data;
         }
-
-        #endregion
-
-        #region Local values
-
-        //Constants
-
-        /// <summary>
-        /// 封包Head長度 : 指的是此Packet對架構的描述所佔的長度, 此處的Head只屬於StdPacketData架構而非Header架構.
-        /// </summary>
-        public const int SIZE = IndexOf.Data;
-
-        private const PacketDataType m_DataType = PacketDataType.StdPacketData;
-
-        //Variables
-        private byte[] mBys_data;
 
         #endregion
 
         #region Inner class
 
         public static class IndexOf {
-
-            public const int packetType = 0;
-            public const int DataLength = packetType + SizeOf.packetType;
-
-            public const int Data = DataLength + SizeOf.DataLength;
+            public const int Data = 0;
         }
 
         #endregion
@@ -76,34 +52,16 @@ namespace Waylong.Packets.PacketData {
         /// 封裝
         /// </summary>
         /// <returns></returns>
-        public byte[] ToPackup() {
-
-            //指定資料包尺寸
-            var bys_packetData = new byte[SIZE + mBys_data.Length];
-
-            //封裝資料
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_DataType)).CopyTo(bys_packetData, IndexOf.packetType);
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(mBys_data.Length)).CopyTo(bys_packetData, IndexOf.DataLength);
-            mBys_data.CopyTo(bys_packetData, IndexOf.Data);
-
-            return bys_packetData;
+        public override byte[] ToPackup() {
+            return Bys_data;
         }
 
         /// <summary>
         /// 解析
         /// </summary>
         /// <param name="bys_packetData"></param>
-        public void Unpack(byte[] bys_packetData) {
-
-            if(bys_packetData.Length < SIZE) {
-                return;
-            }
-            
-            //解析
-            //m_packetType = (PacketType)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(Bytes.Extract(bys_packetData, IndexOf.packetType, SizeOf.packetType), 0));
-            var len = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(Bytes.Extract(bys_packetData, IndexOf.DataLength, SizeOf.DataLength), 0));
-            mBys_data = Bytes.Extract(bys_packetData, IndexOf.Data, len);
-
+        public override void Unpack(byte[] bys_packetData) {
+            Bys_data = bys_packetData;
         }
 
         /// <summary>
@@ -114,7 +72,7 @@ namespace Waylong.Packets.PacketData {
             return
                 "\n" + base.ToString() + ":\n"
                  + "----------------------------------------------\n"
-                 + "DataLength\t" + mBys_data.Length + "\n"
+                 + "DataLength\t" + Bys_data.Length + "\n"
                  + "End-------------------------------------------\n\n";
         }
 
@@ -130,7 +88,7 @@ namespace Waylong.Packets.PacketData {
             packetData.Unpack(bys_data);
             Console.WriteLine(packetData.ToString());
 
-            Console.WriteLine($"data: {BitConverter.ToInt32(packetData.Data, 0)}");
+            Console.WriteLine($"data: {BitConverter.ToInt32(packetData.Bys_data, 0)}");
 
         }
 
