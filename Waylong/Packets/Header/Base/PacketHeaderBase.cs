@@ -1,7 +1,8 @@
 ﻿using System;
+using Waylong.Packets.Base;
 using Waylong.Users;
 
-namespace Waylong.Packets.Header {
+namespace Waylong.Packets.Header.Base {
 
     /// <summary>
     /// 所有 PacketHeader 必須派生自此抽象類並實作抽象方法
