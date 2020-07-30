@@ -44,7 +44,7 @@ namespace Waylong.Architecture {
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="prot"></param>
-        public abstract void Start(string ip, int prot);
+        public abstract void Start(string ip, int port);
 
         /// <summary>
         /// 關閉程序
