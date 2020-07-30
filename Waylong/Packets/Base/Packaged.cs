@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Net;
-using System.Text;
 using Waylong.Converter;
-using Waylong.Packets.Header;
-using Waylong.Users;
 
-namespace Waylong.Packets.PacketData {
+namespace Waylong.Packets.Base {
 
     /// <summary>
     /// 封包組合器

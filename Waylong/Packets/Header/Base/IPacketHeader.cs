@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Waylong.Packets.Header {
+namespace Waylong.Packets.Header.Base {
 
     /// <summary>
     /// 數據包身份識別
