@@ -3,6 +3,7 @@ using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using Waylong.Architecture.Client;
 using Waylong.Architecture.Server;
 using Waylong.Converter;
 using Waylong.Net;
@@ -61,8 +62,10 @@ namespace Waylong {
 
         public static void ServerTest() {
             var Server = new StdServer();
-
             Server.Start("127.0.0.1", 8808);
+
+            var client = new StdClient();
+            client.Start("127.0.0.1", 8808);
         }
 
     }
