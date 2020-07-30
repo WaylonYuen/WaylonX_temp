@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Net;
 using Waylong.Converter;
-using Waylong.Packets.Header;
 
 namespace Waylong.Packets {
 
-    public class Packet : StdPacket, IPacket {
+    public class Packet : StdPacket {
 
         /// <summary>
         /// Std封包結構SIZE: 結構大小最小不會小於此SIZE

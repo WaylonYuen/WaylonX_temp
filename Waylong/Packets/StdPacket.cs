@@ -200,29 +200,5 @@ namespace Waylong.Packets {
             m_Header = new StdPacketHeader(emergency, encryption, category, callback);
         }
 
-        ///// <summary>
-        ///// 封裝
-        ///// </summary>
-        ///// <returns></returns>
-        //public override byte[] ToPackup() {
-
-        //    var bys_header = m_Header.ToPackup();
-        //    var bys_data = m_Body.ToPackup();
-
-        //    //返回組合封裝
-        //    return Bytes.ToPackup(ref bys_header, ref bys_data);
-        //}
-
-        ///// <summary>
-        ///// 解析
-        ///// </summary>
-        ///// <param name="bys_packet"></param>
-        //public override void Unpack(byte[] bys_packet) {
-
-        //    //分割資料: Splitter返回提取內容, out剩餘內容
-        //    m_Header.Unpack(Bytes.Splitter(out byte[] bys_data, ref bys_packet, 0, m_Header.SIZE));
-        //    m_Body.Unpack(bys_data);
-        //}
-
     }
 }

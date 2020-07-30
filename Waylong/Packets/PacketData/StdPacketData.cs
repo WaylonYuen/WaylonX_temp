@@ -18,12 +18,7 @@ namespace Waylong.Packets.PacketData {
         /// <summary>
         /// PacketData型態
         /// </summary>
-        public override PacketDataType PacketDataType { get => PacketDataType.StdPacketData; }
-
-        /// <summary>
-        /// 主要資料 : Packet所要傳達的真正內容資訊
-        /// </summary>
-        public byte[] Bys_data { get; protected set; }    //Bytes內容
+        public override PacketDataType PacketDataType { get => PacketDataType.StdPacketData; }  //指定封包資料型態
 
         #endregion
 
@@ -34,7 +29,7 @@ namespace Waylong.Packets.PacketData {
         /// </summary>
         /// <param name="bys_data">內容資料</param>
         public StdPacketData(byte[] bys_data) {
-            Bys_data = bys_data;
+            Bys_data = bys_data;    //資料保存
         }
 
         #endregion
