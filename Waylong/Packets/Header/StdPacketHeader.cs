@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using Waylong.Converter;
+using Waylong.Packets.Header.Base;
 using Waylong.Users;
 
 namespace Waylong.Packets.Header {

@@ -1,6 +1,7 @@
 ﻿using System;
+using Waylong.Packets.Base;
 
-namespace Waylong.Packets.PacketData {
+namespace Waylong.Packets.PacketData.Base {
 
     public abstract class PacketDataBase : IPacketBase {
 

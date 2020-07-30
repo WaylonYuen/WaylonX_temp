@@ -1,7 +1,7 @@
 ﻿using System;
 using Waylong.Users;
 
-namespace Waylong.Packets {
+namespace Waylong.Packets.Base {
 
     // IPackets - 封包架構介面(接口)
     // Explain:

@@ -35,23 +35,17 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Packets\IPacketBase.cs" />
     <Compile Include="Users\User.cs" />
-    <Compile Include="Packets\AsyncCallbacks.cs" />
     <Compile Include="Object\Object.cs" />
     <Compile Include="BasicTypes.cs" />
     <Compile Include="Converter\Bytes.cs" />
-    <Compile Include="Packets\Packaged.cs" />
     <Compile Include="Users\IUser.cs" />
     <Compile Include="Net\NetworkManagement.cs" />
     <Compile Include="Net\IConnection.cs" />
     <Compile Include="Architecture\CSModel.cs" />
     <Compile Include="Architecture\ICSParameter.cs" />
-    <Compile Include="Packets\Header\IPacketHeader.cs" />
-    <Compile Include="Packets\Header\PacketHeaderBase.cs" />
     <Compile Include="Packets\Header\StdPacketHeader.cs" />
     <Compile Include="Packets\PacketData\StdPacketData.cs" />
-    <Compile Include="Packets\PacketData\PacketDataBase.cs" />
     <Compile Include="Packets\StdPacket.cs" />
     <Compile Include="Waylong.cs" />
     <Compile Include="Net\Protocol\TcpConnection.cs" />
@@ -67,10 +61,14 @@
     <Compile Include="Users\UserManagement.cs" />
     <Compile Include="Net\Networking.cs" />
     <Compile Include="Threading\Thread.cs" />
-    <Compile Include="Packets\PacketIndexer.cs" />
     <Compile Include="Packets\Packet.cs" />
     <Compile Include="Architecture\Client\StdClientModel.cs" />
     <Compile Include="Architecture\Client\StdClientThread.cs" />
+    <Compile Include="Packets\Header\Base\IPacketHeader.cs" />
+    <Compile Include="Packets\Header\Base\PacketHeaderBase.cs" />
+    <Compile Include="Packets\PacketData\Base\PacketDataBase.cs" />
+    <Compile Include="Packets\Base\IPacketBase.cs" />
+    <Compile Include="Packets\Base\Packaged.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
@@ -87,6 +85,9 @@
     <Folder Include="Net\Protocol\" />
     <Folder Include="Attributes\" />
     <Folder Include="Threading\" />
+    <Folder Include="Packets\Header\Base\" />
+    <Folder Include="Packets\PacketData\Base\" />
+    <Folder Include="Packets\Base\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.md" />

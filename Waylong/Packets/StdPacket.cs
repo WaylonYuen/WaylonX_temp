@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Text;
 using Waylong.Converter;
+using Waylong.Packets.Base;
 using Waylong.Packets.Header;
+using Waylong.Packets.Header.Base;
 using Waylong.Packets.PacketData;
 
 namespace Waylong.Packets {

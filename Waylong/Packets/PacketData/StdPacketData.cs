@@ -1,4 +1,5 @@
 ﻿using System;
+using Waylong.Packets.PacketData.Base;
 
 namespace Waylong.Packets.PacketData {
 
