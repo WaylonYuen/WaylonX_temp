@@ -25,7 +25,7 @@ namespace Waylong.Architecture.Server {
                 try {
 
                     //參數：為新的客户端连接创建一个Socket对象，接收並返回一個新的Socket
-                    //同步等待, 程序会阻塞在这里          
+                    //同步等待, 程序会阻塞在这里
 
                     var user = new User(socket.Accept(), NetworkState.Connecting);   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
 
@@ -41,14 +41,17 @@ namespace Waylong.Architecture.Server {
                         Console.WriteLine(ex.Message);
                     }
 
+                    #region User Init
+
                     IUser IUser = user;
 
-                    //Undone: 同步驗證碼, 未設定Callback
-                    //user.Send(new StdPacket(Emergency.None, Encryption.None, Category.General, Callback.None, IUser.VerificationCode));
+                    //發送封包同步驗證碼
+                    user.Send(new Packet(Emergency.None, Encryption.None, Category.General, Callback.PacketHeaderSync, IUser.VerificationCode));
 
-                    //添加用戶
+                    //添加用戶到用戶清單
                     UserManagement.UserList.Add(user);
 
+                    #endregion
 
                 } catch (Exception e) {
                     Console.WriteLine(e.Message);

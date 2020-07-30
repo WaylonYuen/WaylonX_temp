@@ -35,7 +35,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Packets\IPacket.cs" />
+    <Compile Include="Packets\IPacketBase.cs" />
     <Compile Include="Users\User.cs" />
     <Compile Include="Packets\AsyncCallbacks.cs" />
     <Compile Include="Object\Object.cs" />
@@ -69,6 +69,8 @@
     <Compile Include="Threading\Thread.cs" />
     <Compile Include="Packets\PacketIndexer.cs" />
     <Compile Include="Packets\Packet.cs" />
+    <Compile Include="Architecture\Client\StdClientModel.cs" />
+    <Compile Include="Architecture\Client\StdClientThread.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />

@@ -43,12 +43,7 @@ namespace Waylong.Architecture.Server {
 
         #region Methods
 
-        /// <summary>
-        /// 服務器初始化
-        /// </summary>
-        protected override void Initialize() {
-
-        }
+        
 
         /// <summary>
         /// 啟動主連線
@@ -81,6 +76,13 @@ namespace Waylong.Architecture.Server {
         /// </summary>
         public override void Close() {
             Console.WriteLine("服務器關閉...");
+        }
+
+        /// <summary>
+        /// 服務器初始化
+        /// </summary>
+        protected override void Initialize() {
+
         }
 
         /// <summary>
