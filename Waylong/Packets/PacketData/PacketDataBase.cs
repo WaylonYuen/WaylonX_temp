@@ -2,7 +2,7 @@
 
 namespace Waylong.Packets.PacketData {
 
-    public abstract class PacketBodyBase : IPacketBase {
+    public abstract class PacketDataBase : IPacketBase {
 
         /// <summary>
         /// PacketData架構長度: 資料的索引起始位置即為該架構長度

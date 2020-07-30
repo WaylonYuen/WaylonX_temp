@@ -5,7 +5,7 @@ namespace Waylong.Packets.PacketData {
     /// <summary>
     /// 標準資料封包架構
     /// </summary>
-    public class StdPacketData : PacketBodyBase {
+    public class StdPacketData : PacketDataBase {
 
         #region Property
 
