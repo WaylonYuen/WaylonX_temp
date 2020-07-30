@@ -4,6 +4,9 @@ using Waylong.Net;
 
 namespace Waylong.Architecture.Client {
 
+    /// <summary>
+    /// 標準客戶端架構
+    /// </summary>
     public partial class StdClient : StdClientModel, ICSParameter {
 
         #region Property
@@ -20,13 +23,6 @@ namespace Waylong.Architecture.Client {
 
         #endregion
 
-        public StdClient() {
-
-        }
-
-
-
-
         #region Methods
 
         /// <summary>
@@ -35,6 +31,8 @@ namespace Waylong.Architecture.Client {
         /// <param name="ip"></param>
         /// <param name="prot"></param>
         public override void Start(string ip, int port) {
+
+            Console.WriteLine("正在連線...");
 
             //創建socket
             var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -45,14 +43,14 @@ namespace Waylong.Architecture.Client {
             //啟動連接
             IsClose = !NetworkManagement.StartToConnect(ConnectionChannel.MainConnection, MainConn);
 
-            Console.WriteLine("連接成功");
+            Console.WriteLine($"連接成功: {ip}:{port}");
         }
 
         /// <summary>
         /// 停止運行
         /// </summary>
         public override void Close() {
-
+            Console.WriteLine("客戶端關閉...");
         }
 
         /// <summary>
@@ -88,21 +86,14 @@ namespace Waylong.Architecture.Client {
         /// 啟動線程
         /// </summary>
         protected override void Start_Thread() {
-
+            IsClose = false;    // partial -> Thread
         }
 
         /// <summary>
         /// 關閉線程
         /// </summary>
         protected override void Close_Thread() {
-
-        }
-
-        /// <summary>
-        /// 執行_回調線程
-        /// </summary>
-        protected override void Execute_CallbackThread() {
-            
+            IsClose = true;     // partial -> Thread
         }
 
         #endregion

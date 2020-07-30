@@ -89,6 +89,14 @@ namespace Waylong.Architecture.Server {
             //
         }
 
+        /// <summary>
+        /// 執行_回調線程
+        /// </summary>
+        protected override void Execute_CallbackThread() {
+            throw new NotImplementedException();
+        }
+
+
         #endregion
     }
 

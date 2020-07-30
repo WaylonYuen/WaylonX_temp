@@ -24,26 +24,11 @@ namespace Waylong.Architecture.Server {
         /// <summary>
         /// 操作環境
         /// </summary>
-        public Environment Environment { get { return Environment.Terminal; } }
-
-        #endregion
-
-        #region Local values
-
-
-        #endregion
-
-        #region Constructor
-
-        public StdServer() {
-            
-        }
+        public virtual Environment Environment { get { return Environment.Terminal; } }
 
         #endregion
 
         #region Methods
-
-        
 
         /// <summary>
         /// 啟動主連線
@@ -112,7 +97,7 @@ namespace Waylong.Architecture.Server {
         protected override void Start_Thread() {
             IsClose = false;   // partial -> Thread
 
-            //啟動線程
+            //啟動監聽等待客戶端線程
             Thread.Create(AwaitClientThread, true).Start(); //啟動等待客戶端線程
         }
 
@@ -121,13 +106,6 @@ namespace Waylong.Architecture.Server {
         /// </summary>
         protected override void Close_Thread() {
             IsClose = true;   // partial -> Thread
-        }
-
-        /// <summary>
-        /// 執行_回調線程
-        /// </summary>
-        protected override void Execute_CallbackThread() {
-            throw new NotImplementedException();
         }
 
         #endregion
