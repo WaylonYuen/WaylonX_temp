@@ -5,6 +5,7 @@ using Waylong.Net;
 using Waylong.Users;
 using Waylong.Threading;
 using System.Diagnostics;
+using Waylong.Architecture.Client;
 
 namespace Waylong.Architecture.Server {
 
@@ -12,7 +13,7 @@ namespace Waylong.Architecture.Server {
     /// <summary>
     /// 標準服務器架構
     /// </summary>
-    public partial class StdServer : StdServerModel, ICSParameter {
+    public partial class StdServer : StdServerModel, IServerParameter {
 
         #region Property
 
@@ -24,26 +25,16 @@ namespace Waylong.Architecture.Server {
         /// <summary>
         /// 操作環境
         /// </summary>
-        public Environment Environment { get { return Environment.Terminal; } }
+        public virtual Environment Environment { get { return Environment.Terminal; } }
 
-        #endregion
-
-        #region Local values
-
-
-        #endregion
-
-        #region Constructor
-
-        public StdServer() {
-            
-        }
+        /// <summary>
+        /// 客戶端連線積壓數
+        /// </summary>
+        protected override int Backlog { get; set; }
 
         #endregion
 
         #region Methods
-
-        
 
         /// <summary>
         /// 啟動主連線
@@ -54,57 +45,50 @@ namespace Waylong.Architecture.Server {
 
             Console.WriteLine("正在啟動服務器...");
 
-            //創建socket
-            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            if (Connect(ip, port)) {
 
-            //創建連線Info
-            var MainConn = new Connection(socket, ip, port);
-            
-            //啟動監聽
-            IsClose = !NetworkManagement.StartToListen(ConnectionChannel.MainConnection, MainConn, 10);
+                Registered();   //註冊
+                Initialize();   //初始化
+                Start_Thread(); //啟動線程
 
-            Console.WriteLine($"服務器啟動成功: {ip}:{port}");
+                Console.WriteLine($"服務器啟動成功: {ip}:{port}");
+            } else {
+                Console.WriteLine($"服務器啟動失敗: {ip}:{port}");
+            }
 
-            //方法2
-            //IConnection iMainConn = MainConn;
-            //iMainConn.Listen(10);
-            //NetworkManagement.Add(ConnectionChannel.MainConnection, MainConn);
         }
 
         /// <summary>
         /// 停止運行
         /// </summary>
         public override void Close() {
+            Close_Thread();
+
             Console.WriteLine("服務器關閉...");
         }
 
         /// <summary>
-        /// 服務器初始化
+        /// 服務器初始化: 無序
         /// </summary>
         protected override void Initialize() {
-
+            Backlog = 5;
         }
 
         /// <summary>
         /// 資料架構
         /// </summary>
-        protected override void DataStruct() {
-        }     
+        protected override void DataStruct() { }     
 
         /// <summary>
         /// 註冊器
         /// </summary>
-        protected override void Registered() {
-
-        }
+        protected override void Registered() { }
 
         [Obsolete("Undone", true)]
         /// <summary>
         /// 佇列分配器 : 分配封包到對應的佇列隊伍中
         /// </summary>
-        protected override void QueueDistributor() {
-
-        }
+        protected override void QueueDistributor() { }
 
         /// <summary>
         /// 啟動線程
@@ -112,7 +96,7 @@ namespace Waylong.Architecture.Server {
         protected override void Start_Thread() {
             IsClose = false;   // partial -> Thread
 
-            //啟動線程
+            //啟動監聽等待客戶端線程
             Thread.Create(AwaitClientThread, true).Start(); //啟動等待客戶端線程
         }
 
@@ -121,13 +105,10 @@ namespace Waylong.Architecture.Server {
         /// </summary>
         protected override void Close_Thread() {
             IsClose = true;   // partial -> Thread
-        }
 
-        /// <summary>
-        /// 執行_回調線程
-        /// </summary>
-        protected override void Execute_CallbackThread() {
-            throw new NotImplementedException();
+            var BlockAccept = new StdClient();
+            BlockAccept.Start("127.0.0.1", 8808);
+            BlockAccept.Close();
         }
 
         #endregion

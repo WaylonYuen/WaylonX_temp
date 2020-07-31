@@ -74,6 +74,7 @@ namespace Waylong.Net {
             //設定NetworkMode
             if (isConnected) {
                 networkMode = NetworkMode.Connect;
+                return true;
             }
 
             return false;
