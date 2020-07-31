@@ -57,7 +57,6 @@
     <Compile Include="Architecture\Server\StdServerThread.cs" />
     <Compile Include="Architecture\Server\IServer.cs" />
     <Compile Include="Architecture\Server\ServerModel.cs" />
-    <Compile Include="Architecture\ReceivePacket.cs" />
     <Compile Include="Users\UserManagement.cs" />
     <Compile Include="Net\Networking.cs" />
     <Compile Include="Threading\Thread.cs" />
@@ -69,6 +68,9 @@
     <Compile Include="Packets\PacketData\Base\PacketDataBase.cs" />
     <Compile Include="Packets\Base\IPacketBase.cs" />
     <Compile Include="Packets\Base\Packaged.cs" />
+    <Compile Include="Architecture\Server\IServerParameter.cs" />
+    <Compile Include="Architecture\Client\IClientParameter.cs" />
+    <Compile Include="Architecture\Server\Command.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
