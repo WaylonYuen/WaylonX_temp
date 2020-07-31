@@ -7,7 +7,7 @@ namespace Waylong.Architecture.Client {
     /// <summary>
     /// 標準客戶端架構
     /// </summary>
-    public partial class StdClient : StdClientModel, ICSParameter {
+    public partial class StdClient : StdClientModel, IClientParameter {
 
         #region Property
 
@@ -34,22 +34,25 @@ namespace Waylong.Architecture.Client {
 
             Console.WriteLine("正在連線...");
 
-            //創建socket
-            var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            if (Connect(ip, port)) {
+                
+                Registered();   //註冊
+                Initialize();   //初始化
+                Start_Thread(); //啟動線程
 
-            //創建連線Info
-            var MainConn = new Connection(socket, ip, port);
+                Console.WriteLine($"連接成功: {ip}:{port}");
+            } else {
+                Console.WriteLine($"連接失敗: {ip}:{port}");
+            }
 
-            //啟動連接
-            IsClose = !NetworkManagement.StartToConnect(ConnectionChannel.MainConnection, MainConn);
-
-            Console.WriteLine($"連接成功: {ip}:{port}");
         }
 
         /// <summary>
         /// 停止運行
         /// </summary>
         public override void Close() {
+            Close_Thread();
+
             Console.WriteLine("客戶端關閉...");
         }
 

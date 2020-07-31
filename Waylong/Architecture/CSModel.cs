@@ -79,6 +79,10 @@ namespace Waylong.Architecture {
         /// <returns></returns>
         public static byte[] Receive(Socket socket, int dataLength) {
 
+            if (dataLength <= 0) {
+                return null;
+            }
+
             var data_Bytes = new byte[dataLength];
 
             //如果當前需要接收的字節數大於0 and 遊戲未退出 則循環接收
@@ -125,11 +129,6 @@ namespace Waylong.Architecture {
         /// 關閉線程
         /// </summary>
         protected abstract void Close_Thread();
-
-        /// <summary>
-        /// 執行回調線程
-        /// </summary>
-        protected abstract void Execute_CallbackThread();
 
         #endregion
 

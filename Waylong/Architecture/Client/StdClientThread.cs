@@ -17,12 +17,5 @@ namespace Waylong.Architecture.Client {
 
         }
 
-        /// <summary>
-        /// 執行_回調線程
-        /// </summary>
-        protected override void Execute_CallbackThread() {
-
-        }
-
     }
 }

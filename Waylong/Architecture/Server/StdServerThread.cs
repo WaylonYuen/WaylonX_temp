@@ -29,6 +29,9 @@ namespace Waylong.Architecture.Server {
 
                     var user = new User(socket.Accept(), NetworkState.Connecting);   //UNDONE: 等待客戶端連線請求而造成的線程阻塞 -> 未編寫超時等待的方法進行阻塞排除.
 
+                    //
+                    if (IsClose) break;
+
                     //子線程
                     try {
                         //為user建立封包監聽子線程 & 啟動子線程
@@ -46,7 +49,7 @@ namespace Waylong.Architecture.Server {
                     IUser IUser = user;
 
                     //發送封包同步驗證碼
-                    user.Send(new Packet(Emergency.None, Encryption.None, Category.General, Callback.PacketHeaderSync, IUser.VerificationCode));
+                    //user.Send(new Packet(Emergency.None, Encryption.None, Category.General, Callback.PacketHeaderSync, IUser.VerificationCode));
 
                     //添加用戶到用戶清單
                     UserManagement.UserList.Add(user);
@@ -55,6 +58,8 @@ namespace Waylong.Architecture.Server {
 
                 } catch (Exception e) {
                     Console.WriteLine(e.Message);
+                } finally {
+
                 }
 
             }
@@ -70,32 +75,13 @@ namespace Waylong.Architecture.Server {
         /// 監聽封包_線程
         /// </summary>
         /// <param name="obj"></param>
-        protected override void ReceivePacketThread(object obj) {
-
-            //拆箱: 將Obj還原成 target
-            var user = obj as User;
-
-            //指定user網絡接口進行接口約束
-            IUserNetwork userNet = user;
-
-            // if 服務器已關閉 or 用戶網絡狀態不等於Connected狀態, 則停止此線程
-            while (!IsClose || userNet.NetworkState != NetworkState.Connected) {
-                //執行等待封包
-            }
-
-        }
-
-        protected override void AliveThread(object socket) {
-            //
-        }
+        protected override void ReceivePacketThread(object obj) { }
 
         /// <summary>
-        /// 執行_回調線程
+        /// 客戶端連線狀態_線程
         /// </summary>
-        protected override void Execute_CallbackThread() {
-            throw new NotImplementedException();
-        }
-
+        /// <param name="socket"></param>
+        protected override void AliveThread(object socket) { }
 
         #endregion
     }
