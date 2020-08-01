@@ -71,6 +71,7 @@
     <Compile Include="Architecture\Server\IServerParameter.cs" />
     <Compile Include="Architecture\Client\IClientParameter.cs" />
     <Compile Include="Architecture\Server\Command.cs" />
+    <Compile Include="Loggers\Logger.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Net\" />
@@ -90,6 +91,7 @@
     <Folder Include="Packets\Header\Base\" />
     <Folder Include="Packets\PacketData\Base\" />
     <Folder Include="Packets\Base\" />
+    <Folder Include="Loggers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.md" />

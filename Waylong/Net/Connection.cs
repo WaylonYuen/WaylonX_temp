@@ -59,7 +59,7 @@ namespace Waylong.Net {
 
                     } catch (Exception e) {
                         throw new Exception("\n! 連接失敗:" + e.Message);
-                    }                  
+                    }
 
                 //UDP協定
                 case ProtocolType.Udp:

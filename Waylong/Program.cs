@@ -6,6 +6,7 @@ using System.Text;
 using Waylong.Architecture.Client;
 using Waylong.Architecture.Server;
 using Waylong.Converter;
+using Waylong.Loggers;
 using Waylong.Net;
 using Waylong.Net.Protocol;
 using Waylong.Packets;
@@ -18,7 +19,9 @@ namespace Waylong {
     class MainClass {
         public static void Main(string[] args) {
 
-            Demo.ServerTest();
+            Demo.LoggerTest();
+
+            //Demo.ServerTest();
 
             //Demo.PacketTest();
 
@@ -30,6 +33,26 @@ namespace Waylong {
 
     //Testing: test
     public static class Demo {
+
+        public static void LoggerTest() {
+            //建立記錄器
+            var Logger = new StdLogger();
+
+            Logger.Debug("Testing Error Logger output Format.");
+            Logger.Info("Testing Error Logger output Format.");
+            Logger.Warn("Testing Error Logger output Format.");
+            Logger.Error("Testing Error Logger output Format.");
+
+            var logs = Logger.GetContainer("Server Connection", Logger.ToString());
+
+            logs.Add("IP", "127.0.0.1");
+            logs.Add("Port", "8808");
+            logs.Add("Test", "demo1");
+            logs.Add("Test2", "demo2");
+            logs.Excute();
+
+            Logger.Testing();
+        }
 
         public static void PacketTest() {
 

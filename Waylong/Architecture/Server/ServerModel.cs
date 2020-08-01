@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using Waylong.Loggers;
 using Waylong.Net;
 using Waylong.Users;
 
@@ -14,6 +15,11 @@ namespace Waylong.Architecture.Server {
         /// 客戶端連線積壓數
         /// </summary>
         protected abstract int Backlog { get; set; }
+
+        /// <summary>
+        /// 服務器日誌
+        /// </summary>
+        public StdLogger Logger = new StdLogger();
 
         /// <summary>
         /// 用戶管理

@@ -44,15 +44,15 @@ namespace Waylong.Architecture.Server {
         /// <param name="prot"></param>
         public override void Start(string ip, int port) {
 
-            Console.WriteLine("正在啟動服務器...");
-
+            Logger.Info("服務器正在啟動...");
             if (Connect(ip, port)) {
 
                 Initialize();   //初始化
 
-                Console.WriteLine($"服務器啟動成功: {ip}:{port}");
+                Logger.Info("服務器啟動成功");
             } else {
-                Console.WriteLine($"服務器啟動失敗: {ip}:{port}");
+                Logger.Warn("服務器啟動失敗");
+                //undone: 執行失敗程序
             }
 
         }
@@ -61,9 +61,22 @@ namespace Waylong.Architecture.Server {
         /// 停止運行
         /// </summary>
         public override void Close() {
+
+            Logger.Info("服務器正在關閉...");
+
+            //關閉線程
             Close_Thread();
 
-            Console.WriteLine("服務器關閉...");
+            //～異步執行 -> LoggerQueueue中的內容輸出, 直至確認所有需要關閉的線程進行回應（要做超時判斷)
+
+            //～抓出自己的socket關閉
+            //var socket = NetworkManagement.ConnectionDict[ConnectionChannel.MainConnection].Socket;
+            //socket.Shutdown(SocketShutdown.Both);
+            //socket.Close();
+
+            //～清除UserList
+
+
         }
 
         /// <summary>
@@ -73,6 +86,11 @@ namespace Waylong.Architecture.Server {
             Backlog = 5;
 
             Registered();   //註冊
+
+            //HACK: 設定線程池中的線程
+            //System.Threading.ThreadPool.SetMinThreads(3, 3);
+            //System.Threading.ThreadPool.SetMaxThreads(0, 0);
+
             Start_Thread(); //啟動線程
         }
 
@@ -112,9 +130,10 @@ namespace Waylong.Architecture.Server {
             if (NetworkManagement.ConnectionDict.ContainsKey(ConnectionChannel.MainConnection)) {
                 var IPEndPoint = NetworkManagement.ConnectionDict[ConnectionChannel.MainConnection].IPEndPoint; //取得EndPoint
 
-                var BlockAccept = new StdClient();
-                BlockAccept.Start(IPEndPoint.Address.ToString(), IPEndPoint.Port);
-                BlockAccept.Close();
+                //建立客戶端 -> 讓Server Accept()中斷從而跳出Await線程
+                var client = new TcpClient();
+                client.Connect(IPEndPoint.Address.ToString(), IPEndPoint.Port);
+                client.Close();
             }
 
         }
