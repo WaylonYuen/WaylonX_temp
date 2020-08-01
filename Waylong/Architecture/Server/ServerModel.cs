@@ -34,7 +34,7 @@ namespace Waylong.Architecture.Server {
         protected abstract void ReceivePacketThread(object obj);
 
         /// <summary>
-        /// 在線判斷_線程
+        /// 客戶端連線狀態_線程
         /// </summary>
         /// <param name="socket"></param>
         protected abstract void AliveThread(object socket);

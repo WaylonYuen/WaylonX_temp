@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using Waylong.Net;
+using Waylong.Users;
 
 namespace Waylong.Architecture.Client {
 
@@ -8,6 +9,11 @@ namespace Waylong.Architecture.Client {
     /// 標準服務器模型架構
     /// </summary>
     public abstract class StdClientModel : CSModel {
+
+        /// <summary>
+        /// 用戶資訊
+        /// </summary>
+        public abstract User User { get; set; }
 
         /// <summary>
         /// 監聽封包_線程

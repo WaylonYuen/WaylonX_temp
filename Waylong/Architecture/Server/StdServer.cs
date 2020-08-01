@@ -5,6 +5,7 @@ using Waylong.Net;
 using Waylong.Users;
 using Waylong.Threading;
 using System.Diagnostics;
+using Waylong.Architecture;
 using Waylong.Architecture.Client;
 
 namespace Waylong.Architecture.Server {
@@ -47,9 +48,7 @@ namespace Waylong.Architecture.Server {
 
             if (Connect(ip, port)) {
 
-                Registered();   //註冊
                 Initialize();   //初始化
-                Start_Thread(); //啟動線程
 
                 Console.WriteLine($"服務器啟動成功: {ip}:{port}");
             } else {
@@ -72,6 +71,9 @@ namespace Waylong.Architecture.Server {
         /// </summary>
         protected override void Initialize() {
             Backlog = 5;
+
+            Registered();   //註冊
+            Start_Thread(); //啟動線程
         }
 
         /// <summary>
@@ -106,9 +108,15 @@ namespace Waylong.Architecture.Server {
         protected override void Close_Thread() {
             IsClose = true;   // partial -> Thread
 
-            var BlockAccept = new StdClient();
-            BlockAccept.Start("127.0.0.1", 8808);
-            BlockAccept.Close();
+            //調取Server連線Info
+            if (NetworkManagement.ConnectionDict.ContainsKey(ConnectionChannel.MainConnection)) {
+                var IPEndPoint = NetworkManagement.ConnectionDict[ConnectionChannel.MainConnection].IPEndPoint; //取得EndPoint
+
+                var BlockAccept = new StdClient();
+                BlockAccept.Start(IPEndPoint.Address.ToString(), IPEndPoint.Port);
+                BlockAccept.Close();
+            }
+
         }
 
         #endregion

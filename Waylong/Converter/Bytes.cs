@@ -23,6 +23,7 @@ namespace Waylong.Converter {
                 return dataResult_Bytes;
 
             } catch (Exception e) {
+                var Undone = e.Message;
                 //Display.Format(State.Catch, "提取內容錯誤", $"Extract() >> {e.Message}");
                 return null;
             }
@@ -44,6 +45,7 @@ namespace Waylong.Converter {
                 return dataResult_Bytes;
 
             } catch (Exception e) {
+                var Undone = e.Message;
                 //Display.Format(State.Catch, "提取內容錯誤", $"Extract() >> {e.Message}");
                 return null;
             }
@@ -65,6 +67,7 @@ namespace Waylong.Converter {
                 return dataResult_Bytes;
 
             } catch (Exception e) {
+                var Undone = e.Message;
                 //Display.Format(State.Catch, "提取內容錯誤", $"Extract() >> {e.Message}");
                 return null;
             }

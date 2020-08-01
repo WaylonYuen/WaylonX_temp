@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net.Sockets;
 using Waylong.Net;
+using Waylong.Threading;
+using Waylong.Users;
 
 namespace Waylong.Architecture.Client {
 
@@ -10,6 +12,11 @@ namespace Waylong.Architecture.Client {
     public partial class StdClient : StdClientModel, IClientParameter {
 
         #region Property
+
+        /// <summary>
+        /// 用戶資訊
+        /// </summary>
+        public override User User { get; set; }
 
         /// <summary>
         /// 名稱
@@ -35,10 +42,8 @@ namespace Waylong.Architecture.Client {
             Console.WriteLine("正在連線...");
 
             if (Connect(ip, port)) {
-                
-                Registered();   //註冊
+
                 Initialize();   //初始化
-                Start_Thread(); //啟動線程
 
                 Console.WriteLine($"連接成功: {ip}:{port}");
             } else {
@@ -61,6 +66,11 @@ namespace Waylong.Architecture.Client {
         /// </summary>
         protected override void Initialize() {
 
+            //創建User
+            User = new User(NetworkManagement.ConnectionDict[ConnectionChannel.MainConnection].Socket, NetworkState.Connected);
+
+            Registered();   //註冊
+            Start_Thread(); //啟動線程
         }
 
         /// <summary>
@@ -90,6 +100,8 @@ namespace Waylong.Architecture.Client {
         /// </summary>
         protected override void Start_Thread() {
             IsClose = false;    // partial -> Thread
+
+            Thread.Create(ReceivePacketThread, true).Start();
         }
 
         /// <summary>
