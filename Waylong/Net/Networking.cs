@@ -1,23 +1,25 @@
 ﻿using System;
-using System.Net.Sockets;
 
 namespace Waylong.Net {
 
-    public class Networking {
-
-        public static void TcpConnection(NetMode netMode, Socket socket) {
-
-        }
-
-        public static void UdpConnection(NetMode netMode, Socket socket) {
-
-        }
-
+    /// <summary>
+    /// 網絡模式
+    /// </summary>
+    public enum NetworkMode {
+        Unknown,    //未知
+        Connect,    //連線模式
+        Listen,     //監聽模式
     }
 
-    public enum NetMode {
-        Connect,
-        Listen,
+    /// <summary>
+    /// 網絡狀態
+    /// </summary>
+    public enum NetworkState {
+        Unknown,    //未知
+        Connected,  //已連線
+        Connecting, //連線中(資料未同步)
+        Disconnect, //斷開連線
+        Overtime,   //超時
     }
 
 }

@@ -5,6 +5,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Networking", "Waylong\Netwo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Networking.xUnitTests", "Waylong.xUnitTests\Networking.xUnitTests\Networking.xUnitTests.csproj", "{F9FCD75A-3414-463C-8D63-A129FCF7E40E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylongDll", "..\..\..\WaylongDll\WaylongDll\WaylongDll.csproj", "{A950562B-65A2-488F-BBD7-0314870F57F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoChess_GameServer", "..\..\..\AutoChess_GameServer\AutoChess_GameServer\AutoChess_GameServer.csproj", "{E8725100-85C9-48E1-97AB-CBFB8C033FB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoChess", "..\..\..\AutoChess\AutoChess\AutoChess.csproj", "{62F0E2A9-7F85-4D84-856E-61B6241FB382}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoChessDll", "..\..\..\AutoChessDll\AutoChessDll\AutoChessDll.csproj", "{2E9175DE-8E70-4FF7-98A4-494237A38030}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|anycpu = Debug|anycpu
@@ -19,5 +27,21 @@ Global
 		{F9FCD75A-3414-463C-8D63-A129FCF7E40E}.Debug|anycpu.Build.0 = Debug|Any CPU
 		{F9FCD75A-3414-463C-8D63-A129FCF7E40E}.Release|anycpu.ActiveCfg = Release|Any CPU
 		{F9FCD75A-3414-463C-8D63-A129FCF7E40E}.Release|anycpu.Build.0 = Release|Any CPU
+		{A950562B-65A2-488F-BBD7-0314870F57F7}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{A950562B-65A2-488F-BBD7-0314870F57F7}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{A950562B-65A2-488F-BBD7-0314870F57F7}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{A950562B-65A2-488F-BBD7-0314870F57F7}.Release|anycpu.Build.0 = Release|Any CPU
+		{E8725100-85C9-48E1-97AB-CBFB8C033FB5}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{E8725100-85C9-48E1-97AB-CBFB8C033FB5}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{E8725100-85C9-48E1-97AB-CBFB8C033FB5}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{E8725100-85C9-48E1-97AB-CBFB8C033FB5}.Release|anycpu.Build.0 = Release|Any CPU
+		{62F0E2A9-7F85-4D84-856E-61B6241FB382}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{62F0E2A9-7F85-4D84-856E-61B6241FB382}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{62F0E2A9-7F85-4D84-856E-61B6241FB382}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{62F0E2A9-7F85-4D84-856E-61B6241FB382}.Release|anycpu.Build.0 = Release|Any CPU
+		{2E9175DE-8E70-4FF7-98A4-494237A38030}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{2E9175DE-8E70-4FF7-98A4-494237A38030}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{2E9175DE-8E70-4FF7-98A4-494237A38030}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{2E9175DE-8E70-4FF7-98A4-494237A38030}.Release|anycpu.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
