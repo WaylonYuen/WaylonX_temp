@@ -60,7 +60,7 @@ namespace Waylong.Packets.Base {
             public const int PacketType = BasicTypes.SizeOf.Short;
         }
 
-        //架構索引
+        //BUG: 架構索引 -> 此索引 和 packet索引有衝突
         public static class IndexOf {
 
             public const int PacketSIZE = 0;
