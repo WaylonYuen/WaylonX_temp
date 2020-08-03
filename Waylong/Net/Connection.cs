@@ -96,7 +96,6 @@ namespace Waylong.Net {
                     try {
                         socket.Bind(iPEndPoint);  //協議綁定
                         socket.Listen(backlog);
-                        Console.WriteLine("啟動監聽");
                         isListening = true;
                         break;
 

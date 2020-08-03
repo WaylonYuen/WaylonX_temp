@@ -8,7 +8,6 @@ using Waylong.Architecture.Server;
 using Waylong.Converter;
 using Waylong.Loggers;
 using Waylong.Net;
-using Waylong.Net.Protocol;
 using Waylong.Packets;
 using Waylong.Packets.Header;
 using Waylong.Packets.PacketData;
@@ -20,8 +19,6 @@ namespace Waylong {
         public static void Main(string[] args) {
 
             Demo.LoggerTest();
-
-            //Demo.ServerTest();
 
             //Demo.PacketTest();
 
@@ -81,14 +78,6 @@ namespace Waylong {
             Console.WriteLine(gPk.Header.ToString());
             Console.WriteLine(gPk.Body.ToString());
             Console.WriteLine(BitConverter.ToInt32(gPk.Body.Bys_data, 0));
-        }
-
-        public static void ServerTest() {
-            var Server = new StdServer();
-            Server.Start("127.0.0.1", 8808);
-
-            var client = new StdClient();
-            client.Start("127.0.0.1", 8808);
         }
 
     }

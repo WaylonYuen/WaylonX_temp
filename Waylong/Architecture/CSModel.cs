@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Threading;
 using Waylong.Attributes;
 using Waylong.Net;
+using Waylong.Packets;
 
 namespace Waylong.Architecture {
 
@@ -69,7 +70,7 @@ namespace Waylong.Architecture {
         /// <summary>
         /// 佇列分配器 : 分配封包到對應的佇列隊伍中
         /// </summary>
-        protected abstract void QueueDistributor();
+        protected abstract void QueueDistributor(Packet packet);
 
         /// <summary>
         /// 接收資料
