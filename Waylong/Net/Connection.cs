@@ -59,7 +59,7 @@ namespace Waylong.Net {
 
                     } catch (Exception e) {
                         throw new Exception("\n! 連接失敗:" + e.Message);
-                    }                  
+                    }
 
                 //UDP協定
                 case ProtocolType.Udp:
@@ -74,6 +74,7 @@ namespace Waylong.Net {
             //設定NetworkMode
             if (isConnected) {
                 networkMode = NetworkMode.Connect;
+                return true;
             }
 
             return false;
@@ -95,7 +96,6 @@ namespace Waylong.Net {
                     try {
                         socket.Bind(iPEndPoint);  //協議綁定
                         socket.Listen(backlog);
-                        Console.WriteLine("啟動監聽");
                         isListening = true;
                         break;
 

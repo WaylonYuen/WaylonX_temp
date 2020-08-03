@@ -178,11 +178,11 @@ namespace Waylong.Packets {
             //建立封包
             var bys_packet = new byte[BasicTypes.SizeOf.Int + bys_header.Length + bys_body.Length];
 
-            //添加封包資訊描述
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(bys_body.Length)).CopyTo(bys_packet, 0);
+            //添加封包資訊描述 Bug
+            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(bys_header.Length + bys_body.Length)).CopyTo(bys_packet, 0);
 
             //打包封包
-            bys_packetData.CopyTo(bys_packet, IndexOf.Packet);
+            bys_packetData.CopyTo(bys_packet, 4);
 
             return bys_packet;
         }

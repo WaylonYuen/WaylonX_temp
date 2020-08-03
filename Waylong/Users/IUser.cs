@@ -38,6 +38,8 @@ namespace Waylong.Users {
         /// </summary>
         NetworkState NetworkState { get; }
 
+        //Undone: 設定NetworkState方法
+
     }
 
 }
