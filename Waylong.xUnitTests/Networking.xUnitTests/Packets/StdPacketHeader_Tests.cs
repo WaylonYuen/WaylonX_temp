@@ -7,7 +7,7 @@ namespace Networking.xUnitTests.Packets {
 
     public class StdPacketHeader_Tests {
 
-        [Obsolete("Un Finish", true)]
+        [Obsolete("UnFinish", true)]
         [Fact]
         public void ToPackup_AND_Unpack_OK() {
 
