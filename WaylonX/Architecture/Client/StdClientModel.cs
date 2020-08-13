@@ -84,7 +84,7 @@ namespace WaylonX.Architecture.Client {
         }
 
         /// <summary>
-        /// 服務器初始化
+        /// 客戶端初始化
         /// </summary>
         protected override void Initialize() {
 

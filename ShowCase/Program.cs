@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Net;
-using WaylonX;
 using WaylonX.Converter;
 using WaylonX.Loggers;
 using WaylonX.Packets;
 
-namespace Waylong {
+namespace WaylonX {
 
     class MainClass {
         public static void Main(string[] args) {
