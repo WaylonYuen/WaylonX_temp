@@ -151,8 +151,8 @@ namespace WaylonX.Architecture.Server {
 
             //線程池設定
             //HACK: 設定線程池中的線程
-            //System.Threading.ThreadPool.SetMinThreads(3, 3);
-            //System.Threading.ThreadPool.SetMaxThreads(0, 0);
+            ThreadPool.SetMinThreads(3, 3);
+            ThreadPool.SetMaxThreads(5, 5);
 
             //啟動監聽等待客戶端線程
             Threading.Thread.Create(AwaitClientThread, true).Start(); //啟動等待客戶端線程

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Threading;
 using WaylonX.Net;
 using WaylonX.Threading;
 using WaylonX.Users;
@@ -101,7 +102,12 @@ namespace WaylonX.Architecture.Client {
         protected override void Start_Thread() {
             IsClose = false;    // partial -> Thread
 
-            Thread.Create(ReceivePacketThread, true).Start();
+            //線程池設定
+            //HACK: 設定線程池中的線程
+            ThreadPool.SetMinThreads(3, 3);
+            ThreadPool.SetMaxThreads(5, 5);
+
+            Threading.Thread.Create(ReceivePacketThread, true).Start();
         }
 
         /// <summary>

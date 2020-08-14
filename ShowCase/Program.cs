@@ -53,11 +53,11 @@ namespace WaylonX {
 
             //獲取完整封包長度
             var pkLen = Bytes.Splitter(out byte[] pk1, ref bys_pk, 0, BasicTypes.SizeOf.Int);
-            Console.WriteLine($"pkLen : {IPAddress.NetworkToHostOrder(BitConverter.ToInt32(pkLen, 0))}");
+            Console.WriteLine($"pkLen : {IPAddress.NetworkToHostOrder(System.BitConverter.ToInt32(pkLen, 0))}");
 
             //獲取封包型態
             var pktype = Bytes.Splitter(out byte[] pk2, ref pk1, 0, BasicTypes.SizeOf.Short);
-            Console.WriteLine($"pkType : {(PacketType)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(pktype, 0))}");
+            Console.WriteLine($"pkType : {(PacketType)IPAddress.NetworkToHostOrder(System.BitConverter.ToInt16(pktype, 0))}");
 
 
             //通過型態創建封包
@@ -68,7 +68,7 @@ namespace WaylonX {
             //Output
             Console.WriteLine(gPk.Header.ToString());
             Console.WriteLine(gPk.Body.ToString());
-            Console.WriteLine(BitConverter.ToInt32(gPk.Body.Bys_data, 0));
+            Console.WriteLine(System.BitConverter.ToInt32(gPk.Body.Bys_data, 0));
         }
 
     }
