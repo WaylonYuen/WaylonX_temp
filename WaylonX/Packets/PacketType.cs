@@ -85,6 +85,7 @@ namespace WaylonX.Packets {
     public enum Callback {
         None,
         Testing,
+        Login,
 
         PacketHeaderSync,
         SIZE,

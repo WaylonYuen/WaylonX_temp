@@ -88,8 +88,8 @@ namespace WaylonX.Packets.Base {
             var bys_packet = new byte[StructSIZE + bys_header.Length + bys_body.Length];
 
             //添加封包資訊描述
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((SizeOf.PacketType + bys_header.Length + bys_body.Length))).CopyTo(bys_packet, IndexOf.PacketSIZE);  //封裝整個個封包長度(不包含長度資訊)
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)PacketType)).CopyTo(bys_packet, IndexOf.PacketType);  //封裝封包型態
+            System.BitConverter.GetBytes(IPAddress.HostToNetworkOrder((SizeOf.PacketType + bys_header.Length + bys_body.Length))).CopyTo(bys_packet, IndexOf.PacketSIZE);  //封裝整個個封包長度(不包含長度資訊)
+            System.BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)PacketType)).CopyTo(bys_packet, IndexOf.PacketType);  //封裝封包型態
 
             //打包封包
             bys_packetData.CopyTo(bys_packet, IndexOf.Packet);

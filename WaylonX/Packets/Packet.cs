@@ -160,7 +160,18 @@ namespace WaylonX.Packets {
             : base(emergency, encryption, category, callback, data) {
         }
 
-        //標準封包 : 封包資料 -> string[]
+        /// <summary>
+        /// 標準封包 : 封包資料 -> string[]
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="emergency"></param>
+        /// <param name="encryption"></param>
+        /// <param name="category"></param>
+        /// <param name="callback"></param>
+        /// <param name="data"></param>
+        public Packet(Emergency emergency, Encryption encryption, Category category, Callback callback, string[] data)
+            : base(emergency, encryption, category, callback, data) {
+        }
 
         #endregion
 
@@ -179,7 +190,7 @@ namespace WaylonX.Packets {
             var bys_packet = new byte[BasicTypes.SizeOf.Int + bys_header.Length + bys_body.Length];
 
             //添加封包資訊描述 Bug
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(bys_header.Length + bys_body.Length)).CopyTo(bys_packet, 0);
+            System.BitConverter.GetBytes(IPAddress.HostToNetworkOrder(bys_header.Length + bys_body.Length)).CopyTo(bys_packet, 0);
 
             //打包封包
             bys_packetData.CopyTo(bys_packet, 4);

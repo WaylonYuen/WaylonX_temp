@@ -137,11 +137,11 @@ namespace WaylonX.Packets.Header {
             var bys_packetHeader = new byte[StructSIZE];
 
             //封裝Header : 將local values 封裝成 Bytes
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder(VerificationCode)).CopyTo(bys_packetHeader, IndexOf.VerificationCode);
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_emergency)).CopyTo(bys_packetHeader, IndexOf.EmergencyType);
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_encryption)).CopyTo(bys_packetHeader, IndexOf.EncryptionType);
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_category)).CopyTo(bys_packetHeader, IndexOf.CategoryType);
-            BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_callback)).CopyTo(bys_packetHeader, IndexOf.CallbackType);
+            System.BitConverter.GetBytes(IPAddress.HostToNetworkOrder(VerificationCode)).CopyTo(bys_packetHeader, IndexOf.VerificationCode);
+            System.BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_emergency)).CopyTo(bys_packetHeader, IndexOf.EmergencyType);
+            System.BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_encryption)).CopyTo(bys_packetHeader, IndexOf.EncryptionType);
+            System.BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_category)).CopyTo(bys_packetHeader, IndexOf.CategoryType);
+            System.BitConverter.GetBytes(IPAddress.HostToNetworkOrder((short)m_callback)).CopyTo(bys_packetHeader, IndexOf.CallbackType);
 
             return bys_packetHeader;
         }
@@ -159,11 +159,11 @@ namespace WaylonX.Packets.Header {
             //Hack: 如果解析時short數值不在enum範圍內,則有可能無法獲得指定type.
 
             //Unpack
-            VerificationCode = IPAddress.NetworkToHostOrder(BitConverter.ToInt32(Bytes.Extract(bys_packetHeader, IndexOf.VerificationCode, SizeOf.VerificationCode), 0));
-            m_emergency = (Emergency)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.EmergencyType, SizeOf.EmergencyType), 0));
-            m_encryption = (Encryption)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.EncryptionType, SizeOf.EncryptionType), 0));
-            m_category = (Category)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.CategoryType, SizeOf.CategoryType), 0));
-            m_callback = (Callback)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.CallbackType, SizeOf.CallbackType), 0));
+            VerificationCode = IPAddress.NetworkToHostOrder(System.BitConverter.ToInt32(Bytes.Extract(bys_packetHeader, IndexOf.VerificationCode, SizeOf.VerificationCode), 0));
+            m_emergency = (Emergency)IPAddress.NetworkToHostOrder(System.BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.EmergencyType, SizeOf.EmergencyType), 0));
+            m_encryption = (Encryption)IPAddress.NetworkToHostOrder(System.BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.EncryptionType, SizeOf.EncryptionType), 0));
+            m_category = (Category)IPAddress.NetworkToHostOrder(System.BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.CategoryType, SizeOf.CategoryType), 0));
+            m_callback = (Callback)IPAddress.NetworkToHostOrder(System.BitConverter.ToInt16(Bytes.Extract(bys_packetHeader, IndexOf.CallbackType, SizeOf.CallbackType), 0));
 
         }
 
