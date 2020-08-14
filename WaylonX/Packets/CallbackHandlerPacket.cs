@@ -46,10 +46,33 @@ namespace AutoChessDll.Packets {
         }
 
         /// <summary>
-        /// 回調執行
+        /// 同步回調執行
         /// </summary>
         public void Excute() {
             CallbackHandler?.Invoke(this);
+        }
+
+        /// <summary>
+        /// 異步回調執行
+        /// </summary>
+        public void BeginExcute() {
+            CallbackHandler?.BeginInvoke(this, new AsyncCallback(ExcuteCallback), CallbackHandler);
+        }
+
+        /// <summary>
+        /// 異步回調
+        /// </summary>
+        /// <param name="iar"></param>
+        private void ExcuteCallback(IAsyncResult iar) {
+
+            //還原Begin方法所提供的Object(此處BeginExcute提供了CallbackHandler)
+            var packet = (CallbackHandler)iar.AsyncState;
+
+            //執行異步操作(暫無)
+
+            //結束異步
+            packet.EndInvoke(iar);
+
         }
 
     }
