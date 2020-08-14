@@ -17,6 +17,12 @@ namespace WaylonX.Users {
         int VerificationCode { get; }
 
         /// <summary>
+        /// 設定用戶身份驗證碼
+        /// </summary>
+        /// <param name="verificationCode"></param>
+        void SetVerificationCode(int verificationCode);
+
+        /// <summary>
         /// 發送封包方法
         /// </summary>
         /// <param name="netPacket">網路封包</param>
@@ -38,7 +44,11 @@ namespace WaylonX.Users {
         /// </summary>
         NetworkState NetworkState { get; }
 
-        //Undone: 設定NetworkState方法
+        /// <summary>
+        /// 設定網路狀態
+        /// </summary>
+        /// <param name="networkState"></param>
+        void SetNetworkState(NetworkState networkState);
 
     }
 
