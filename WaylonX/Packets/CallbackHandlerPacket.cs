@@ -1,8 +1,7 @@
 ﻿using System;
-using WaylonX.Packets;
 using WaylonX.Users;
 
-namespace AutoChessDll.Packets {
+namespace WaylonX.Packets {
 
     /// <summary>
     /// 委派: 回調處理器

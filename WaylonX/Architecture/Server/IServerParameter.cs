@@ -2,7 +2,7 @@
 
 namespace WaylonX.Architecture.Server {
 
-    public interface IServerParameter : ICSParameter {
+    public interface IServerParameter {
 
     }
 }

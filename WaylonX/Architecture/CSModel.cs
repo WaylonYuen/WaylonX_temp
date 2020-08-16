@@ -28,13 +28,7 @@ namespace WaylonX.Architecture {
         /// <summary>
         /// 運行狀態判斷
         /// </summary>
-        protected static  bool IsClose { get => m_iSClose; set => m_iSClose = value; }    //Flag
-
-        #endregion
-
-        #region Local Values
-
-        private static bool m_iSClose;
+        protected static  bool IsClose { get; set; }    //Flag
 
         #endregion
 
@@ -109,7 +103,7 @@ namespace WaylonX.Architecture {
                 } else {
                     Thread.Sleep(50);   //本地緩存為空
 
-                    if (m_iSClose) {
+                    if (IsClose) {
                         data_Bytes = null;
                         break;
                     }
