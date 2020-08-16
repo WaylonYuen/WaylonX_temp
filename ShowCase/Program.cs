@@ -3,19 +3,22 @@ using System.Net;
 using WaylonX.Converter;
 using WaylonX.Loggers;
 using WaylonX.Packets;
+using WaylonX_Database;
 
 namespace WaylonX {
 
     class MainClass {
         public static void Main(string[] args) {
 
-            Demo.LoggerTest();
+            //Demo.LoggerTest();
 
             //Demo.PacketTest();
 
             //Demo.ConnectionTest();
 
             //Demo.PacketTest2();
+
+            Demo.DatabaseTest();
         }
     }
 
@@ -31,7 +34,7 @@ namespace WaylonX {
             Logger.Warn("Testing Error Logger output Format.");
             Logger.Error("Testing Error Logger output Format.");
 
-            var logs = Logger.GetContainer("Server Connection", Logger.ToString());
+            var logs = Logger.GetContainer(StdLogger.LogType.Info, "Server Connection", Logger.ToString());
 
             logs.Add("IP", "127.0.0.1");
             logs.Add("Port", "8808");
@@ -71,6 +74,9 @@ namespace WaylonX {
             Console.WriteLine(System.BitConverter.ToInt32(gPk.Body.Bys_data, 0));
         }
 
+        public static void DatabaseTest() {
+
+        }
     }
 
 }

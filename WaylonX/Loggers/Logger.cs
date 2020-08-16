@@ -33,30 +33,50 @@ namespace WaylonX.Loggers {
                 switch (Type) {
 
                     case LogType.Info:
-                        logType = "Info:";
+                        logType = "Info";
+                        typeLabel = '#';
+                        break;
+
+                    case LogType.GameInfo:
+                        logType = "Game";
+                        typeLabel = '#';
+
+                        break;
+                    case LogType.ClientInfo:
+                        logType = "Client";
+                        typeLabel = '#';
+                        break;
+
+                    case LogType.ServerInfo:
+                        logType = "Server";
+                        typeLabel = '#';
+                        break;
+
+                    case LogType.DatabaseInfo:
+                        logType = "Database";
                         typeLabel = '#';
                         break;
 
                     case LogType.Catch:
-                        logType = "Catch:";
+                        logType = "Catch";
                         typeLabel = '>';
                         typeTag = '%';
                         break;
 
                     case LogType.Warn:
-                        logType = "Warning:";
+                        logType = "Warning";
                         typeLabel = '>';
                         typeTag = '@';
                         break;
 
                     case LogType.Error:
-                        logType = "Error:";
+                        logType = "Error";
                         typeLabel = '>';
                         typeTag = '!';
                         break;
 
                     case LogType.Correct:
-                        logType = "Correct:";
+                        logType = "Correct";
                         typeLabel = 'R';
                         typeTag = '<';
                         break;
@@ -67,7 +87,7 @@ namespace WaylonX.Loggers {
                 }
 
                 //整合
-                string Logs = $"  {typeTag}  {DateTime.Now:dd/MM/yyyy  HH:mm:ss - fff}  {typeLabel} [{logType,10}  {logType} ]  Details -> {Detail}";
+                string Logs = $"  {typeTag} {DateTime.Now:dd/MM/yyyy HH:mm:ss-fff} [ {typeLabel} {logType,2} ]: Details -> {Detail}";
 
                 //Undone: 寫到外部Log日誌
 
@@ -87,13 +107,16 @@ namespace WaylonX.Loggers {
         /// </summary>
         public class Container {
 
+            private readonly LogType Type;
+
             private readonly string Discription;
 
             private readonly string BaseToString;
 
             private Dictionary<string, string> containerDict = new Dictionary<string, string>();
 
-            public Container(string discription, string baseToString) {
+            public Container(LogType type, string discription, string baseToString) {
+                Type = type;
                 Discription = discription;
                 BaseToString = baseToString;
             }
@@ -113,9 +136,70 @@ namespace WaylonX.Loggers {
                     }
                 }
 
-                string str_Logs = "\n  v  " + DateTime.Now.ToString("dd/MM/yyyy  HH:mm:ss - fff") + "  # " + Discription + " -> " + BaseToString + "\n\t  |  Info:\n";
 
+                string logType = " ";
+                char typeLabel = ' ';
+                char typeTag = 'v';
 
+                switch (Type) {
+
+                    case LogType.Info:
+                        logType = "Info";
+                        typeLabel = '#';
+                        break;
+
+                    case LogType.GameInfo:
+                        logType = "Game";
+                        typeLabel = '#';
+
+                        break;
+                    case LogType.ClientInfo:
+                        logType = "Client";
+                        typeLabel = '#';
+                        break;
+
+                    case LogType.ServerInfo:
+                        logType = "Server";
+                        typeLabel = '#';
+                        break;
+
+                    case LogType.DatabaseInfo:
+                        logType = "Database";
+                        typeLabel = '#';
+                        break;
+
+                    case LogType.Catch:
+                        logType = "Catch";
+                        typeLabel = '>';
+                        typeTag = '%';
+                        break;
+
+                    case LogType.Warn:
+                        logType = "Warning";
+                        typeLabel = '>';
+                        typeTag = '@';
+                        break;
+
+                    case LogType.Error:
+                        logType = "Error";
+                        typeLabel = '>';
+                        typeTag = '!';
+                        break;
+
+                    case LogType.Correct:
+                        logType = "Correct";
+                        typeLabel = 'R';
+                        typeTag = '<';
+                        break;
+
+                    default:
+                        //沒有這個類別
+                        break;
+                }
+
+                string str_Logs = "\n  " + typeTag + " " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss-fff") + " [ " + typeLabel + " " + logType + " ]: Details -> " + Discription + " : " + BaseToString + "\n    Info: |\n";
+
+                int endingLenght = 0;
                 foreach (var info in containerDict) {
 
                     //動態調整空格對齊
@@ -124,16 +208,20 @@ namespace WaylonX.Loggers {
                         str_Logs += " ";
                     }
                     str_Logs += info.Key + " : " + info.Value + "\n";
+
+                    if ((maxLength + info.Value.Length) > endingLenght) {
+                        endingLenght = maxLength + info.Value.Length;
+                    }
                 }
 
                 //動態調整結尾包裹
                 str_Logs += "\t  |";
-                if ((maxLength - 40) > 10) {
-                    for (int i = 0; i < (maxLength - 40) + 10; i++) {
-                        str_Logs += "-";
-                    }
+
+                int Offset = 10;
+                for (int i = 0; i < endingLenght + Offset; i++) {
+                    str_Logs += "-";
                 }
-                str_Logs += "-----------------------------------------------------end]\n";
+                str_Logs += "end]\n";
 
                 //Undone: 寫到外部Log日誌
 
@@ -149,6 +237,26 @@ namespace WaylonX.Loggers {
 
         public void Info(string content) {
             var Log = new Log(LogType.Info, content);
+            Log.EnQueue();
+        }
+
+        public void GameInfo(string content) {
+            var Log = new Log(LogType.GameInfo, content);
+            Log.EnQueue();
+        }
+
+        public void ClientInfo(string content) {
+            var Log = new Log(LogType.ClientInfo, content);
+            Log.EnQueue();
+        }
+
+        public void ServerInfo(string content) {
+            var Log = new Log(LogType.ServerInfo, content);
+            Log.EnQueue();
+        }
+
+        public void DatabaseInfo(string content) {
+            var Log = new Log(LogType.DatabaseInfo, content);
             Log.EnQueue();
         }
 
@@ -173,8 +281,8 @@ namespace WaylonX.Loggers {
         /// <param name="discription">容器描述 -> 此容器紀錄的資訊概括</param>
         /// <param name="baseToString">來自被呼叫的父類方法ToString</param>
         /// <returns>Log容器</returns>
-        public Container GetContainer(string discription, string baseToString) {
-            return new Container(discription, baseToString);
+        public Container GetContainer(LogType type, string discription, string baseToString) {
+            return new Container(type, discription, baseToString);
         }
 
         public void Testing() {
@@ -188,8 +296,12 @@ namespace WaylonX.Loggers {
         }
         #endregion
 
-        private enum LogType {
+        public enum LogType {
             Info,
+            GameInfo,
+            ClientInfo,
+            ServerInfo,
+            DatabaseInfo,
             Debug,
             Warn,
             Error,
