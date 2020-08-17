@@ -228,8 +228,11 @@ namespace WaylonX.Loggers {
                 return str_Logs;
             }
 
-            public void Excute() {
-                logQueue.Enqueue(WriteLogs());
+            public string Excute() {
+                string logs = WriteLogs();
+                logQueue.Enqueue(logs);
+
+                return logs;
             }
         }
 

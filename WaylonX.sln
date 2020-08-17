@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleChess_Server", "..\..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonX_Database", "WaylonX_Database\WaylonX_Database.csproj", "{AFE03EF6-D88D-4954-A48D-C919CBD4DB9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonX_Database.SDK", "WaylonX_Database.SDK\WaylonX_Database.SDK.csproj", "{C9720465-2F70-4EE3-BF74-0469FD6E572D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,9 @@ Global
 		{AFE03EF6-D88D-4954-A48D-C919CBD4DB9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFE03EF6-D88D-4954-A48D-C919CBD4DB9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFE03EF6-D88D-4954-A48D-C919CBD4DB9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9720465-2F70-4EE3-BF74-0469FD6E572D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9720465-2F70-4EE3-BF74-0469FD6E572D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9720465-2F70-4EE3-BF74-0469FD6E572D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9720465-2F70-4EE3-BF74-0469FD6E572D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
