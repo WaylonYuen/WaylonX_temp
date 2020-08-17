@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Net;
+using WaylonX.Architecture.Client;
+using WaylonX.Cloud;
 using WaylonX.Converter;
 using WaylonX.Loggers;
 using WaylonX.Packets;
-using WaylonX_Database;
 
 namespace WaylonX {
 
@@ -18,7 +19,9 @@ namespace WaylonX {
 
             //Demo.PacketTest2();
 
-            Demo.DatabaseTest();
+            //Demo.DatabaseTest();
+
+            //設定服務器連線參數
         }
     }
 
