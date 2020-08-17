@@ -3,27 +3,13 @@ using WaylonX.Users;
 
 namespace WaylonX.Architecture.Server {
 
-    public class ServerInfoEventArgs : EventArgs {
-
-        /// <summary>
-        /// 主機IP
-        /// </summary>
-        public string IP { get; set; }
-
-        /// <summary>
-        /// 主機端口
-        /// </summary>
-        public int Port { get; set; }
+    public class ServerInfoEventArgs : CSBaseInfoEventArgs {
 
         /// <summary>
         /// 客戶端連線積壓數
         /// </summary>
         public int Backlog { get; set; }
 
-        /// <summary>
-        /// 操作環境
-        /// </summary>
-        public Environment Environment { get; set; }
     }
 
     /// <summary>

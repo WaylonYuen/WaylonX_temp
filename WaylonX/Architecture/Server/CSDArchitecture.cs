@@ -4,8 +4,28 @@ using System.Threading;
 using WaylonX.Cloud;
 using WaylonX.Net;
 using WaylonX.Packets;
+using WaylonX.Threading;
 
 namespace WaylonX.Architecture {
+
+    public class CSBaseInfoEventArgs : EventArgs {
+
+        /// <summary>
+        /// 主機IP
+        /// </summary>
+        public string IP { get; set; }
+
+        /// <summary>
+        /// 主機端口
+        /// </summary>
+        public int Port { get; set; }
+
+        /// <summary>
+        /// 操作環境
+        /// </summary>
+        public Environment Environment { get; set; }
+
+    }
 
     /// <summary>
     /// Client-Server-Model: 主從式架構
@@ -195,6 +215,66 @@ namespace WaylonX.Architecture {
 
         #endregion
 
+
+        /// <summary>
+        /// 同步任務緩衝區列隊
+        /// </summary>
+        /// <param name="breakTime">線程空閒時間</param>
+        /// <param name="category">任務緩衝區類別</param>
+        public static void TaskBufferQueueThread(object args) {
+
+            var Info = args as TaskBufferQueueInfoEventArgs;
+
+            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + "Thread()");
+
+            while (!IsClose) {
+
+                //檢查佇列是否有隊伍
+                if (Shared.TaskBuffer.PacketQueueDict[Info.Category].Count > 0) {
+                    if (Shared.TaskBuffer.PacketQueueDict[Info.Category].TryDequeue(out CallbackHandlerPacket e)) {
+                        e.Excute(); //執行Handler
+                    }
+
+                } else {
+                    //讓出線程（即：退出隊伍N秒重新排隊）
+                    System.Threading.Thread.Sleep(Info.BreakTime);
+                }
+            }
+
+            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + "Thread()");
+        }
+
+
+        /// <summary>
+        /// 異步任務緩衝區列隊
+        /// </summary>
+        /// <param name="breakTime">線程空閒時間</param>
+        /// <param name="category">任務緩衝區類別</param>
+        public static void BeginTaskBufferQueueThread(object args) {
+
+            var Info = args as TaskBufferQueueInfoEventArgs;
+
+            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + "Thread()");
+
+            while (!IsClose) {
+
+                //檢查佇列是否有隊伍
+                if (Shared.TaskBuffer.PacketQueueDict[Info.Category].Count > 0) {
+                    if (Shared.TaskBuffer.PacketQueueDict[Info.Category].TryDequeue(out CallbackHandlerPacket e)) {
+                        e.BeginExcute(); //執行Handler
+                    }
+
+                } else {
+                    //讓出線程（即：退出隊伍N秒重新排隊）
+                    System.Threading.Thread.Sleep(Info.BreakTime);
+                }
+            }
+
+            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + "Thread()");
+        }
+
+
+
         #region Methods
 
         /// <summary>
@@ -209,7 +289,7 @@ namespace WaylonX.Architecture {
                 return null;
             }
 
-            var data_Bytes = new byte[dataLength];
+             var data_Bytes = new byte[dataLength];
 
             //如果當前需要接收的字節數大於0 and 遊戲未退出 則循環接收
             while (dataLength > 0) {
@@ -232,7 +312,7 @@ namespace WaylonX.Architecture {
                     dataLength -= recvAlready;
 
                 } else {
-                    Thread.Sleep(50);   //本地緩存為空
+                    System.Threading.Thread.Sleep(50);   //本地緩存為空
 
                     if (IsClose) {
                         data_Bytes = null;
