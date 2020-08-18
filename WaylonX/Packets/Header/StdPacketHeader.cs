@@ -35,7 +35,7 @@ namespace WaylonX.Packets.Header {
         /// <summary>
         /// 用戶網路資料: 只有但checking通過時, 才會對此賦值
         /// </summary>
-        public override User User { get; protected set; }
+        public override IUser User { get; protected set; }
 
         #region Must be pack ( Important: Do Not Easily Change! )
         /// <summary>
@@ -172,10 +172,7 @@ namespace WaylonX.Packets.Header {
         /// </summary>
         /// <param name="bys_packet"></param>
         /// <returns></returns>
-        public override bool Checking(User user) {
-
-            //接口約束
-            IUser IUser = user;
+        public override bool Checking(IUser user) {
 
             //封包條件檢查
             switch (m_callback) {
@@ -188,7 +185,7 @@ namespace WaylonX.Packets.Header {
             }
 
             //檢查封包驗證碼
-            if (IUser.VerificationCode.Equals(VerificationCode)) {
+            if (user.VerificationCode.Equals(VerificationCode)) {
                 User = user;
                 return true;
             }

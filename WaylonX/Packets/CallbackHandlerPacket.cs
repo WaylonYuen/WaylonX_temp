@@ -24,7 +24,7 @@ namespace WaylonX.Packets {
         /// <summary>
         /// 用戶
         /// </summary>
-        public User User { get; }
+        public IUser User { get; }
 
         /// <summary>
         /// 加密方法
@@ -38,7 +38,7 @@ namespace WaylonX.Packets {
 
         #endregion
 
-        public CallbackHandlerPacket(User user, Encryption encryption, byte[] bys_data) {
+        public CallbackHandlerPacket(IUser user, Encryption encryption, byte[] bys_data) {
             User = user;
             Encryption = encryption;
             Bys_Data = bys_data;

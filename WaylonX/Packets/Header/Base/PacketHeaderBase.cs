@@ -23,7 +23,7 @@ namespace WaylonX.Packets.Header.Base {
         /// <summary>
         /// 用戶
         /// </summary>
-        public abstract User User { get; protected set; }
+        public abstract IUser User { get; protected set; }
 
         /// <summary>
         /// 封裝
@@ -42,7 +42,7 @@ namespace WaylonX.Packets.Header.Base {
         /// </summary>
         /// <param name="bys_packet"></param>
         /// <returns></returns>
-        public abstract bool Checking(User user);
+        public abstract bool Checking(IUser user);
 
         /// <summary>
         /// 封包Header參數Size
