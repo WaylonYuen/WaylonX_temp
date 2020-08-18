@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Sockets;
-using System.Threading;
 using WaylonX.Cloud;
 using WaylonX.Net;
 using WaylonX.Packets;
@@ -8,6 +7,9 @@ using WaylonX.Threading;
 
 namespace WaylonX.Architecture {
 
+    /// <summary>
+    /// Client-Server基礎Info參數
+    /// </summary>
     public class CSBaseInfoEventArgs : EventArgs {
 
         /// <summary>
@@ -225,7 +227,7 @@ namespace WaylonX.Architecture {
 
             var Info = args as TaskBufferQueueInfoEventArgs;
 
-            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + "Thread()");
+            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + "  TaskBuffer Queue Thread()");
 
             while (!IsClose) {
 
@@ -241,7 +243,7 @@ namespace WaylonX.Architecture {
                 }
             }
 
-            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + "Thread()");
+            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + "  TaskBuffer Queue Thread()");
         }
 
 
@@ -254,7 +256,7 @@ namespace WaylonX.Architecture {
 
             var Info = args as TaskBufferQueueInfoEventArgs;
 
-            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + "Thread()");
+            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + "  Begin TaskBuffer Queue Thread()");
 
             while (!IsClose) {
 
@@ -270,7 +272,7 @@ namespace WaylonX.Architecture {
                 }
             }
 
-            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + "Thread()");
+            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + "  Begin TaskBuffer Queue Thread()");
         }
 
 
@@ -328,4 +330,12 @@ namespace WaylonX.Architecture {
 
     }
 
+    /// <summary>
+    /// 任務環境
+    /// </summary>
+    public enum Environment {
+        Unknow,
+        Unity,      //Debug.Log
+        Terminal,   //CW
+    }
 }
