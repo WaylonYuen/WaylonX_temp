@@ -28,18 +28,18 @@ namespace WaylonX.Users {
         #endregion
 
         #region Local Values
-        private readonly Socket m_Socket;
+        private Socket m_Socket;
         private NetworkState m_networkState;
         private int m_VerificationCode;
         #endregion
 
         #region Constructor
 
-        /// <summary>
-        /// 用戶
-        /// </summary>
-        /// <param name="socket">用戶Socket</param>
-        /// <param name="networkState">用戶網路狀態</param>
+        public User(NetworkState networkState) {
+            m_networkState = networkState;              //設定用戶網路狀態
+            m_VerificationCode = this.GetHashCode();    //設定用戶驗證碼
+        }
+
         public User(Socket socket, NetworkState networkState) {
             m_Socket = socket;
             m_networkState = networkState;              //設定用戶網路狀態
@@ -47,15 +47,7 @@ namespace WaylonX.Users {
         }
         #endregion
 
-        #region Methods
-
-        /// <summary>
-        /// 設定用戶網路狀態
-        /// </summary>
-        /// <param name="networkState"></param>
-        void IUserNetwork.SetNetworkState(NetworkState networkState) {
-            m_networkState = networkState;
-        }
+        #region Interface Methods
 
         /// <summary>
         /// 設定用戶身份驗證碼
@@ -63,6 +55,35 @@ namespace WaylonX.Users {
         /// <param name="verificationCode"></param>
         void IUser.SetVerificationCode(int verificationCode) {
             m_VerificationCode = verificationCode;
+        }
+
+        /// <summary>
+        /// 設定網路參數
+        /// </summary>
+        void IUserNetwork.SetNetworkMetrics(Socket socket, NetworkState state) {
+            m_Socket = socket;
+            m_networkState = state;
+        }
+
+        /// <summary>
+        /// 設定Socket
+        /// </summary>
+        /// <param name="socket"></param>
+        bool IUserNetwork.SetSocket(Socket socket) {
+            if (m_Socket == null) {
+                m_Socket = socket;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 設定用戶網路狀態
+        /// </summary>
+        /// <param name="networkState"></param>
+        void IUserNetwork.SetNetworkState(NetworkState state) {
+            m_networkState = state;
         }
 
         /// <summary>
@@ -120,6 +141,8 @@ namespace WaylonX.Users {
             }
         }
 
+        #endregion
+
         /// <summary>
         /// 發送方法回調
         /// </summary>
@@ -135,7 +158,6 @@ namespace WaylonX.Users {
             socket.EndSend(iar);
         }
 
-        #endregion
 
     }
 
