@@ -21,12 +21,6 @@ namespace WaylonX.Users {
         /// </summary>
         /// <param name="verificationCode"></param>
         void SetVerificationCode(int verificationCode);
-
-        /// <summary>
-        /// 發送封包方法
-        /// </summary>
-        /// <param name="netPacket">網路封包</param>
-        void Send(IPacket packet);
     }
 
     /// <summary>
@@ -45,11 +39,33 @@ namespace WaylonX.Users {
         NetworkState NetworkState { get; }
 
         /// <summary>
+        /// 設定網路參數
+        /// </summary>
+        void SetNetworkMetrics(Socket socket, NetworkState state);
+
+        /// <summary>
+        /// 設定Socket
+        /// </summary>
+        /// <param name="socket"></param>
+        bool SetSocket(Socket socket);
+
+        /// <summary>
         /// 設定網路狀態
         /// </summary>
         /// <param name="networkState"></param>
-        void SetNetworkState(NetworkState networkState);
+        void SetNetworkState(NetworkState state);
 
+        /// <summary>
+        /// 發送封包方法
+        /// </summary>
+        /// <param name="netPacket">網路封包</param>
+        void Send(IPacket packet);
+
+        /// <summary>
+        /// 異步發送網路封包
+        /// </summary>
+        /// <param name="packet">網路封包</param>
+        void BeginSend(IPacket packet);
     }
 
 }
