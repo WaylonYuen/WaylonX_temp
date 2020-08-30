@@ -111,7 +111,8 @@ namespace WaylonX.Architecture {
             CSDargs = args;
 
             //註冊接收器
-            StartingEventReceiver();
+            //如果連線失敗則不再註冊接收器,直接返回
+            if (!StartingEventReceiver()) return false;
             StartedEventReceiver();
 
             //執行
@@ -120,7 +121,7 @@ namespace WaylonX.Architecture {
                 Init.Invoke(null, EventArgs.Empty);
             }
 
-            return !IsClose;
+            return true;
         }
 
         /// <summary>
@@ -148,11 +149,26 @@ namespace WaylonX.Architecture {
         /// <summary>
         /// 啟動程序時的事件接收器註冊
         /// </summary>
-        protected virtual void StartingEventReceiver() {
+        protected virtual bool StartingEventReceiver() {
             Init += new EventHandler(OnAwake);
             Init += new EventHandler(OnConnecting);
+
+            if (Init != null) {
+                Shared.Logger.Info("正在啟動...");
+                Init.Invoke(null, EventArgs.Empty);
+
+                //取消訂閱
+                Init -= new EventHandler(OnAwake);
+                Init -= new EventHandler(OnConnecting);
+
+                //檢查連線是否失敗: 失敗則直接返回
+                if (IsClose) return false;
+            }
+
             Init += new EventHandler(OnRegistered);
             Init += new EventHandler(OnStartThread);
+
+            return true;
         }
 
         /// <summary>

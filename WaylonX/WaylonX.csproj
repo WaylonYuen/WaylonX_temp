@@ -6,5 +6,8 @@
 
   <ItemGroup>
     <Folder Include="Cloud\" />
+    <Folder Include="Architecture\Server\" />
+    <Folder Include="Architecture\Client\" />
+    <Folder Include="Collections\" />
   </ItemGroup>
 </Project>

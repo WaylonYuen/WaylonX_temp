@@ -22,6 +22,7 @@ namespace WaylonX {
             //Demo.DatabaseTest();
 
             //設定服務器連線參數
+
         }
     }
 
