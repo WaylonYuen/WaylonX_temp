@@ -1,8 +1,16 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using AutoChessDll.Packets;
+using WaylonX.Packets;
 
-namespace AutoChessDll.Threading {
+namespace WaylonX.Threading {
+
+    /// <summary>
+    /// 任務緩衝列隊資料
+    /// </summary>
+    public class TaskBufferQueueInfoEventArgs : EventArgs {
+        public int BreakTime { get; set; }
+        public Category Category { get; set; }
+    }
 
     public class TaskBuffer<TCategory, TCallback, THandler> {
 

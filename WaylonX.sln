@@ -5,9 +5,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonX", "WaylonX\WaylonX.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShowCase", "ShowCase\ShowCase.csproj", "{B8AB61FE-6CAA-4D4E-BE76-E63B329D4912}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoChess_GameServer", "..\..\..\..\..\Document\FC-University\Course\#( Project ) Independent Study\AutoChess_GameServer\AutoChess_GameServer\AutoChess_GameServer.csproj", "{B35CD765-D8E6-43A2-8339-A23FA89BC4C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleChess_Server", "..\..\..\..\..\Document\FC-University\Course\#( Project ) Independent Study\BattleChess_Server\BattleChess_Server\BattleChess_Server.csproj", "{5577C9DA-B191-479E-AF61-B2FD84A27A31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoChess", "..\..\..\..\..\Document\FC-University\Course\#( Project ) Independent Study\AutoChess\AutoChess\AutoChess.csproj", "{067981F5-CCE7-4BFA-9B9C-C92D5ECFE009}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonX_Database", "WaylonX_Database\WaylonX_Database.csproj", "{AFE03EF6-D88D-4954-A48D-C919CBD4DB9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonX_Database.SDK", "WaylonX_Database.SDK\WaylonX_Database.SDK.csproj", "{C9720465-2F70-4EE3-BF74-0469FD6E572D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonXUnity", "WaylonXUnity\WaylonXUnity.csproj", "{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,13 +27,21 @@ Global
 		{B8AB61FE-6CAA-4D4E-BE76-E63B329D4912}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8AB61FE-6CAA-4D4E-BE76-E63B329D4912}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8AB61FE-6CAA-4D4E-BE76-E63B329D4912}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B35CD765-D8E6-43A2-8339-A23FA89BC4C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B35CD765-D8E6-43A2-8339-A23FA89BC4C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B35CD765-D8E6-43A2-8339-A23FA89BC4C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B35CD765-D8E6-43A2-8339-A23FA89BC4C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{067981F5-CCE7-4BFA-9B9C-C92D5ECFE009}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{067981F5-CCE7-4BFA-9B9C-C92D5ECFE009}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{067981F5-CCE7-4BFA-9B9C-C92D5ECFE009}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{067981F5-CCE7-4BFA-9B9C-C92D5ECFE009}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5577C9DA-B191-479E-AF61-B2FD84A27A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5577C9DA-B191-479E-AF61-B2FD84A27A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5577C9DA-B191-479E-AF61-B2FD84A27A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5577C9DA-B191-479E-AF61-B2FD84A27A31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFE03EF6-D88D-4954-A48D-C919CBD4DB9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFE03EF6-D88D-4954-A48D-C919CBD4DB9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFE03EF6-D88D-4954-A48D-C919CBD4DB9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFE03EF6-D88D-4954-A48D-C919CBD4DB9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9720465-2F70-4EE3-BF74-0469FD6E572D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9720465-2F70-4EE3-BF74-0469FD6E572D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9720465-2F70-4EE3-BF74-0469FD6E572D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9720465-2F70-4EE3-BF74-0469FD6E572D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

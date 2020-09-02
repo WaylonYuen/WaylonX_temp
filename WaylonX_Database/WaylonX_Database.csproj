@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Cloud\" />
-    <Folder Include="Architecture\Server\" />
-    <Folder Include="Architecture\Client\" />
+    <ProjectReference Include="..\WaylonX\WaylonX.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.21" />
   </ItemGroup>
 </Project>

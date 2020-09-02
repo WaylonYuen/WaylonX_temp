@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Net;
+using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Threading;
 using WaylonX.Net;
 using WaylonX.Packets;
 
@@ -28,18 +29,23 @@ namespace WaylonX.Users {
         #endregion
 
         #region Local Values
-        private readonly Socket m_Socket;
+        private Socket m_Socket;
         private NetworkState m_networkState;
         private int m_VerificationCode;
+
+        /// <summary>
+        /// 線程工作項
+        /// </summary>
+        private readonly List<Thread> threadWorkItem = new List<Thread>();
         #endregion
 
         #region Constructor
 
-        /// <summary>
-        /// 用戶
-        /// </summary>
-        /// <param name="socket">用戶Socket</param>
-        /// <param name="networkState">用戶網路狀態</param>
+        public User(NetworkState networkState) {
+            m_networkState = networkState;              //設定用戶網路狀態
+            m_VerificationCode = this.GetHashCode();    //設定用戶驗證碼
+        }
+
         public User(Socket socket, NetworkState networkState) {
             m_Socket = socket;
             m_networkState = networkState;              //設定用戶網路狀態
@@ -47,15 +53,7 @@ namespace WaylonX.Users {
         }
         #endregion
 
-        #region Methods
-
-        /// <summary>
-        /// 設定用戶網路狀態
-        /// </summary>
-        /// <param name="networkState"></param>
-        void IUserNetwork.SetNetworkState(NetworkState networkState) {
-            m_networkState = networkState;
-        }
+        #region Interface Methods
 
         /// <summary>
         /// 設定用戶身份驗證碼
@@ -63,6 +61,62 @@ namespace WaylonX.Users {
         /// <param name="verificationCode"></param>
         void IUser.SetVerificationCode(int verificationCode) {
             m_VerificationCode = verificationCode;
+        }
+
+        /// <summary>
+        /// 設定網路參數
+        /// </summary>
+        void IUserNetwork.SetNetworkMetrics(Socket socket, NetworkState state) {
+            m_Socket = socket;
+            m_networkState = state;
+        }
+
+        /// <summary>
+        /// 設定Socket
+        /// </summary>
+        /// <param name="socket"></param>
+        bool IUserNetwork.SetSocket(Socket socket) {
+            if (m_Socket == null) {
+                m_Socket = socket;
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 設定用戶網路狀態
+        /// </summary>
+        /// <param name="networkState"></param>
+        void IUserNetwork.SetNetworkState(NetworkState state) {
+            m_networkState = state;
+        }
+
+        /// <summary>
+        /// 添加及啟動用戶線程
+        /// </summary>
+        /// <param name="thread">添加的線程</param>
+        /// <param name="name">線程名稱</param>
+        /// <param name="hasObject">物件參數</param>
+        void IUserThread.AddAndStartThread(Thread thread, string name, bool hasObject) {
+
+            thread.Name = name;
+
+            if (hasObject) {
+                thread.Start(this);
+            } else {
+                thread.Start();
+            }
+
+            threadWorkItem.Add(thread);
+        }
+
+        /// <summary>
+        /// Opt: 關閉用戶線程
+        /// </summary>
+        void IUserThread.Close() {
+            //Undone: 消除User
+            //Undone: 關閉List中的所有線程
         }
 
         /// <summary>
@@ -82,8 +136,6 @@ namespace WaylonX.Users {
                 try {
                     m_Socket.Send(bys_packet, bys_packet.Length, 0);  //發送封包
                 } catch (Exception err) {
-
-                    //Format: cw
                     Console.WriteLine($"Error -> Packet sending failed : {err.Message}");
                 }
             } else {
@@ -120,6 +172,8 @@ namespace WaylonX.Users {
             }
         }
 
+        #endregion
+
         /// <summary>
         /// 發送方法回調
         /// </summary>
@@ -135,7 +189,6 @@ namespace WaylonX.Users {
             socket.EndSend(iar);
         }
 
-        #endregion
 
     }
 

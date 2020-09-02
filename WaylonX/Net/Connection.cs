@@ -55,11 +55,11 @@ namespace WaylonX.Net {
                     try {
                         socket.Connect(iPEndPoint);   //協議綁定
                         isConnected = true;
-                        break;
-
                     } catch (Exception e) {
-                        throw new Exception("\n! 連接失敗:" + e.Message);
+                        Console.WriteLine($"Exception: IConnection.Connect() 連線失敗 -> {e.Message}");
+                        //throw new Exception("\n! 連接失敗:" + e.Message);
                     }
+                    break;
 
                 //UDP協定
                 case ProtocolType.Udp:

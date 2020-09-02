@@ -1,8 +1,8 @@
 ﻿using System;
-using WaylonX.Packets;
+using System.Diagnostics;
 using WaylonX.Users;
 
-namespace AutoChessDll.Packets {
+namespace WaylonX.Packets {
 
     /// <summary>
     /// 委派: 回調處理器
@@ -25,7 +25,7 @@ namespace AutoChessDll.Packets {
         /// <summary>
         /// 用戶
         /// </summary>
-        public User User { get; }
+        public IUser User { get; }
 
         /// <summary>
         /// 加密方法
@@ -39,7 +39,7 @@ namespace AutoChessDll.Packets {
 
         #endregion
 
-        public CallbackHandlerPacket(User user, Encryption encryption, byte[] bys_data) {
+        public CallbackHandlerPacket(IUser user, Encryption encryption, byte[] bys_data) {
             User = user;
             Encryption = encryption;
             Bys_Data = bys_data;

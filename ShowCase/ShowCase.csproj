@@ -7,5 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WaylonX\WaylonX.csproj" />
+    <ProjectReference Include="..\WaylonX_Database\WaylonX_Database.csproj" />
   </ItemGroup>
 </Project>

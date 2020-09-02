@@ -69,6 +69,9 @@ namespace WaylonX.Packets {
         //一般(線程池)
         General,
 
+        //遊戲資料同步
+        Gaming,
+
         //特殊(獨立線程)
         SpecialCircumstances,
 
@@ -86,6 +89,8 @@ namespace WaylonX.Packets {
         None,
         Testing,
         Login,
+
+        ChessToBuild,
 
         PacketHeaderSync,
         SIZE,
