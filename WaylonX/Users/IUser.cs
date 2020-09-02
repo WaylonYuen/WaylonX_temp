@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Threading;
 using WaylonX.Net;
 using WaylonX.Packets;
 
@@ -9,7 +10,7 @@ namespace WaylonX.Users {
     /// <summary>
     /// 用戶接口: 封包身份驗證接口
     /// </summary>
-    public interface IUser : IUserNetwork {
+    public interface IUser : IUserNetwork, IUserThread {
 
         /// <summary>
         /// 取得用戶身份驗證碼
@@ -66,6 +67,27 @@ namespace WaylonX.Users {
         /// </summary>
         /// <param name="packet">網路封包</param>
         void BeginSend(IPacket packet);
+
+    }
+
+    /// <summary>
+    /// 用戶線程接口
+    /// </summary>
+    public interface IUserThread {
+
+        /// <summary>
+        /// 添加個人線程
+        /// </summary>
+        /// <param name="thread">線程</param>
+        /// <param name="name">線程名稱</param>
+        /// <param name="hasObject">是否帶參數</param>
+        void AddAndStartThread(Thread thread, string name, bool hasObject);
+
+        /// <summary>
+        /// 關閉用戶工作項 & 關閉前的處理
+        /// </summary>
+        void Close();
+
     }
 
 }

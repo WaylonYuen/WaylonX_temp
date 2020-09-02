@@ -21,11 +21,6 @@ namespace WaylonX.Packets.Header.Base {
         public abstract PacketHeaderType PacketHeaderType { get; }
 
         /// <summary>
-        /// 用戶
-        /// </summary>
-        public abstract IUser User { get; protected set; }
-
-        /// <summary>
         /// 封裝
         /// </summary>
         /// <returns></returns>

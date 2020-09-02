@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using WaylonX.Users;
 
 namespace WaylonX.Packets {

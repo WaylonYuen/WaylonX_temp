@@ -10,7 +10,11 @@ namespace WaylonX.Packets.Header {
     /// 標準封包描述資訊接口
     /// </summary>
     public interface IStdPacketHeader : IPacketHeaderIdentity, IPacketHeaderSecurity, IPacketHeaderThreads {
-        //確保屬性必然存在
+
+        /// <summary>
+        /// 用戶
+        /// </summary>
+        IUser User { get; }
     }
 
     /// <summary>
@@ -35,7 +39,7 @@ namespace WaylonX.Packets.Header {
         /// <summary>
         /// 用戶網路資料: 只有但checking通過時, 才會對此賦值
         /// </summary>
-        public override IUser User { get; protected set; }
+        public IUser User { get; protected set; }
 
         #region Must be pack ( Important: Do Not Easily Change! )
         /// <summary>

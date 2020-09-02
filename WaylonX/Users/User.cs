@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Net;
+using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Threading;
 using WaylonX.Net;
 using WaylonX.Packets;
 
@@ -31,6 +32,11 @@ namespace WaylonX.Users {
         private Socket m_Socket;
         private NetworkState m_networkState;
         private int m_VerificationCode;
+
+        /// <summary>
+        /// 線程工作項
+        /// </summary>
+        private readonly List<Thread> threadWorkItem = new List<Thread>();
         #endregion
 
         #region Constructor
@@ -87,6 +93,33 @@ namespace WaylonX.Users {
         }
 
         /// <summary>
+        /// 添加及啟動用戶線程
+        /// </summary>
+        /// <param name="thread">添加的線程</param>
+        /// <param name="name">線程名稱</param>
+        /// <param name="hasObject">物件參數</param>
+        void IUserThread.AddAndStartThread(Thread thread, string name, bool hasObject) {
+
+            thread.Name = name;
+
+            if (hasObject) {
+                thread.Start(this);
+            } else {
+                thread.Start();
+            }
+
+            threadWorkItem.Add(thread);
+        }
+
+        /// <summary>
+        /// Opt: 關閉用戶線程
+        /// </summary>
+        void IUserThread.Close() {
+            //Undone: 消除User
+            //Undone: 關閉List中的所有線程
+        }
+
+        /// <summary>
         /// 同步發送網路封包
         /// </summary>
         /// <param name="netPacket">網路封包</param>
@@ -103,8 +136,6 @@ namespace WaylonX.Users {
                 try {
                     m_Socket.Send(bys_packet, bys_packet.Length, 0);  //發送封包
                 } catch (Exception err) {
-
-                    //Format: cw
                     Console.WriteLine($"Error -> Packet sending failed : {err.Message}");
                 }
             } else {

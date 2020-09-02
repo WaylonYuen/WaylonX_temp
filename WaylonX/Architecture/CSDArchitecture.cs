@@ -74,7 +74,7 @@ namespace WaylonX.Architecture {
         /// <summary>
         /// 名稱
         /// </summary>
-        public static string Name { get; protected set; }
+        public string Name { get; protected set; }
 
         /// <summary>
         /// 運行狀態判斷
@@ -243,7 +243,7 @@ namespace WaylonX.Architecture {
 
             var Info = args as TaskBufferQueueInfoEventArgs;
 
-            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + "  TaskBuffer Queue Thread()");
+            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + ".TaskBufferQueueThread()");
 
             while (!IsClose) {
 
@@ -259,7 +259,7 @@ namespace WaylonX.Architecture {
                 }
             }
 
-            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + "  TaskBuffer Queue Thread()");
+            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + ".TaskBufferQueueThread()");
         }
 
 
@@ -272,7 +272,7 @@ namespace WaylonX.Architecture {
 
             var Info = args as TaskBufferQueueInfoEventArgs;
 
-            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + "  Begin TaskBuffer Queue Thread()");
+            Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + ".BeginTaskBufferQueueThread()");
 
             while (!IsClose) {
 
@@ -288,7 +288,7 @@ namespace WaylonX.Architecture {
                 }
             }
 
-            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + "  Begin TaskBuffer Queue Thread()");
+            Shared.Logger.ServerInfo("Thread Close -> Call Func : " + Info.Category.ToString() + ".BeginTaskBufferQueueThread()");
         }
 
 
