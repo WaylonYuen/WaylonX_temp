@@ -100,7 +100,7 @@ namespace WaylonX_Database {
             ThreadPool.SetMaxThreads(5, 5);
 
             //任務緩衝列隊線程
-            var TaskBufferQueueInfo = new TaskBufferQueueInfoEventArgs() {
+            var TaskBufferQueueInfo = new ThreadInfoEventArgs() {
                 BreakTime = 500,
                 Category = Category.Database,
             };

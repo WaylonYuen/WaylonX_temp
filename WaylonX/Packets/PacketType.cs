@@ -7,12 +7,16 @@ namespace WaylonX.Packets {
     public enum PacketType {
         None,
         StdPacket,
+        UserPacket,
+        GamerPacket,
         Packet,
     }
 
     public enum PacketHeaderType {
         None,
         StdPacketHeader,
+        UserPacketHeader,
+        GamerPacketHeader,
     }
 
     public enum PacketDataType {
@@ -70,7 +74,9 @@ namespace WaylonX.Packets {
         General,
 
         //遊戲資料同步
+        RoomMgmt,
         Gaming,
+        //Room,
 
         //特殊(獨立線程)
         SpecialCircumstances,
@@ -91,6 +97,8 @@ namespace WaylonX.Packets {
         Login,
 
         ChessToBuild,
+        SearchRoom,
+        RoomData,
 
         PacketHeaderSync,
         SIZE,

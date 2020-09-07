@@ -1,7 +1,5 @@
-﻿using System;
-using WaylonX.Packets.Base;
+﻿using WaylonX.Packets.Base;
 using WaylonX.Users;
-using WaylonX;
 
 namespace WaylonX.Packets.Header.Base {
 
@@ -19,25 +17,6 @@ namespace WaylonX.Packets.Header.Base {
         /// PacketHeader型態
         /// </summary>
         public abstract PacketHeaderType PacketHeaderType { get; }
-
-        /// <summary>
-        /// 封裝
-        /// </summary>
-        /// <returns></returns>
-        public abstract byte[] ToPackup();
-
-        /// <summary>
-        /// 解析
-        /// </summary>
-        /// <param name="bys_packetHeader">不包含其他資料的bys</param>
-        public abstract void Unpack(byte[] bys_packet);
-
-        /// <summary>
-        /// Header檢查
-        /// </summary>
-        /// <param name="bys_packet"></param>
-        /// <returns></returns>
-        public abstract bool Checking(IUser user);
 
         /// <summary>
         /// 封包Header參數Size
@@ -70,6 +49,18 @@ namespace WaylonX.Packets.Header.Base {
             public const int CallbackType = BasicTypes.SizeOf.Short;
 
         }
+
+        /// <summary>
+        /// 封裝
+        /// </summary>
+        /// <returns></returns>
+        public abstract byte[] ToPackup();
+
+        /// <summary>
+        /// 解析
+        /// </summary>
+        /// <param name="bys_packetHeader">不包含其他資料的bys</param>
+        public abstract void Unpack(byte[] bys_packet);
 
     }
 

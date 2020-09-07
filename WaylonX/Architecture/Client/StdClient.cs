@@ -99,7 +99,7 @@ namespace WaylonXUnity.Net {
             WaylonX.Threading.Thread.Create(PacketReceiverThread, true).Start(null);   //啟動監聽封包
 
             //任務緩衝列隊線程
-            var TaskBufferQueueInfo = new TaskBufferQueueInfoEventArgs() {
+            var TaskBufferQueueInfo = new ThreadInfoEventArgs() {
                 BreakTime = 500,
                 Category = Category.General,
             };

@@ -53,7 +53,7 @@ namespace WaylonX.Architecture {
         /// <summary>
         /// 佇列分配器 : 分配封包到對應的佇列隊伍中
         /// </summary>
-        protected abstract void QueueDistributor(Packet packet);
+        protected virtual void QueueDistributor(Packet packet) { }
 
         /// <summary>
         /// 監聽封包_線程
@@ -117,7 +117,7 @@ namespace WaylonX.Architecture {
 
             //執行
             if (Init != null) {
-                Shared.Logger.Info("正在啟動...");
+                Shared.Logger.Info("正在初始化...");
                 Init.Invoke(null, EventArgs.Empty);
             }
 
@@ -154,7 +154,7 @@ namespace WaylonX.Architecture {
             Init += new EventHandler(OnConnecting);
 
             if (Init != null) {
-                Shared.Logger.Info("正在啟動...");
+                Shared.Logger.Info("正在初始化...");
                 Init.Invoke(null, EventArgs.Empty);
 
                 //取消訂閱
@@ -241,7 +241,7 @@ namespace WaylonX.Architecture {
         /// <param name="category">任務緩衝區類別</param>
         public static void TaskBufferQueueThread(object args) {
 
-            var Info = args as TaskBufferQueueInfoEventArgs;
+            var Info = args as ThreadInfoEventArgs;
 
             Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + ".TaskBufferQueueThread()");
 
@@ -270,7 +270,7 @@ namespace WaylonX.Architecture {
         /// <param name="category">任務緩衝區類別</param>
         public static void BeginTaskBufferQueueThread(object args) {
 
-            var Info = args as TaskBufferQueueInfoEventArgs;
+            var Info = args as ThreadInfoEventArgs;
 
             Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + ".BeginTaskBufferQueueThread()");
 
