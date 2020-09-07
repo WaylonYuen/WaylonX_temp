@@ -6,23 +6,45 @@ namespace WaylonX.Packets.Header.Base {
     /// 數據包身份識別
     /// </summary>
     public interface IPacketHeaderIdentity {
-        int VerificationCode { get; set; }            //驗證碼
+
+        /// <summary>
+        /// 驗證碼
+        /// </summary>
+        int VerificationCode { get; set; }
+
     }
 
     /// <summary>
     /// 數據包安全
     /// </summary>
     public interface IPacketHeaderSecurity {
-        Encryption EncryptionType { get; }           //加密方法
+
+        /// <summary>
+        /// 加密方法
+        /// </summary>
+        Encryption EncryptionType { get; }
+
     }
 
     /// <summary>
     /// 網路數據包線程描述
     /// </summary>
     public interface IPacketHeaderThreads {
-        Emergency EmergencyType { get; set; }        //緊急程度(可修改)
-        Category CategoryType { get; }               //類別
-        Callback CallbackType { get; }               //回調
+
+        /// <summary>
+        /// 緊急程度
+        /// </summary>
+        Emergency EmergencyType { get; set; }
+
+        /// <summary>
+        /// 封包類別: 風包頻道
+        /// </summary>
+        Category CategoryType { get; }
+
+        /// <summary>
+        /// 封包回調
+        /// </summary>
+        Callback CallbackType { get; }
     }
 
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using WaylonX.Converter;
 using WaylonX.Packets.Base;
 using WaylonX.Packets.Header;
@@ -12,12 +11,18 @@ namespace WaylonX.Packets {
     /// 封包接口
     /// </summary>
     public interface IPacket : IPacketBase, IPacketHeaderIdentity {
+
+        /// <summary>
+        /// 封包型態
+        /// </summary>
+        PacketType PacketType { get; }
+
     }
 
     /// <summary>
     /// 標準封包 : 資料內容僅提供基礎型態
     /// </summary>
-    public class StdPacket : Packaged<StdPacketHeader, StdPacketData>, IPacket {
+    public class StdPacket : Packaged<UserPacketHeader, StdPacketData>, IPacket {
 
         #region Property
 
@@ -29,13 +34,12 @@ namespace WaylonX.Packets {
         /// <summary>
         /// 封包型態
         /// </summary>
-        public override PacketType PacketType { get => PacketType.StdPacket; }
+        public override PacketType PacketType { get => PacketType.UserPacket; }
 
         /// <summary>
         /// 封包驗證碼
         /// </summary>
         public int VerificationCode { get => m_Header.VerificationCode; set => m_Header.VerificationCode = value; }
-        
 
         #endregion
 
@@ -46,8 +50,10 @@ namespace WaylonX.Packets {
         /// </summary>
         /// <param name="user"></param>
         public StdPacket()
-            : base(new StdPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(null)) {
+            : base(new UserPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(null)) {
         }
+
+        #region 用於內部預先創建的封包,等發送的時候再附上header
 
         /// <summary>
         /// 標準封包 : 無Header 的封包 -> byte[]
@@ -55,7 +61,7 @@ namespace WaylonX.Packets {
         /// <param name="user"></param>
         /// <param name="bys_data"></param>
         public StdPacket(byte[] bys_data)
-            : base(new StdPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(bys_data)) {
+            : base(new UserPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(bys_data)) {
         }
 
         /// <summary>
@@ -64,7 +70,7 @@ namespace WaylonX.Packets {
         /// <param name="user"></param>
         /// <param name="bys_data"></param>
         public StdPacket(int data)
-            : base(new StdPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(System.BitConverter.GetBytes(data))) {
+            : base(new UserPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(System.BitConverter.GetBytes(data))) {
         }
 
         /// <summary>
@@ -73,7 +79,7 @@ namespace WaylonX.Packets {
         /// <param name="user"></param>
         /// <param name="bys_data"></param>
         public StdPacket(bool data)
-            : base(new StdPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(System.BitConverter.GetBytes(data))) {
+            : base(new UserPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(System.BitConverter.GetBytes(data))) {
         }
 
         /// <summary>
@@ -82,7 +88,7 @@ namespace WaylonX.Packets {
         /// <param name="user"></param>
         /// <param name="bys_data"></param>
         public StdPacket(float data)
-            : base(new StdPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(System.BitConverter.GetBytes(data))) {
+            : base(new UserPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(System.BitConverter.GetBytes(data))) {
         }
 
         /// <summary>
@@ -91,8 +97,10 @@ namespace WaylonX.Packets {
         /// <param name="user"></param>
         /// <param name="bys_data"></param>
         public StdPacket(string data)
-            : base(new StdPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(Encoding.UTF8.GetBytes(data))) {
+            : base(new UserPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None), new StdPacketData(Encoding.UTF8.GetBytes(data))) {
         }
+
+        #endregion
 
         /// <summary>
         /// 標準封包 : 封包資料 -> byte[]
@@ -104,7 +112,7 @@ namespace WaylonX.Packets {
         /// <param name="callback"></param>
         /// <param name="bys_data"></param>
         public StdPacket(Emergency emergency, Encryption encryption, Category category, Callback callback, byte[] bys_data)
-            : base(new StdPacketHeader(emergency, encryption, category, callback), new StdPacketData(bys_data)) {
+            : base(new UserPacketHeader(emergency, encryption, category, callback), new StdPacketData(bys_data)) {
         }
 
         /// <summary>
@@ -117,7 +125,7 @@ namespace WaylonX.Packets {
         /// <param name="callback"></param>
         /// <param name="data"></param>
         public StdPacket(Emergency emergency, Encryption encryption, Category category, Callback callback, short data)
-            : base(new StdPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
+            : base(new UserPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
         }
 
         /// <summary>
@@ -130,7 +138,7 @@ namespace WaylonX.Packets {
         /// <param name="callback"></param>
         /// <param name="data"></param>
         public StdPacket(Emergency emergency, Encryption encryption, Category category, Callback callback, int data)
-            : base(new StdPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
+            : base(new UserPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
         }
 
         /// <summary>
@@ -143,7 +151,7 @@ namespace WaylonX.Packets {
         /// <param name="callback"></param>
         /// <param name="data"></param>
         public StdPacket(Emergency emergency, Encryption encryption, Category category, Callback callback, long data)
-            : base(new StdPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
+            : base(new UserPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
         }
 
         /// <summary>
@@ -156,7 +164,7 @@ namespace WaylonX.Packets {
         /// <param name="callback"></param>
         /// <param name="data"></param>
         public StdPacket(Emergency emergency, Encryption encryption, Category category, Callback callback, bool data)
-            : base(new StdPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
+            : base(new UserPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
         }
 
         /// <summary>
@@ -169,7 +177,7 @@ namespace WaylonX.Packets {
         /// <param name="callback"></param>
         /// <param name="data"></param>
         public StdPacket(Emergency emergency, Encryption encryption, Category category, Callback callback, float data)
-            : base(new StdPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
+            : base(new UserPacketHeader(emergency, encryption, category, callback), new StdPacketData(System.BitConverter.GetBytes(data))) {
         }
 
         /// <summary>
@@ -182,7 +190,7 @@ namespace WaylonX.Packets {
         /// <param name="callback"></param>
         /// <param name="data"></param>
         public StdPacket(Emergency emergency, Encryption encryption, Category category, Callback callback, string data)
-            : base(new StdPacketHeader(emergency, encryption, category, callback), new StdPacketData(Encoding.UTF8.GetBytes(data))) {
+            : base(new UserPacketHeader(emergency, encryption, category, callback), new StdPacketData(Encoding.UTF8.GetBytes(data))) {
         }
 
         /// <summary>
@@ -195,7 +203,7 @@ namespace WaylonX.Packets {
         /// <param name="callback"></param>
         /// <param name="data"></param>
         public StdPacket(Emergency emergency, Encryption encryption, Category category, Callback callback, string[] data)
-            : base(new StdPacketHeader(emergency, encryption, category, callback), new StdPacketData(Converter.BitConverter.GetBytes(data, true))) {
+            : base(new UserPacketHeader(emergency, encryption, category, callback), new StdPacketData(Converter.BitConverter.GetBytes(data, true))) {
         }
 
         #endregion
@@ -208,7 +216,7 @@ namespace WaylonX.Packets {
         /// <param name="category">類別</param>
         /// <param name="callback">封包回調</param>
         public void ResetHeaderRef(Emergency emergency, Encryption encryption, Category category, Callback callback) {
-            m_Header = new StdPacketHeader(emergency, encryption, category, callback);
+            m_Header = new UserPacketHeader(emergency, encryption, category, callback);
         }
 
     }

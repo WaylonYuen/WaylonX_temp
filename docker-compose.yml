@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  battlechess_server:
+    image: ${DOCKER_REGISTRY-}battlechessserver
+    build:
+      context: .
+      dockerfile: ../../../../../Document/FC-University/Course/#( Project ) Independent Study/BattleChess_Server/BattleChess_Server/Dockerfile

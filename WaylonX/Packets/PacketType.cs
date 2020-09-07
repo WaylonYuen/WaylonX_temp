@@ -1,32 +1,38 @@
 ﻿
 namespace WaylonX.Packets {
 
+    #region PacketType
+
     /// <summary>
     /// 封包架構型態
     /// </summary>
     public enum PacketType {
-        None,
+        None = 0,
         StdPacket,
+        UserPacket,
+        GamerPacket,
         Packet,
     }
 
     public enum PacketHeaderType {
-        None,
+        None = 0,
         StdPacketHeader,
+        UserPacketHeader,
+        GamerPacketHeader,
     }
 
     public enum PacketDataType {
-        None,
+        None = 0,
         StdPacketData,
     }
 
-
+    #endregion
 
     /// <summary>
     /// 加密方式
     /// </summary>
     public enum Encryption {
-        None,
+        None = 0,
         Testing,
 
         RES256,
@@ -36,7 +42,7 @@ namespace WaylonX.Packets {
     /// 緊急等級：判斷封包緊急程度(數值越大越緊急)
     /// </summary>
     public enum Emergency {
-        None,
+        None = 0,
         Testing,
 
         Level1,
@@ -59,7 +65,7 @@ namespace WaylonX.Packets {
     /// Database佇列：     處理遊戲資料
     /// GameData佇列：     遊戲資料加載
     public enum Category {
-        None,
+        None = 0,
         Testing,
 
         //緊急處理
@@ -67,10 +73,12 @@ namespace WaylonX.Packets {
 
         #region Queue
         //一般(線程池)
-        General,
+        General, System,
 
         //遊戲資料同步
+        RoomMgmt,
         Gaming,
+        //Room,
 
         //特殊(獨立線程)
         SpecialCircumstances,
@@ -86,11 +94,22 @@ namespace WaylonX.Packets {
     /// 回調方式：Delegate對方法回調的判斷
     /// </summary>
     public enum Callback {
-        None,
+        None = 0,
         Testing,
         Login,
 
+        //指令
+        ChessCmd,       //棋子指令
         ChessToBuild,
+        SearchRoom,
+        StartGame,      //遊戲開始指令
+        RoundAnimation, //回合動畫
+
+        //資料
+        GamerData,      //玩家資料同步
+        RoomData,       //房間資料同步
+        RoundData,      //時間同步
+
 
         PacketHeaderSync,
         SIZE,

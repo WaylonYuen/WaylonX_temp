@@ -1,6 +1,6 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using WaylonX.Converter;
+using WaylonX.Extension;
 
 namespace WaylonX.Packets {
 
@@ -182,9 +182,11 @@ namespace WaylonX.Packets {
         public override byte[] ToPackup() {
 
             //此處封裝方法被泛用型where所指定了接口（IPacketBase),因此必然有ToPackup()方法
+
             var bys_header = m_Header.ToPackup();   //呼叫header進行封裝
             var bys_body = m_Body.ToPackup();       //呼叫Body進行封裝
-            var bys_packetData = Bytes.ToPackup(ref bys_header, ref bys_body);  //組合封包資料
+
+            var bys_packetData = bys_header.MergedWith(ref bys_body);   //組合封包資料
 
             //建立封包
             var bys_packet = new byte[BasicTypes.SizeOf.Int + bys_header.Length + bys_body.Length];
@@ -204,13 +206,4 @@ namespace WaylonX.Packets {
         }
     }
 
-    public class demo {
-
-        public void test() {
-            var pk = new Packet();
-
-
-        }
-
-    }
 }

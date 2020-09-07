@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Threading;
-using WaylonX.Cloud;
+using WaylonX.Packets;
 
 namespace WaylonX.Threading {
+
+    public interface IThread {
+        ConcurrentDictionary<Callback, CallbackHandler> CallbackDict { get; }
+    }
 
     public class Thread {
 

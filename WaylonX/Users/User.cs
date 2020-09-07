@@ -139,7 +139,7 @@ namespace WaylonX.Users {
                     Console.WriteLine($"Error -> Packet sending failed : {err.Message}");
                 }
             } else {
-                throw new Exception($"{m_Socket.RemoteEndPoint} : is offline！");
+                //throw new Exception($"{m_Socket.RemoteEndPoint} : is offline！");
                 //檢查用戶是否還存在
             }
 
