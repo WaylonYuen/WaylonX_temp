@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonX_Database.SDK", "Way
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonXUnity", "WaylonXUnity\WaylonXUnity.csproj", "{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleChess_DataSync", "..\..\..\..\..\Document\FC-University\Course\#( Project ) Independent Study\BattleChess_Server\BattleChess_DataSync\BattleChess_DataSync.csproj", "{9877D4DE-C541-4EE4-8362-35B85DDDA74D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,5 +45,9 @@ Global
 		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9877D4DE-C541-4EE4-8362-35B85DDDA74D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9877D4DE-C541-4EE4-8362-35B85DDDA74D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9877D4DE-C541-4EE4-8362-35B85DDDA74D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9877D4DE-C541-4EE4-8362-35B85DDDA74D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

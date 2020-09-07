@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using WaylonX.Converter;
-using WaylonX;
 
 namespace WaylonX.Packets.Base {
 

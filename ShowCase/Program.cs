@@ -3,6 +3,7 @@ using System.Net;
 using WaylonX.Architecture.Client;
 using WaylonX.Cloud;
 using WaylonX.Converter;
+using WaylonX.Extension;
 using WaylonX.Loggers;
 using WaylonX.Packets;
 
@@ -22,7 +23,6 @@ namespace WaylonX {
             //Demo.DatabaseTest();
 
             //設定服務器連線參數
-
         }
     }
 
