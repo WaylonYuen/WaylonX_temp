@@ -2,20 +2,27 @@
 using System.Net;
 using WaylonX.Converter;
 using WaylonX.Packets.Header.Base;
+using WaylonX.Users;
 
 namespace WaylonX.Packets.Header {
 
     /// <summary>
     /// 標準封包描述資訊接口
     /// </summary>
-    public interface IStdPacketHeader : IPacketHeaderIdentity, IPacketHeaderSecurity, IPacketHeaderThreads { }
+    public interface IStdPacketHeader : IPacketHeaderIdentity, IPacketHeaderSecurity, IPacketHeaderThreads {
+
+        /// <summary>
+        /// 用戶
+        /// </summary>
+        IUser User { get; }
+    }
 
     /// <summary>
     /// 標準封包描述 -> full Spelling: standard Packet Header;
     /// PacketHeaderBase: 封包描述基類(抽象類) -> 所有PacketHeader必須派生自此抽象類別(該類別包含了PacketHeader必須包含的實作屬性及方法);
     /// IStdPacketHeader: 封包描述接口 -> 用戶自定義PacketHeader所必須包含的屬性及方法;
     /// </summary>
-    public class StdPacketHeader<T> : PacketHeaderBase, IStdPacketHeader {
+    public class StdPacketHeader : PacketHeaderBase, IStdPacketHeader {
 
         #region Property
 
@@ -29,8 +36,12 @@ namespace WaylonX.Packets.Header {
         /// </summary>
         public override PacketHeaderType PacketHeaderType { get => PacketHeaderType.StdPacketHeader; }
 
-        #region Must be pack ( Important: Do Not Easily Change! )
+        /// <summary>
+        /// 用戶網路資料: 只有但checking通過時, 才會對此賦值
+        /// </summary>
+        public IUser User { get; protected set; }
 
+        #region Must be pack ( Important: Do Not Easily Change! )
         /// <summary>
         /// 驗證碼
         /// </summary>
@@ -56,19 +67,7 @@ namespace WaylonX.Packets.Header {
         /// </summary>
         Callback IPacketHeaderThreads.CallbackType { get => m_callback; }
         #endregion
-        #endregion
 
-        #region Local Variables
-
-        /// <summary>
-        /// 用戶
-        /// </summary>
-        protected T m_user;
-
-        protected Emergency m_emergency = Emergency.None;
-        protected Encryption m_encryption = Encryption.None;
-        protected Category m_category;
-        protected Callback m_callback;
         #endregion
 
         #region Constructor
@@ -81,6 +80,8 @@ namespace WaylonX.Packets.Header {
         /// <param name="category"></param>
         /// <param name="callback"></param>
         public StdPacketHeader(Category category, Callback callback) {
+            m_emergency = Emergency.None;
+            m_encryption = Encryption.None;
             m_category = category;
             m_callback = callback;
         }
@@ -102,44 +103,20 @@ namespace WaylonX.Packets.Header {
 
         #endregion
 
+        #region Local values
+        private Emergency m_emergency;
+        private Encryption m_encryption;
+        private Category m_category;
+        private Callback m_callback;
+        #endregion
+
         #region Inner class
-
-        /// <summary>
-        /// 封包Header參數Size
-        /// </summary>
-        public static class SizeOf {
-
-            /// <summary>
-            /// 驗證碼
-            /// </summary>
-            public const int VerificationCode = BasicTypes.SizeOf.Int;
-
-            /// <summary>
-            /// 緊急程度
-            /// </summary>
-            public const int EmergencyType = BasicTypes.SizeOf.Short;
-
-            /// <summary>
-            /// 加密方法
-            /// </summary>
-            public const int EncryptionType = BasicTypes.SizeOf.Short;
-
-            /// <summary>
-            /// 封包類別: 封包頻道
-            /// </summary>
-            public const int CategoryType = BasicTypes.SizeOf.Short;
-
-            /// <summary>
-            /// 封包回調
-            /// </summary>
-            public const int CallbackType = BasicTypes.SizeOf.Short;
-
-        }
 
         /// <summary>
         /// 此類別架構索引
         /// </summary>
         public static class IndexOf {
+
             public const int VerificationCode = 0;
             public const int EmergencyType = VerificationCode + SizeOf.VerificationCode;
             public const int EncryptionType = EmergencyType + SizeOf.EmergencyType;
@@ -195,6 +172,33 @@ namespace WaylonX.Packets.Header {
         }
 
         /// <summary>
+        /// 檢查
+        /// </summary>
+        /// <param name="bys_packet"></param>
+        /// <returns></returns>
+        public override bool Checking(IUser user) {
+
+            //封包條件檢查
+            switch (m_callback) {
+
+                //放行以下封包
+                case Callback.Testing:
+                case Callback.PacketHeaderSync:
+                    User = user; //設定封包對象
+                    return true;
+            }
+
+            //檢查封包驗證碼
+            if (user.VerificationCode.Equals(VerificationCode)) {
+                User = user;
+                return true;
+            }
+
+            //不通過
+            return false;
+        }
+
+        /// <summary>
         /// Information
         /// </summary>
         /// <returns> string </returns>
@@ -208,6 +212,26 @@ namespace WaylonX.Packets.Header {
                  + "category\t" + m_category + "\n"
                  + "callback\t" + m_callback + "\n"
                  + "End-------------------------------------------\n\n";
+        }
+
+        [Obsolete("Undone", true)]
+        /// <summary>
+        /// 測試用
+        /// </summary>
+        public static void Testing() {
+
+            //IUser user = new User();
+            //var stdHeader = new StdPacketHeader(Emergency.Level2, Encryption.RES256, Category.General, Callback.PacketHeaderSync);
+            //Console.WriteLine(stdHeader.ToString());
+
+            //IPacketMethods header = stdHeader;
+            //var bys_header = header.ToPackup();
+
+            //var newStdHeader = new StdPacketHeader(Emergency.None, Encryption.None, Category.None, Callback.None);
+            //header = newStdHeader;
+            //header.Unpack(bys_header);
+
+            //Console.WriteLine(newStdHeader);
         }
 
         #endregion

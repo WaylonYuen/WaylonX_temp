@@ -8,6 +8,5 @@
     <Folder Include="Cloud\" />
     <Folder Include="Architecture\Server\" />
     <Folder Include="Architecture\Client\" />
-    <Folder Include="Extension\" />
   </ItemGroup>
 </Project>
