@@ -96,7 +96,7 @@ namespace WaylonX.Architecture.Server {
             WaylonX.Threading.Thread.Create(ReadLogsThread, true).Start();      //啟動Log日誌線程
 
             //任務緩衝列隊線程
-            var TaskBufferQueueInfo = new ThreadInfoEventArgs() {
+            var TaskBufferQueueInfo = new TaskBufferQueueInfoEventArgs() {
                 BreakTime = 500,
                 Category = Category.General,
             };

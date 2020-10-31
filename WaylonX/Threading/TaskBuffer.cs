@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using WaylonX.Cloud;
 using WaylonX.Packets;
 
 namespace WaylonX.Threading {
@@ -8,7 +7,7 @@ namespace WaylonX.Threading {
     /// <summary>
     /// 任務緩衝列隊資料
     /// </summary>
-    public class ThreadInfoEventArgs : EventArgs {
+    public class TaskBufferQueueInfoEventArgs : EventArgs {
         public int BreakTime { get; set; }
         public Category Category { get; set; }
     }
@@ -17,9 +16,6 @@ namespace WaylonX.Threading {
 
         #region Property
 
-        /// <summary>
-        /// 
-        /// </summary>
         public int CategoryCount { get => TaskQueueDict.Count; }
 
         #endregion
@@ -27,12 +23,12 @@ namespace WaylonX.Threading {
         #region Local values
 
         /// <summary>
-        /// 封包回調字典: 
+        /// 回調字典
         /// </summary>
         public ConcurrentDictionary<TCategory, ConcurrentDictionary<TCallback, THandler>> TaskQueueDict;
 
         /// <summary>
-        /// 封包佇列字典: 包含各個不同的佇列隊伍,由類別作為索引
+        /// 封包佇列字典
         /// </summary>
         public ConcurrentDictionary<TCategory, ConcurrentQueue<CallbackHandlerPacket>> PacketQueueDict;
 
@@ -48,9 +44,10 @@ namespace WaylonX.Threading {
             PacketQueueDict = new ConcurrentDictionary<TCategory, ConcurrentQueue<CallbackHandlerPacket>>();
         }
 
+        #region Methods
+
 
         #region Register
-
         /// <summary>
         /// 回調方法註冊器
         /// </summary>
@@ -77,9 +74,9 @@ namespace WaylonX.Threading {
         }
 
         /// <summary>
-        /// 封包佇列類別註冊器
+        /// 類別註冊器
         /// </summary>
-        /// <param name="category">佇列的類別,用於判斷是哪個封包佇列隊伍</param>
+        /// <param name="category">佇列類別</param>
         public void CategoryRegister(TCategory category) {
 
             //判斷是否已存在對應類別
@@ -95,7 +92,6 @@ namespace WaylonX.Threading {
         }
         #endregion
 
-        #region 調取資料
 
         /// <summary>
         /// 回調索引檢查
@@ -104,26 +100,21 @@ namespace WaylonX.Threading {
         /// <param name="callback">回調</param>
         public bool CallbackContainsKey(TCategory category, TCallback callback) {
 
-            //檢查該類別佇列隊伍是否存在
+            //判斷Category是否存在
             if (TaskQueueDict.ContainsKey(category)) {
 
-                //檢查該隊伍中是否註冊了該回調方法
+                //判斷Callback是否存在
                 if (TaskQueueDict[category].ContainsKey(callback)) {
                     return true;
                 }
 
                 //callback不存在
-                Shared.Logger.Warn($"在佇列隊伍 {category}, 找不到 {callback} 回調方法 -> 請檢查是否註冊了該方法回調.");
                 return false;
             }
 
             //類別不存在
-            Shared.Logger.Warn($"找不到封包佇列 {category} -> 請檢查是否註冊了類別封包佇列.");
             return false;
         }
-
-
-        
 
         /// <summary>
         /// 獲取回調用: 請不要隨意調用(此處未進行存在檢查, 分配器中由於必然性因此可被直接調用且無需檢查)
@@ -140,8 +131,6 @@ namespace WaylonX.Threading {
         /// </summary>
         /// <param name="packet"></param>
         public void Enqueue(TCategory category, CallbackHandlerPacket packet) {
-
-            //將封包放入指定佇列隊伍中
             PacketQueueDict[category].Enqueue(packet);
         }
 

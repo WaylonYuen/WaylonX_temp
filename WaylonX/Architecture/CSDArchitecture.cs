@@ -16,7 +16,7 @@ namespace WaylonX.Architecture {
         /// 主機IP
         /// </summary>
         public string IP { get; set; }
-        
+
         /// <summary>
         /// 主機端口
         /// </summary>
@@ -53,7 +53,7 @@ namespace WaylonX.Architecture {
         /// <summary>
         /// 佇列分配器 : 分配封包到對應的佇列隊伍中
         /// </summary>
-        protected virtual void QueueDistributor(Packet packet) { }
+        protected abstract void QueueDistributor(Packet packet);
 
         /// <summary>
         /// 監聽封包_線程
@@ -117,7 +117,7 @@ namespace WaylonX.Architecture {
 
             //執行
             if (Init != null) {
-                Shared.Logger.Info("正在初始化...");
+                Shared.Logger.Info("正在啟動...");
                 Init.Invoke(null, EventArgs.Empty);
             }
 
@@ -154,7 +154,7 @@ namespace WaylonX.Architecture {
             Init += new EventHandler(OnConnecting);
 
             if (Init != null) {
-                Shared.Logger.Info("正在初始化...");
+                Shared.Logger.Info("正在啟動...");
                 Init.Invoke(null, EventArgs.Empty);
 
                 //取消訂閱
@@ -241,7 +241,7 @@ namespace WaylonX.Architecture {
         /// <param name="category">任務緩衝區類別</param>
         public static void TaskBufferQueueThread(object args) {
 
-            var Info = args as ThreadInfoEventArgs;
+            var Info = args as TaskBufferQueueInfoEventArgs;
 
             Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + ".TaskBufferQueueThread()");
 
@@ -270,7 +270,7 @@ namespace WaylonX.Architecture {
         /// <param name="category">任務緩衝區類別</param>
         public static void BeginTaskBufferQueueThread(object args) {
 
-            var Info = args as ThreadInfoEventArgs;
+            var Info = args as TaskBufferQueueInfoEventArgs;
 
             Shared.Logger.ServerInfo("Thread Start -> Call Func : " + Info.Category.ToString() + ".BeginTaskBufferQueueThread()");
 
@@ -298,33 +298,30 @@ namespace WaylonX.Architecture {
         /// <summary>
         /// 接收資料
         /// </summary>
-        /// <param name="socket">連線資料</param>
-        /// <param name="dataLength">資料長度</param>
+        /// <param name="socket"></param>
+        /// <param name="dataLength"></param>
         /// <returns></returns>
         public static byte[] Receive(Socket socket, int dataLength) {
 
-            //安全性檢查
             if (dataLength <= 0) {
                 return null;
             }
 
-            //創建指定內容大小的載體
-            var data_Bytes = new byte[dataLength];
+             var data_Bytes = new byte[dataLength];
 
-            //防粘包: 未接收完指定長度的資料則不斷等待接收
+            //如果當前需要接收的字節數大於0 and 遊戲未退出 則循環接收
             while (dataLength > 0) {
+                var recvData_Bytes = new byte[dataLength < 1024 ? dataLength : 1024];
 
-                //創建資料容器載體
-                var recvData_Bytes = new byte[(dataLength < 1024) ? dataLength : 1024];
+                //檢查緩存區是否有資料需要讀取: True為有資料, False為緩存區沒有資料
+                //為避免線程阻塞在讀取部分而設置的緩存去內容判斷
+                if (!(socket.Available == 0)) {
 
-                //檢查緩存區是否有資料需要讀取: True為有資料, False為緩存區沒有資料              
-                if (!(socket.Available == 0)) { //為避免線程阻塞在讀取部分而設置的緩存去內容判斷
-
-                    //防粘包：如果當前接收的字節組大於or等於緩存區，則按緩存區大小接收; 否則按剩餘需要接收的字節組接收。
+                    //防沾包：如果當前接收的字節組大於緩存區，則按緩存區大小接收，否則按剩餘需要接收的字節組接收。
                     int recvAlready =
                             (dataLength >= recvData_Bytes.Length)
-                                ? socket.Receive(recvData_Bytes, recvData_Bytes.Length, 0)  //以緩存區大小接收資料
-                                : socket.Receive(recvData_Bytes, dataLength, 0);            //以剩餘資料大小接收資料
+                                ? socket.Receive(recvData_Bytes, recvData_Bytes.Length, 0)
+                                : socket.Receive(recvData_Bytes, dataLength, 0);
 
                     //將接收到的字節數保存 
                     recvData_Bytes.CopyTo(data_Bytes, data_Bytes.Length - dataLength);
@@ -333,7 +330,6 @@ namespace WaylonX.Architecture {
                     dataLength -= recvAlready;
 
                 } else {
-
                     System.Threading.Thread.Sleep(50);   //本地緩存為空
 
                     if (IsClose) {

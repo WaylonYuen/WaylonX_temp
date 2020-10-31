@@ -32,57 +32,47 @@ namespace WaylonX.Loggers {
 
                 switch (Type) {
 
-                    //Program
                     case LogType.Info:
                         logType = "Info";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.DarkGray;
                         break;
 
                     case LogType.GameInfo:
                         logType = "Game";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.Cyan;
-                        break;
 
+                        break;
                     case LogType.ClientInfo:
                         logType = "Client";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.Gray;
                         break;
 
                     case LogType.ServerInfo:
                         logType = "Server";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.Gray;
-
                         break;
 
                     case LogType.DatabaseInfo:
                         logType = "Database";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.White;
                         break;
 
                     case LogType.Catch:
                         logType = "Catch";
                         typeLabel = '>';
                         typeTag = '%';
-                        //Console.ForegroundColor = ConsoleColor.Green;
                         break;
 
                     case LogType.Warn:
                         logType = "Warning";
                         typeLabel = '>';
                         typeTag = '@';
-                        //Console.ForegroundColor = ConsoleColor.Yellow;
                         break;
 
                     case LogType.Error:
                         logType = "Error";
                         typeLabel = '>';
                         typeTag = '!';
-                        //Console.ForegroundColor = ConsoleColor.Red;
                         break;
 
                     case LogType.Correct:
@@ -109,8 +99,6 @@ namespace WaylonX.Loggers {
             /// </summary>
             public void EnQueue() {
                 logQueue.Enqueue(WriteLogs());
-                //Console.WriteLine(WriteLogs());
-                //Console.ResetColor();
             }
         }
 
@@ -158,52 +146,44 @@ namespace WaylonX.Loggers {
                     case LogType.Info:
                         logType = "Info";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.DarkGray;
                         break;
 
                     case LogType.GameInfo:
                         logType = "Game";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.Cyan;
-                        break;
 
+                        break;
                     case LogType.ClientInfo:
                         logType = "Client";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.Gray;
                         break;
 
                     case LogType.ServerInfo:
                         logType = "Server";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.Gray;
                         break;
 
                     case LogType.DatabaseInfo:
                         logType = "Database";
                         typeLabel = '#';
-                        //Console.ForegroundColor = ConsoleColor.White;
                         break;
 
                     case LogType.Catch:
                         logType = "Catch";
                         typeLabel = '>';
                         typeTag = '%';
-                        //Console.ForegroundColor = ConsoleColor.Green;
                         break;
 
                     case LogType.Warn:
                         logType = "Warning";
                         typeLabel = '>';
                         typeTag = '@';
-                        //Console.ForegroundColor = ConsoleColor.Yellow;
                         break;
 
                     case LogType.Error:
                         logType = "Error";
                         typeLabel = '>';
                         typeTag = '!';
-                        //Console.ForegroundColor = ConsoleColor.Red;
                         break;
 
                     case LogType.Correct:
@@ -251,8 +231,6 @@ namespace WaylonX.Loggers {
             public string Excute() {
                 string logs = WriteLogs();
                 logQueue.Enqueue(logs);
-                //Console.WriteLine(logs);
-                //Console.ResetColor();
 
                 return logs;
             }

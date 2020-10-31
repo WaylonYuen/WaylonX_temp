@@ -11,7 +11,7 @@ namespace WaylonX.Packets.Base {
     public interface IPacketBase {
 
         /// <summary>
-        /// StdPacketHeader架構長度: 資料的索引起始位置即該架構長度
+        /// StdPacketHeader架構長度: 資料的索引起始位置即為該架構長度
         /// </summary>
         int StructSIZE { get; }
 

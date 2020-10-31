@@ -13,14 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonX_Database.SDK", "Way
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonXUnity", "WaylonXUnity\WaylonXUnity.csproj", "{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleChess_Command", "..\..\..\..\..\Document\FC-University\Course\#( Project ) Independent Study\BattleChess_Server\BattleChess_Command\BattleChess_Command.csproj", "{59F7C3A7-2002-4811-8525-218604774F03}"
-EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "BattleChess_DataSync", "..\..\..\..\..\Document\FC-University\Course\#( Project ) Independent Study\BattleChess_Server\BattleChess_DataSync\BattleChess_DataSync.csproj", "{92565466-B5EC-4FC5-8904-4E5354C464E9}"
-EndProject
-Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "docker-compose", "docker-compose.dcproj", "{E61FDE5F-DF84-4511-BDF2-1F07B8250DB3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaylonX_UnitText", "WaylonX_UnitText\WaylonX_UnitText.csproj", "{6B1C918F-4656-4889-9B58-99E813F80AC1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,21 +43,5 @@ Global
 		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64B5A6B6-C7FD-4992-844C-4EE44F7C7ADA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59F7C3A7-2002-4811-8525-218604774F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59F7C3A7-2002-4811-8525-218604774F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59F7C3A7-2002-4811-8525-218604774F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59F7C3A7-2002-4811-8525-218604774F03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92565466-B5EC-4FC5-8904-4E5354C464E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92565466-B5EC-4FC5-8904-4E5354C464E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92565466-B5EC-4FC5-8904-4E5354C464E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92565466-B5EC-4FC5-8904-4E5354C464E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E61FDE5F-DF84-4511-BDF2-1F07B8250DB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E61FDE5F-DF84-4511-BDF2-1F07B8250DB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E61FDE5F-DF84-4511-BDF2-1F07B8250DB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E61FDE5F-DF84-4511-BDF2-1F07B8250DB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6B1C918F-4656-4889-9B58-99E813F80AC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6B1C918F-4656-4889-9B58-99E813F80AC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6B1C918F-4656-4889-9B58-99E813F80AC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6B1C918F-4656-4889-9B58-99E813F80AC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
