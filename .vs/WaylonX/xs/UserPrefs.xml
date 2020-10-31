@@ -1,0 +1,37 @@
+﻿<Properties StartupConfiguration="{5577C9DA-B191-479E-AF61-B2FD84A27A31}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../Document/FC-University/Course/#( Project ) Independent Study/BattleChess_Server/BattleChess_Server/Server.cs">
+    <Files>
+      <File FileName="WaylonX/Architecture/CSDArchitecture.cs" Line="271" Column="68" />
+      <File FileName="WaylonX/Threading/TaskBuffer.cs" />
+      <File FileName="../../../../../Document/FC-University/Course/#( Project ) Independent Study/BattleChess_Server/BattleChess_Server/Server.cs" Line="78" Column="26" NotebookId="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="WaylonX" expanded="True">
+            <Node name="BattleChess_Server" expanded="True" />
+            <Node name="WaylonX" expanded="True">
+              <Node name="Architecture" expanded="True">
+                <Node name="CSDArchitecture.cs" selected="True" />
+              </Node>
+              <Node name="Threading" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.ShowCase PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.BattleChess__Server PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>docker-compose.dcproj</String>
+    <String>../../../../../Document/FC-University/Course/#( Project ) Independent Study/BattleChess_Server/BattleChess_DataSync/BattleChess_DataSync.csproj</String>
+    <String>WaylonX_UnitText/WaylonX_UnitText.csproj</String>
+  </DisabledProjects>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
